@@ -1,0 +1,154 @@
+.hero {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  margin-top:25vh;
+}
+
+.hero-container {
+  width: 327px;
+  background: linear-gradient(to right, rgb(127, 164, 164), rgb(26, 60, 92));
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  gap: 25px;
+  align-items: center;
+  text-align: center;
+  padding: 45px 0 45px 0;
+}
+
+.visible {
+  opacity: 0.8; /* Делаем блок видимым */
+  transform: translateY(0); /* Смещаем в исходное положение */
+}
+
+.hero-container-logo{
+  width: 295px;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-container-logo h2{
+  font-size: 20px;
+  font-weight: 800;
+  color: rgb(255, 255, 255);
+}
+
+.hero-container-logo-icon{
+  width: 275px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.hero-container-logo-icon p{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: start;
+  gap: 5px;
+  font-size: 15px;
+  font-weight: 400;
+  color: rgb(255, 255, 255);
+}
+
+#address {
+  align-items: center;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px){
+  .hero {
+    height: 100vh;
+    margin-top: 6vh;
+  }
+  
+  .hero-container {
+    width: 600px;
+    padding: 60px 20px 60px 20px;
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .hero-container-logo{
+    width: 50%;
+    justify-content:end;
+    gap: 20px;
+    padding-left: 0;
+  }
+  
+  .hero-container-logo h2{
+    font-size: 23px;
+  }
+  
+  .hero-container-logo-icon{
+    width: 50%;
+    gap: 7px;
+  }
+  
+  .hero-container-logo-icon p{
+    gap: 7px;
+    font-size: 17px;
+  }
+}
+
+@media (min-width: 1025px){
+  .hero {
+    margin-top: 35vh;
+  }
+  .hero-container {
+    width: 900px;
+    flex-direction: row;
+
+  }
+  .hero-container-logo{
+    padding-left: 0;
+  }
+  .hero-container-logo h2{
+    font-size: 26px;
+  }
+  
+  .hero-container-logo-icon{
+    padding: 0;
+    align-items: start;
+    gap: 7px;
+    width: 37%;
+  }
+  
+  .hero-container-logo-icon p{
+    gap: 7px;
+    font-size: 20px;
+  }
+}
