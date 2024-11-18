@@ -34,9 +34,14 @@ function showDisclosure() {
 // Disclosure hide
 function acceptDisclosure() {
   const disclosure = document.getElementById("disclosure");
+  const logoLink = document.getElementById("logoLink")
+  const menu = document.getElementById("burgerMenu")
   disclosure.classList.add("hidden"); 
 
   setTimeout(() => {
+      menu.classList.remove("disabled")
+      logoLink.classList.remove("disabled")
+
       disclosure.style.display = "none"; 
       document.body.classList.remove("modal-active"); 
       setCookie("disclosureAccepted", "true", 1); 
@@ -57,9 +62,17 @@ function hasOneHourPassed() {
   console.log(lastVisit);
   if (lastVisit) {
       const currentTime = new Date().getTime();
-      return currentTime - lastVisit > 3600000; 
+      const timeDifference = currentTime - lastVisit;
+      console.log("Time difference in milliseconds: ", timeDifference);
+      return timeDifference > 3600000; 
   }
-  return true;
+
+  if (timeDifference > 3600000 == true) {
+    
+    console.log("True")
+    return true
+  }
+  
 }
 
 // Set cookie
@@ -94,6 +107,7 @@ document.addEventListener("DOMContentLoaded", () => {
   burgerMenu.addEventListener("click", () => {
       document.body.classList.toggle("modal-active")
       navMenu.classList.toggle("open");
+
   });
 
   document.addEventListener("click", (e) => {
