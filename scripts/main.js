@@ -52,7 +52,14 @@ function acceptDisclosure() {
 
 // Hero block
 function showHero() {
+  const disclosure = document.getElementById("disclosure");
   const hero = document.querySelector(".hero");
+  const menu = document.getElementById("burgerMenu")
+  disclosure.classList.add("hidden"); 
+  menu.classList.remove("disabled")
+  logoLink.classList.remove("disabled")
+  disclosure.style.display = "none"; 
+  document.body.classList.remove("modal-active"); 
   hero.classList.add("visible"); 
 }
 
@@ -117,7 +124,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   });
 });
-
 
 
 
