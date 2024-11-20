@@ -52,14 +52,7 @@ function acceptDisclosure() {
 
 // Hero block
 function showHero() {
-  const disclosure = document.getElementById("disclosure");
   const hero = document.querySelector(".hero");
-  const menu = document.getElementById("burgerMenu")
-  disclosure.classList.add("hidden"); 
-  menu.classList.remove("disabled")
-  logoLink.classList.remove("disabled")
-  disclosure.style.display = "none"; 
-  document.body.classList.remove("modal-active"); 
   hero.classList.add("visible"); 
 }
 
@@ -152,6 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
 
 
+<<<<<<< HEAD:public/scripts/main.js
               responseMessage.textContent = "Failed to subscribe. Please try again.";
               responseMessage.style.color = "red";
           }
@@ -162,3 +156,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   });
 });
+=======
+
+
+>>>>>>> parent of f640dcb (resolve merge conflict):scripts/main.js
