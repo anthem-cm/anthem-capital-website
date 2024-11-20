@@ -54,15 +54,15 @@ function acceptDisclosure() {
 // Hero block
 function showHero() {
   const disclosure = document.getElementById("disclosure");
-  const logoLink = document.getElementById("logoLink")
-  const menu = document.getElementById("burgerMenu")
-  const navLink = document.getElementsByClassName("nav-link")
+  const logoLink = document.getElementById("logoLink");
+  const menu = document.getElementById("burgerMenu");
+  const navLink = document.getElementsByClassName("nav-link");
   const hero = document.querySelector(".hero");
-
+  disclosure.style.display = "none"; 
   menu.classList.remove("disabled")
   logoLink.classList.remove("disabled")
   navLink.classList.remove("disabled")
-  disclosure.style.display = "none"; 
+  
   document.body.classList.remove("modal-active"); 
   hero.classList.add("visible"); 
 }
