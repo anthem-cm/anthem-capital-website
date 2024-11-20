@@ -35,7 +35,7 @@ function acceptDisclosure() {
   const disclosure = document.getElementById("disclosure");
   const logoLink = document.getElementById("logoLink")
   const menu = document.getElementById("burgerMenu")
-  const navLink = document.getElementsByClassName("nav-link")
+  const navLink = document.querySelector("nav-link")
   disclosure.classList.add("hidden"); 
 
   setTimeout(() => {
