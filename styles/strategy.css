@@ -132,7 +132,14 @@
 
 #responseMessage{
   font-size: 14px;
-  color: rgb(255, 255, 255)
+}
+
+.success {
+  color: rgb(0, 196, 147) !important;
+}
+
+.error {
+  color: red; 
 }
 
 
@@ -285,7 +292,6 @@
   }
   
   #responseMessage{
-    display: none;
     font-size: 16px;
   }
 }

@@ -36,9 +36,9 @@
               <nav id="navMenu">
                 <h2 clas="menu-title">Menu</h2>
                 <ul>
-                  <li><a href="index.html" class="nav-link disabled">Home</a></li>
-                  <li><a href="stretegy.html" class="nav-link active disabled">Strategy</a></li>
-                  <li><a href="contact.html" class="nav-link disabled">Contact</a></li>
+                  <li><a href="index.html" class="nav-link  disabled" id="navHome">Home</a></li>
+                  <li><a href="stretegy.html" class="nav-link active disabled" id="navStrategy">Strategy</a></li>
+                  <li><a href="contact.html" class="nav-link  disabled" id="navContact">Contact</a></li>
                 </ul>
               </nav>
             </div>
@@ -79,12 +79,12 @@
         </div>
         <div id="heroFutureCommentary" class="hero-container">
           <h2>Sign up for future commentary distribution</h2>
-          <form id="commentaryForm" action="/subscribe" method="POST">
+          <form id="emailForm">
             <label for="email">Enter your email to subscribe</label>
             <input type="email" name="email" id="email" required placeholder="yourname@example.com">
             <button type="submit">Sign up</button>
+            <p id="responseMessage"></p>
           </form>
-          <p id="responseMessage"></p>
         </div>
       </section>
 

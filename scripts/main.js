@@ -33,15 +33,21 @@ function showDisclosure() {
 // Disclosure hide
 function acceptDisclosure() {
   const disclosure = document.getElementById("disclosure");
-  const logoLink = document.getElementById("logoLink")
-  const menu = document.getElementById("burgerMenu")
-  const navLink = document.querySelector("nav-link")
+  const logoLink = document.getElementById("logoLink");
+  const menu = document.getElementById("burgerMenu");
+  const navHome = document.getElementById("navHome");
+  const navStrategy = document.getElementById("navStrategy");
+  const navContact = document.getElementById("navContact");
   disclosure.classList.add("hidden"); 
 
   setTimeout(() => {
-      menu.classList.remove("disabled")
-      logoLink.classList.remove("disabled")
-      navLink.classList.remove("disabled")
+      menu.classList.remove("disabled");
+      logoLink.classList.remove("disabled");
+      
+      navHome.classList.remove("disabled");
+      navStrategy.classList.remove("disabled");
+      navContact.classList.remove("disabled");
+
 
       disclosure.style.display = "none"; 
       document.body.classList.remove("modal-active"); 
@@ -56,13 +62,15 @@ function showHero() {
   const disclosure = document.getElementById("disclosure");
   const logoLink = document.getElementById("logoLink");
   const menu = document.getElementById("burgerMenu");
-  const navLink = document.getElementsByClassName("nav-link");
+  const navHome = document.getElementById("navHome");
+  const navStrategy = document.getElementById("navStrategy");
+  const navContact = document.getElementById("navContact");
   const hero = document.querySelector(".hero");
   disclosure.style.display = "none"; 
-  menu.classList.remove("disabled")
-  logoLink.classList.remove("disabled")
-  navLink.classList.remove("disabled")
   
+  navHome.classList.remove("disabled");
+  navStrategy.classList.remove("disabled");
+  navContact.classList.remove("disabled");
   document.body.classList.remove("modal-active"); 
   hero.classList.add("visible"); 
 }
@@ -127,4 +135,35 @@ document.addEventListener("DOMContentLoaded", () => {
           document.body.classList.remove("modal-active");
       }
   });
+});
+
+
+const form = document.getElementById("emailForm");
+const responseMessage = document.getElementById("responseMessage");
+
+form.addEventListener("submit", async (event) => {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch("https://formspree.io/f/mvgoqwka", {
+      method: "POST",
+      body: formData,
+      headers: { Accept: "application/json" },
+    });
+
+    if (response.ok) {
+      responseMessage.textContent = "Thank you for subscribing!";
+      responseMessage.classList.remove("error");
+      responseMessage.classList.add("success");
+      form.reset();
+    } else {
+      throw new Error("Failed to subscribe.");
+    }
+  } catch (error) {
+    responseMessage.textContent = "An error occurred. Please try again.";
+    responseMessage.classList.remove("success");
+    responseMessage.classList.add("error");
+  }
 });
