@@ -11,9 +11,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const disclosureText = document.getElementById("disclosureTextP");
 
   disclosureText.addEventListener("scroll", () => {
-    console.log("scrollTop:", disclosureText.scrollTop);
-    console.log("clientHeight:", disclosureText.clientHeight);
-    console.log("scrollHeight:", disclosureText.scrollHeight);
 
       if (disclosureText.scrollTop + disclosureText.clientHeight >= disclosureText.scrollHeight - 10) {
           acceptButton.disabled = false;
@@ -38,11 +35,13 @@ function acceptDisclosure() {
   const disclosure = document.getElementById("disclosure");
   const logoLink = document.getElementById("logoLink")
   const menu = document.getElementById("burgerMenu")
+  const navLink = document.getElementsByClassName("nav-link")
   disclosure.classList.add("hidden"); 
 
   setTimeout(() => {
       menu.classList.remove("disabled")
       logoLink.classList.remove("disabled")
+      navLink.classList.remove("disabled")
 
       disclosure.style.display = "none"; 
       document.body.classList.remove("modal-active"); 
@@ -54,7 +53,17 @@ function acceptDisclosure() {
 
 // Hero block
 function showHero() {
+  const disclosure = document.getElementById("disclosure");
+  const logoLink = document.getElementById("logoLink")
+  const menu = document.getElementById("burgerMenu")
+  const navLink = document.getElementsByClassName("nav-link")
   const hero = document.querySelector(".hero");
+
+  menu.classList.remove("disabled")
+  logoLink.classList.remove("disabled")
+  navLink.classList.remove("disabled")
+  disclosure.style.display = "none"; 
+  document.body.classList.remove("modal-active"); 
   hero.classList.add("visible"); 
 }
 
