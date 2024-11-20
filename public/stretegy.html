@@ -79,7 +79,7 @@
         </div>
         <div id="heroFutureCommentary" class="hero-container">
           <h2>Sign up for future commentary distribution</h2>
-          <form id="commentaryForm">
+          <form id="commentaryForm" action="/subscribe" method="POST">
             <label for="email">Enter your email to subscribe</label>
             <input type="email" name="email" id="email" required placeholder="yourname@example.com">
             <button type="submit">Sign up</button>
@@ -90,5 +90,7 @@
 
     </main>
     <script src="scripts/main.js"></script>
+    <script src="scripts/subscription.js></script>
+
   </body>
 </html>

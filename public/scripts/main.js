@@ -126,6 +126,39 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("commentaryForm");
+  const responseMessage = document.getElementById("responseMessage");
+
+  form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const formData = new FormData(form);
+
+      try {
+
+          const response = await fetch(form.action, {
+              method: form.method,
+              body: new URLSearchParams(formData),
+              headers: {
+                  "Content-Type": "application/x-www-form-urlencoded",
+              },
+              
+          });
+          
+
+          if (response.ok) {
+              responseMessage.textContent = "Subscription successful!";
+              responseMessage.style.color = "green";
+          } else {
 
 
-
+              responseMessage.textContent = "Failed to subscribe. Please try again.";
+              responseMessage.style.color = "red";
+          }
+      } catch (error) {
+          console.error("Error:", error);
+          responseMessage.textContent = "An error occurred. Please try again.";
+          responseMessage.style.color = "red";
+      }
+  });
+});
