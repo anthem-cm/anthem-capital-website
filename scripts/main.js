@@ -72,6 +72,8 @@ function showHero() {
   navStrategy.classList.remove("disabled");
   navContact.classList.remove("disabled");
   document.body.classList.remove("modal-active"); 
+  logoLink.classList.remove("disabled");
+  menu.classList.remove("disabled");
   hero.classList.add("visible"); 
 }
 
