@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   disclosureText.addEventListener("scroll", () => {
     
 
-      if (disclosureText.scrollTop + disclosureText.clientHeight >= disclosureText.scrollHeight) {
+      if (disclosureText.scrollTop + disclosureText.clientHeight >= disclosureText.scrollHeight - 5) {
           acceptButton.disabled = false;
           acceptButton.classList.add("enabled");
       }
