@@ -161,4 +161,8 @@
   #address {
     text-align: left;
   }
+
+  #heroFutureCommentary{
+    max-width: 900px !important;
+  }
 }
