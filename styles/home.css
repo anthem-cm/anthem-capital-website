@@ -128,7 +128,7 @@
   }
   
   .cards{    
-    max-width: 600px;
+    width: 600px;
     gap: 4vh;
   }
 
