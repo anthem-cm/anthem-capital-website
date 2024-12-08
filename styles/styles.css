@@ -58,11 +58,10 @@ body{
   top: 0;
   left: 0;
   background-color: rgba(0, 0, 0,0);
-  opacity: 1;
 }
 
-.modal-active #navMenuContainer {
-  opacity: 0;
+.nav-hidden {
+  opacity: 0 !important;
 }
 
 #logoLink{

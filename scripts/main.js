@@ -18,20 +18,23 @@ document.addEventListener("DOMContentLoaded", () => {
       }
   });
 
-  acceptButton.addEventListener("click", () => {
-      acceptDisclosure();
-  });
 });
 
 // Disclosure block show
 function showDisclosure() {
   const disclosure = document.getElementById("disclosure");
+  const navHide = document.getElementById("navMenuContainer")
   disclosure.style.display = "flex"; 
   document.body.classList.add("modal-active"); 
+  navHide.classList.add("nav-hidden");
+  console.log(navHide);
+
 }
 
 // Disclosure hide
-function acceptDisclosure() {
+
+document.getElementById("accept").addEventListener("click", function() {
+
   const disclosure = document.getElementById("disclosure");
   const logoLink = document.getElementById("logoLink");
   const menu = document.getElementById("burgerMenu");
@@ -57,6 +60,7 @@ function acceptDisclosure() {
   }, 500); 
 }
 
+)
 // Hero block
 function showHero() {
   const disclosure = document.getElementById("disclosure");
@@ -66,9 +70,11 @@ function showHero() {
   const navStrategy = document.getElementById("navStrategy");
   const navContact = document.getElementById("navContact");
   const hero = document.querySelector(".hero");
+  const navHide = document.getElementById("navMenuContainer")
   disclosure.style.display = "none"; 
   
   navHome.classList.remove("disabled");
+  navHide.classList.remove("nav-hidden");
   navStrategy.classList.remove("disabled");
   navContact.classList.remove("disabled");
   document.body.classList.remove("modal-active"); 
