@@ -128,7 +128,6 @@
   }
   
   .cards{    
-    width: 600px !important;
     gap: 4vh;
   }
 
@@ -162,6 +161,7 @@
   }
   
   .cards {
+    width: 1100px;
     gap: 15px;
     margin: 0 20px;
     display: flex;
