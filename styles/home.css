@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Noto Sans';
+  src: url('./fonts/NotoSans-Italic-VariableFont_wdth,wght.ttf') format('ttf'),
+       url('./fonts/NotoSans-VariableFont_wdth,wght.ttf') format('ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .hero {
   height: 100vh;
   display: flex;
@@ -13,7 +21,7 @@
 .hero-container {
   width: 90vw;
   max-width: 320px;
-  background: linear-gradient(to right, rgb(127, 164, 164), rgb(26, 60, 92));
+  background-color: #2f425a77;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -24,6 +32,8 @@
   margin-top: 5vh;
 }
 
+
+
 .visible {
   opacity: 0.8; /* Делаем блок видимым */
   transform: translateY(0); /* Смещаем в исходное положение */
@@ -31,12 +41,13 @@
 
 
 .hero-container h1 {
-  color: rgb(255, 255, 255);
-  font-size: 30px;
+  color: rgba(255, 255, 255, 0.721);
+  font-size: 24px;
   line-height: 1.2;
   max-width: 500px;
   text-align: center;
   margin: 0 auto;
+  font-family: "Noto Sans", serif;
 }
 
 .cards {
@@ -69,13 +80,21 @@
 .card h2 {
   font-size: 20px;
   font-weight: 800;
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);  
+  font-family: "Noto Sans", serif;  
+  color: rgba(255, 255, 255, 0.721);
+
+
 }
 
 .card p {
   font-size: 15px;
   font-weight: 400;
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);  
+  font-family: "Noto Sans", serif;
+  color: rgba(255, 255, 255, 0.721);
+
+
 }
 
 #cardGrowth{
@@ -158,6 +177,8 @@
     margin-top: 20px;
     font-size: 48px;
     line-height: 1.2;
+    max-width: 700px;
+
   }
   
   .cards {
