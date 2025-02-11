@@ -101,6 +101,7 @@ body{
 #navMenu h2 {
   margin-top: 20vh;
   color: rgba(255, 255, 255, 0.721);
+  font-family: "Noto Sans", serif;
   font-size: 24px;
   font-weight: 800;
 }
@@ -438,11 +439,14 @@ body{
 @media (min-width: 1025px){
   .navbar {
     height: 80px;
+
   }
 
   .navbar-container {
     max-width: 1100px;
     height: 80px;
+    border: 1px solid red;
+
   }
   
   #navMenuContainer {
@@ -524,6 +528,7 @@ body{
   #disclosureBlock{
     max-width: 600px;
     padding: 25px 0;
+    
   }
   
   #disclosureBlock h2{

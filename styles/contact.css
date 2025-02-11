@@ -13,7 +13,7 @@
 .hero-container {
   width: 90vw;
   max-width: 320px;
-  background: linear-gradient(to right, rgb(127, 164, 164), rgb(26, 60, 92));
+  background-color: #2f425a77;
   border-radius: 15px;
   display: flex;
   flex-direction: column;
@@ -47,7 +47,8 @@
 .hero-container-logo h2{
   font-size: 20px;
   font-weight: 800;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.721);
+  font-family: "Noto Sans", serif;
 }
 
 .hero-container-logo-icon{
@@ -71,7 +72,8 @@
   gap: 5px;
   font-size: 15px;
   font-weight: 400;
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.721);
+  font-family: "Noto Sans", serif;
 }
 
 #address {
