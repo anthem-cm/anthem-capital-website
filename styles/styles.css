@@ -258,6 +258,83 @@ body{
   font-family: "Noto Sans", serif;
 }
 
+
+#heroFutureCommentary {
+  background-color: #2f425a77 !important;
+  width: 90vw;
+  max-width: 320px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  padding: 45px 0;
+  margin-top: 5vh;
+  margin-bottom: 50hv;
+}
+
+#heroFutureCommentary  h2{
+  width: 90vw;
+  max-width: 290px;
+  color: rgba(255, 255, 255, 0.721);
+  font-family: "Noto Sans", serif;
+  font-size: 24px;
+  line-height: 1.2;
+  text-align: center;
+}
+
+#heroFutureCommentary  form{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+#heroFutureCommentary  label{
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.721);
+  font-family: "Noto Sans", serif;
+}
+
+#heroFutureCommentary  input[type="email"]{
+  width: 270px;
+  height: 30px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+#heroFutureCommentary  button[type="submit"]{
+  padding: 10px;
+  background-color: rgb(113, 169, 169);
+  color: rgba(255, 255, 255, 0.721);
+  font-family: "Noto Sans", serif;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#heroFutureCommentary  button[type="submit"]:hover{
+  background-color: rgb(6, 100, 100);
+}
+
+#responseMessage{
+  font-size: 14px;
+}
+
+.success {
+  color: rgb(0, 196, 147) !important;
+  font-family: "Noto Sans", serif;
+}
+
+.error {
+  color: red; 
+  font-family: "Noto Sans", serif;
+}
+
 @media (min-height:320px) and (max-height: 450px){
   #navMenu ul{
     flex-direction: row;
@@ -277,83 +354,6 @@ body{
 }
 
 
-#heroFutureCommentary{
-  margin-bottom: 5vh;
-  width: 90vw;
-  max-width: 327px;
-  background: linear-gradient(to right, rgb(127, 164, 164), rgb(26, 60, 92));
-  border-radius: 15px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  gap: 25px;
-  padding: 45px 0 20px 0;
-  opacity: 1;
-
-}
-
-#heroFutureCommentary h2{
-  width: 90vw;
-  max-width: 290px;
-  color: rgba(255, 255, 255, 0.721);
-  font-family: "Noto Sans", serif;
-  font-size: 24px;
-  line-height: 1.2;
-  text-align: center;
-}
-
-#heroFutureCommentary form{
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-#heroFutureCommentary label{
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.721);
-  font-family: "Noto Sans", serif;
-}
-
-#heroFutureCommentary input[type="email"]{
-  width: 270px;
-  height: 30px;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-#heroFutureCommentary button[type="submit"]{
-  padding: 10px;
-  background-color: rgb(113, 169, 169);
-  color: rgba(255, 255, 255, 0.721);
-  font-family: "Noto Sans", serif;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#heroFutureCommentary button[type="submit"]:hover{
-  background-color: rgb(6, 100, 100);
-}
-
-#responseMessage{
-  font-size: 14px;
-}
-
-.success {
-  color: rgb(0, 196, 147) !important;
-  font-family: "Noto Sans", serif;
-}
-
-.error {
-  color: red; 
-  font-family: "Noto Sans", serif;
-}
 
 @media (min-width: 768px) and (max-width: 1024px){
   body{
@@ -445,8 +445,6 @@ body{
   .navbar-container {
     max-width: 1100px;
     height: 80px;
-    border: 1px solid red;
-
   }
   
   #navMenuContainer {
@@ -555,7 +553,6 @@ body{
     gap: 25px;
     padding: 45px 30px 45px 10px;
     opacity: 1;
-  
   }
   
   #heroFutureCommentary h2{
