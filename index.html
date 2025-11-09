@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anthem Capital Management | Disciplined Investing</title>
+    
+    <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts - Roboto Mono --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Three.js Library REMOVED --><!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> --><style>
+        /* Apply Monospace font family */
+        body {
+            font-family: 'Roboto Mono', monospace;
+            overflow: hidden; /* Hide main page scrollbar initially */
+        }
+        
+        /* Custom hero section minimum height */
+        .hero-min-height {
+            min-height: calc(100vh - 72px); /* Full viewport height minus header height (h-18) */
+        }
+
+        /* Styles for the disclosure modal scrollbar */
+        .disclosure-scroll::-webkit-scrollbar {
+            width: 8px;
+        }
+        .disclosure-scroll::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        .disclosure-scroll::-webkit-scrollbar-thumb {
+            background: #6b7280; /* Gray-500 */
+            border-radius: 4px;
+        }
+        .disclosure-scroll::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af; /* Gray-400 */
+        }
+
+        /* Styles for floating tickers */
+        #ticker-stream-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0; /* Behind hero content */
+            pointer-events: none; /* Allow clicks to go through */
+        }
+        .ticker-item {
+            position: absolute;
+            color: #888; /* Light gray, for transparency */
+            white-space: nowrap;
+            /* --start-x, --start-y, --end-x set by JS */
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            from {
+                /* Start below the viewport */
+                transform: translateY(var(--start-y)) translateX(var(--start-x));
+            }
+            to {
+                /* End 100vh above the viewport */
+                transform: translateY(-100vh) translateX(var(--end-x));
+            }
+        }
+
+        /* Style for the 3D canvas */
+        #physics-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            cursor: crosshair; /* Indicate interactivity */
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 antialiased">
+
+    <!-- Disclosure Modal --><div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4"> <!-- MOD: Changed flex-col --><!-- Backdrop --><div class="absolute inset-0 bg-gray-900 bg-opacity-90 backdrop-blur-sm"></div>
+        
+        <!-- Logo --><img src="https://anthemcm.com/images/image2.png" 
+             alt="Anthem Capital Management Logo" 
+             class="relative z-10 w-full max-w-xl h-auto mb-4" <!-- MOD: Added logo, max-w-xl is 'almost' max-w-2xl of the box -->onerror="this.src='https://placehold.co/600x120/0a0a0a/gray?text=ANTHEM+CM'; this.onerror=null;">
+        
+        <!-- Modal Content --><div class="relative z-10 w-full max-w-2xl bg-gray-800 text-gray-300 rounded-lg shadow-2xl flex flex-col" style="max-height: 80vh;"> <!-- MOD: Reduced max-height for logo --><h2 class="text-xl font-bold text-white p-6 border-b border-gray-700">
+                Important Disclosures
+            </h2>
+            
+            <!-- Scrollable Terms --><div class="flex-grow p-6 overflow-y-auto disclosure-scroll space-y-4 text-xs">
+                <p>This report is not an offer to sell or a solicitation of an offer to purchase any investment product.</p>
+                <p>The information contained in this presentation is intended for informational purposes only and is qualified in its entirety by the more detailed information contained in our Form ADV and in the Anthem Maverick Fund LP confidential offering memorandum (the “Offering Memorandum”). An investment in the Fund involves significant investment considerations and risks which are described in the Offering Memorandum. Nothing contained herein constitutes investment, financial, legal, tax or other advice nor is to be relied on in making an investment decision.</p>
+                <p>The information and opinions contained in this presentation are provided by Anthem Capital Management LLC for informational purposes only and are subject to change without notice. It is for your private information and provided for the exclusive use of the person who has been authorized to receive it. Anthem Capital is soliciting no action based upon it. The content of this presentation is based upon information that we consider reliable, but neither Anthem Capital Management nor any of its managers or employees represents that it is accurate or complete, and it should not be relied upon as such.</p>
+            </div>
+            
+            <!-- Footer with Accept Button --><div class="p-6 border-t border-gray-700 bg-gray-800 rounded-b-lg">
+                <p class="text-xs text-gray-400 mb-4 text-center">Please scroll and read all disclosures before continuing.</p>
+                <button id="accept-button" class="w-full inline-flex justify-center items-center px-6 py-3 border border-gray-500 text-base font-medium rounded-md text-gray-200 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-gray-500 transition-colors duration-200 shadow-sm">
+                    Accept and Enter Site
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Site Content (Hidden by default) --><div id="site-content" class="hidden">
+        <!-- Header & Navigation --><header class="bg-black border-b border-gray-800 sticky top-0 z-50 w-full">
+            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-18">
+                    <!-- Logo --><a href="#home" class="flex-shrink-0 flex items-center">
+                        <img src="https://anthemcm.com/images/image2.png" 
+                             alt="Anthem Capital Management Logo" 
+                             class="h-10 w-auto"
+                             onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
+                    </a>
+                    
+                    <!-- Desktop Navigation --><div class="hidden md:flex md:items-center md:space-x-6">
+                        <a href="#home" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Home</a>
+                        <a href="#opportunity" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Opportunity</a>
+                        <a href="#tenets" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Tenets</a>
+                        <a href="#insights" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Insights</a>
+                        <a href="#signup" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Sign Up</a>
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200">
+                            Client Login
+                        </a>
+                    </div>
+                    
+                    <!-- Mobile Menu Button --><div class="md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500" aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <!-- Hamburger icon --><svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                            <!-- Close icon (hidden by default) --><svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Mobile Menu (Hidden by default) --><div id="mobile-menu" class="hidden md:hidden pb-4">
+                    <a href="#home" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+                    <a href="#opportunity" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Opportunity</a>
+                    <a href="#tenets" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Tenets</a>
+                    <a href="#insights" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Insights</a>
+                    <a href="#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact Us</a>
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-left mt-2 px-4 py-2 border border-gray-600 text-base font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200">
+                        Client Login
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content --><main>
+
+            <!-- Hero Section --><section id="home" class="relative hero-min-height flex items-center justify-center text-center bg-black">
+                <!-- Background Ticker Stream --><div id="ticker-stream-container">
+                    <!-- Tickers will be dynamically injected here --></div>
+                
+                <!-- Hero Content --><div class="relative z-10 p-4 text-white">
+                    <!-- Logo -->
+                    <img src="https://anthemcm.com/images/image2.png" 
+                         alt="Anthem Capital Management Logo" 
+                         class="h-8 w-auto mx-auto mb-6 opacity-75"
+                         onerror="this.src='https://placehold.co/160x40/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
+
+                    <!-- Headline -->
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4">
+                        Redefining Alternatives
+                    </h1>
+                    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8">
+                        A modern approach to capturing global macro opportunities.
+                    </p>
+                    <a href="#opportunity" class="inline-flex items-center px-6 py-3 border border-gray-500 text-base font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200 shadow-lg transform hover:scale-105">
+                        The Opportunity
+                    </a>
+                </div>
+            </section>
+
+            <!-- Opportunity Section --><section id="opportunity" class="relative py-24 bg-gray-900 overflow-hidden">
+                <!-- Physics Simulation Canvas (background) -->
+                <canvas id="physics-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+                
+                <!-- Text Content (foreground) -->
+                <div class="relative z-10 container mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 text-center">
+                    <span class="text-sm font-medium text-gray-400 uppercase tracking-wide">The Opportunity</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mt-2 mb-4">
+                        A New Macro Landscape
+                    </h2>
+                    <p class="text-base text-gray-300 mb-6">
+                        In recent years, the investment world has largely shifted towards multi-strategy funds, with many firms focusing on high-Sharpe, low-volatility approaches, competing internally within one organization.
+                    </p>
+                    <p class="text-base text-gray-300">
+                        However, global macro has made a strong comeback, as rising interest rates and economic volatility have created long/short opportunities not seen in decades. Our fund is strategically positioned to capture these trends, leveraging a combination of disciplined macro strategies and cutting-edge execution methodologies. By utilizing the same quantitative principles employed at major hedge funds, we aim to exploit these macro shifts with precision, maximizing returns in this unique environment.
+                    </p>
+                </div>
+            </section>
+            
+            <!-- Tenets Section --><section id="tenets" class="py-16 bg-black">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto">
+                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wide">Our Tenets</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mt-2 mb-4">
+                            Core Principles
+                        </h2>
+                        <p class="text-base text-gray-300 mb-8">
+                            Our fund is built on three core principles that guide every decision.
+                        </p>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <!-- Tenet Card 1: Growth --><div class="bg-gray-900 p-6 rounded-lg shadow-lg transform hover:bg-gray-800 transition-colors duration-300">
+                            <div class="flex-shrink-0">
+                                <!-- Heroicon: Arrow Trending Up --><svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.5 4.5 6.75-6.75" />
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m17.25 4.5 4.5 4.5m-4.5-4.5v4.5m0-4.5h-4.5" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-100 mt-5 mb-3">Growth</h3>
+                            <p class="text-base text-gray-300">
+                                Building a sustainable, scalable, and resilient fund with a focus on continuous improvement and innovation.
+                            </p>
+                        </div>
+                        
+                        <!-- Tenet Card 2: Performance --><div class="bg-gray-900 p-6 rounded-lg shadow-lg transform hover:bg-gray-800 transition-colors duration-300">
+                            <div class="flex-shrink-0">
+                                <!-- Heroicon: Chart Bar --><svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0h10a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-100 mt-5 mb-3">Performance</h3>
+                            <p class="text-base text-gray-300">
+                                Delivering consistent, high-quality returns through disciplined investment strategies and market insights.
+                            </p>
+                        </div>
+                        
+                        <!-- Tenet Card 3: Doing Right --><div class="bg-gray-900 p-6 rounded-lg shadow-lg transform hover:bg-gray-800 transition-colors duration-300">
+                            <div class="flex-shrink-0">
+                                <!-- Heroicon: Handshake (Custom) --><svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v-1.5a3 3 0 0 1 3-3h1.5m6.354 3H18a3 3 0 0 0 3-3V8.25a3 3 0 0 0-3-3h-1.5a3 3 0 0 0-3 3v.75m-6.354 6H9a3 3 0 0 1 3 3v1.5m-6.354 0a3.001 3.001 0 0 0 3.75 2.635m2.604-2.635a3.001 3.001 0 0 1 3.75 2.635m-6.354 0H9" />
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="m15 12-3-3m0 0-3 3m3-3v11.25" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-100 mt-5 mb-3">Doing Right By Our Partners</h3>
+                            <p class="text-base text-gray-300">
+                                We prioritize transparency, alignment of interests, and ethical practices to ensure investor trust and satisfaction.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Heartbeat Section (formerly Insights) --><section id="insights" class="py-16 bg-gray-900">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <!-- Main Description -->
+                    <div class="text-center max-w-3xl mx-auto">
+                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wide">Proprietary Data Science Toolkit</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mt-2 mb-4">
+                            Heartbeat
+                        </h2>
+                        <p class="text-base text-gray-300 mb-8">
+                            Heartbeat is our proprietary data science toolkit, built from over a decade of research and development. This robust web application consolidates advanced analytics, enabling us to design, backtest, and optimize trading strategies. It also serves as a strategy archive, alerting us when saved strategies become active in the markets we trade ensuring real-time insights and precise execution.
+                        </p>
+                    </div>
+                    
+                    <!-- Feature Boxes -->
+                    <div class="grid md:grid-cols-3 gap-6 mt-12">
+                        <!-- Feature 1: Design & Backtest -->
+                        <div class="bg-black p-6 rounded-lg shadow-lg text-center">
+                            <!-- Icon: Beaker -->
+                            <div class="flex justify-center items-center mb-4">
+                                <svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.75 3.104v5.714a2.25 2.25 0 01-.659 1.591L5 14.5M9.75 3.104c-.251.023-.501.05-.75.082m.75-.082a24.301 24.301 0 014.5 0m0 0v5.714c0 .597.237 1.17.659 1.591L19.8 15.3M14.25 3.104c.251.023.501.05.75.082M19.8 15.3l-1.57.393A9.065 9.065 0 0112 15a9.065 9.065 0 01-6.23-.693L4.2 15.3m15.6 0-1.57.393m0 0l-1.57.393A9.065 9.065 0 0112 15.002a9.065 9.065 0 01-6.23-.693m7.8-3.932c.393.157.796.304 1.2.441m-7.8 0c-.393.157-.796.304-1.2.441m5.4 0a9.023 9.023 0 01-5.4 0m5.4 0c.393.157.796.304 1.2.441m-1.2-1.218c.121.04.24.082.358.124m-3.102.002c.118-.042.237-.084.358-.124M12 10.5a2.25 2.25 0 01-2.25-2.25V3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v4.875c0 1.242-1.008 2.25-2.25 2.25z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-100 mb-2">Design & Backtest</h3>
+                            <p class="text-base text-gray-300">A powerful environment to design, rigorously backtest, and optimize complex trading strategies.</p>
+                        </div>
+
+                        <!-- Feature 2: Strategy Archive -->
+                        <div class="bg-black p-6 rounded-lg shadow-lg text-center">
+                            <!-- Icon: Archive Box -->
+                            <div class="flex justify-center items-center mb-4">
+                                <svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-100 mb-2">Strategy Archive</h3>
+                            <p class="text-base text-gray-300">Serves as a central repository, cataloging every tested strategy for future reference and activation.</p>
+                        </div>
+
+                        <!-- Feature 3: Real-Time Alerts -->
+                        <div class="bg-black p-6 rounded-lg shadow-lg text-center">
+                            <!-- Icon: Bell Alert -->
+                            <div class="flex justify-center items-center mb-4">
+                                <svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-bold text-gray-100 mb-2">Real-Time Alerts</h3>
+                            <p class="text-base text-gray-300">Automatically alerts us when archived strategies become active, ensuring timely and precise execution.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Signup and Contact Section --><section id="signup" class="py-16 bg-black">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-2 gap-12 items-start">
+                        
+                        <!-- Left: Sign Up -->
+                        <div class="text-left">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                                Sign Up for Future Updates
+                            </h2>
+                            <p class="text-base text-gray-300 mb-8">
+                                Be the first to know about our fund's progress, new insights, and exclusive opportunities.
+                            </p>
+                            
+                            <form id="signup-form" action="https://formspree.io/f/xkgnawra" method="POST">
+                                <div class="flex flex-col sm:flex-row gap-4">
+                                    <label for="email-address" class="sr-only">Email address</label>
+                                    <input type="email" name="email" id="email-address" autocomplete="email" required class="flex-grow px-4 py-3 rounded-md bg-gray-800 border-gray-700 text-white focus:ring-gray-500 focus:border-gray-500 text-sm" placeholder="Enter your email">
+                                    <button type="submit" class="flex-shrink-0 inline-flex justify-center items-center px-6 py-3 border border-gray-600 rounded-md shadow-sm text-base font-medium text-gray-200 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-500 transition-colors duration-200">
+                                        Subscribe
+                                    </button>
+                                </div>
+                            </form>
+                            <div id="signup-success" class="hidden mt-4 text-green-400">
+                                Thank you for subscribing!
+                            </div>
+                            <div id="signup-error" class="hidden mt-4 text-red-400">
+                                Oops! Something went wrong. Please try again.
+                            </div>
+                        </div>
+
+                        <!-- Right: Contact -->
+                        <div class="text-left md:pl-12">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                                Contact Us
+                            </h2>
+                            <div class="text-base text-gray-300 space-y-4">
+                                <p>
+                                    <strong>Anthem Capital Management, LLC</strong><br>
+                                    4000 Hollywood Blvd. Hills #555<br>
+                                    South Hollywood, FL 33021
+                                </p>
+                                <p>
+                                    <strong>For inquiries:</strong><br>
+                                    <a href="mailto:steven@anthemcm.com" class="text-gray-300 hover:text-white underline">steven@anthemcm.com</a>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+        
+        <!-- Footer --><footer class="bg-gray-900 border-t border-gray-800">
+            <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <!-- Logo and Copyright --><div class="text-center md:text-left mb-4 md:mb-0">
+                        <a href="#home" class="flex-shrink-0 flex items-center justify-center md:justify-start">
+                             <img src="https://anthemcm.com/images/image2.png" 
+                                 alt="Anthem Capital Management Logo" 
+                                 class="h-10 w-auto"
+                                 onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
+                        </a>
+                        <p class="mt-2 text-sm text-gray-400">
+                            &copy; 2025 Anthem Capital Management LLC. All rights reserved.
+                        </p>
+                    </div>
+                    
+                    <!-- Footer Navigation --><div class="flex space-x-6">
+                        <a href="#opportunity" class="text-sm text-gray-400 hover:text-white transition-colors">Opportunity</a>
+                        <a href="#tenets" class="text-sm text-gray-400 hover:text-white transition-colors">Tenets</a>
+                        <a href="#insights" class="text-sm text-gray-400 hover:text-white transition-colors">Insights</a>
+                        <a href="#contact" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div> <!-- End #site-content --><!-- JavaScript for Modal and Mobile Menu --><script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const POLYGON_API_KEY = '{{POLYGON_API_KEY}}'; // This will be replaced by your build process
+            const tickers = ['SPY', 'AAPL', 'MSFT', 'GOOG', 'AMZN', 'TSLA', 'NVDA', 'XOM', 'TLT', 'EEM'];
+
+            const modal = document.getElementById('disclosure-modal');
+            const acceptButton = document.getElementById('accept-button');
+            const siteContent = document.getElementById('site-content');
+            
+            // --- Particle Scene Variables ---
+            let particleCanvas, ctx, particles, mouse;
+            let hasParticleSceneInitialized = false;
+            let animationFrameId;
+
+            // --- Disclosure Modal Logic ---
+            acceptButton.addEventListener('click', () => {
+                modal.classList.add('hidden'); // Hide the modal
+                siteContent.classList.remove('hidden'); // Show the main site
+                document.body.style.overflow = 'auto'; // Restore scrolling to the page
+
+                // Initialize 3D scene *after* user enters site
+                if (!hasParticleSceneInitialized) {
+                    initParticleScene();
+                    hasParticleSceneInitialized = true;
+                }
+            });
+
+            // --- Mobile Menu Logic ---
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = menuButton.querySelector('svg:first-child');
+            const closeIcon = menuButton.querySelector('svg:last-child');
+            
+            // Toggle mobile menu
+            menuButton.addEventListener('click', () => {
+                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                menuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.add('hidden'); // MOD: Ensure closeIcon is hidden if hamburger is shown, for state consistency
+                hamburgerIcon.classList.remove('hidden'); // MOD: Ensure hamburger is shown if menu is closing
+            });
+            
+            // --- Smooth Scroll & Mobile Menu Close Logic ---
+            const navLinks = document.querySelectorAll('a[href^="#"]');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                    
+                    // Close mobile menu on link click (if it's open)
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        menuButton.setAttribute('aria-expanded', 'false');
+                        hamburgerIcon.classList.remove('hidden');
+                        closeIcon.classList.add('hidden');
+                    }
+                });
+            });
+
+            // --- ✨ Ticker Stream Logic ---
+            createInitialTickers();
+            connectWebSocket();
+
+            /**
+             * Creates the initial set of floating tickers.
+             */
+            function createInitialTickers() {
+                const container = document.getElementById('ticker-stream-container');
+                if (!container) return;
+
+                for (let i = 0; i < 30; i++) { // Create 30 floating tickers
+                    const symbol = tickers[i % tickers.length];
+                    const ticker = document.createElement('div');
+                    
+                    ticker.classList.add('ticker-item', 'ticker-sym-' + symbol);
+                    ticker.textContent = `${symbol} ...`;
+                    
+                    // Randomize styles and animation
+                    const duration = Math.random() * 20 + 30; // 30-50s
+                    const delay = Math.random() * -50; // -50s to 0s delay to stagger starts
+                    const startX = Math.random() * 100;
+                    const startY = Math.random() * 100 + 100; // Start 100vh-200vh below
+                    const endX = startX + (Math.random() * 40 - 20); // Drift left/right
+                    const fontSize = Math.random() * 10 + 12; // 12px to 22px
+                    const opacity = Math.random() * 0.1 + 0.05; // 0.05 - 0.15
+
+                    ticker.style.setProperty('--start-x', startX + 'vw');
+                    ticker.style.setProperty('--start-y', startY + 'vh');
+                    ticker.style.setProperty('--end-x', endX + 'vw');
+                    ticker.style.fontSize = fontSize + 'px';
+                    ticker.style.opacity = opacity;
+                    ticker.style.animation = `float-up ${duration}s linear ${delay}s infinite`;
+                    
+                    container.appendChild(ticker);
+                }
+            }
+
+            /**
+             * Connects to Polygon.io WebSocket for live prices.
+             */
+            function connectWebSocket() {
+                // Using delayed feed, as it's more stable for this kind of display
+                const ws = new WebSocket('wss://delayed.polygon.io/stocks');
+
+                ws.onopen = () => {
+                    console.log('Polygon WebSocket connected.');
+                    // Authenticate
+                    ws.send(JSON.stringify({ action: 'auth', params: POLYGON_API_KEY }));
+                    
+                    // Subscribe to trades for our tickers
+                    const subscriptionParams = tickers.map(t => `T.${t}`).join(',');
+                    ws.send(JSON.stringify({ action: 'subscribe', params: subscriptionParams }));
+                };
+
+                ws.onmessage = (event) => {
+                    const data = JSON.parse(event.data);
+                    if (Array.isArray(data)) {
+                        data.forEach(msg => {
+                            if (msg.ev === 'T') {
+                                // This is a trade message
+                                updateTickerPrice(msg.sym, msg.p);
+                            }
+                        });
+                    }
+                };
+
+                ws.onclose = () => {
+                    console.log('Polygon WebSocket disconnected. Reconnecting...');
+                    // Simple reconnect logic
+                    setTimeout(connectWebSocket, 3000);
+                };
+
+                ws.onerror = (err) => {
+                    console.error('Polygon WebSocket error:', err);
+                    ws.close(); // This will trigger the onclose reconnect
+                };
+            }
+
+            /**
+             * Updates all visible tickers for a given symbol.
+             * @param {string} symbol The stock symbol (e.g., "AAPL")
+             * @param {number} price The latest trade price
+             */
+            function updateTickerPrice(symbol, price) {
+                const elements = document.querySelectorAll('.ticker-sym-' + symbol);
+                elements.forEach(el => {
+                    el.textContent = `${symbol} ${price.toFixed(2)}`;
+                });
+            }
+
+            // --- ✨ "Grainy" Particle Gravity Scene ---
+
+            /**
+             * Particle Class
+             */
+            class Particle {
+                constructor(x, y, color) {
+                    this.x = x;
+                    this.y = y;
+                    this.baseX = this.x; // Original X
+                    this.baseY = this.y; // Original Y
+                    this.vx = 0; // Velocity X
+                    this.vy = 0; // Velocity Y
+                    this.density = (Math.random() * 10) + 1; // MOD: Further reduced density range
+                    this.color = color;
+                    this.angle = Math.random() * Math.PI * 2; // Random angle for floating
+                    this.floatSpeed = 1.35 + Math.random() // Slow, variable float speed
+                }
+
+                draw() {
+                    ctx.fillStyle = this.color;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, 1, 0, Math.PI * 2); // Draw 1px dots
+                    ctx.closePath();
+                    ctx.fill();
+                }
+
+                update() {
+                    // Calculate distance from mouse
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let dist = Math.sqrt(dx * dx + dy * dy);
+                    let forceDirX = dx / dist;
+                    let forceDirY = dy / dist;
+                    
+                    // Max distance (radius of gravity)
+                    let maxDist = mouse.radius;
+                    let force = (maxDist - dist) / maxDist; // Force is stronger closer
+                    
+                    // Calculate acceleration
+                    let ax = 0;
+                    let ay = 0;
+
+                    if (dist < maxDist) {
+                        // Mouse is pulling
+                        ax = forceDirX * force * this.density;
+                        ay = forceDirY * force * this.density;
+                    }
+
+                    // Add spring force to return to base
+                    ax += (this.baseX - this.x) * 0.02; // MOD: Reduced spring force
+                    ay += (this.baseY - this.y) * 0.02;
+
+                    // Add slow, ambient floating motion
+                    this.angle += 0.01;
+                    ay += Math.sin(this.angle) * this.floatSpeed * 0.1;
+
+                    // Apply acceleration to velocity
+                    this.vx += ax;
+                    this.vy += ay;
+                    
+                    // Apply friction (damping)
+                    this.vx *= 0.9; // MOD: Increased friction
+                    this.vy *= 0.9; // MOD: Increased friction
+                    
+                    // Update position
+                    this.x += this.vx;
+                    this.y += this.vy;
+                }
+            }
+
+            /**
+             * Initializes the Particle scene.
+             */
+            function initParticleScene() {
+                particleCanvas = document.getElementById('physics-canvas');
+                if (!particleCanvas) return;
+                
+                ctx = particleCanvas.getContext('2d');
+                // MOD: Set canvas context to transparent
+                ctx.globalAlpha = 1; // Ensure no overall transparency issues
+                
+                particles = [];
+                mouse = {
+                    x: -1000,
+                    y: -1000,
+                    radius: 150 // MOD: Increased radius of influence
+                };
+
+                // Set initial size and create particles
+                onParticleResize();
+
+                // Mouse move listener
+                const opportunitySection = document.getElementById('opportunity');
+                opportunitySection.addEventListener('mousemove', (e) => {
+                    const rect = opportunitySection.getBoundingClientRect();
+                    mouse.x = e.clientX - rect.left;
+                    mouse.y = e.clientY - rect.top;
+                });
+                
+                // Mouse leave listener
+                opportunitySection.addEventListener('mouseleave', () => {
+                    mouse.x = -1000;
+                    mouse.y = -1000;
+                });
+
+                // Use ResizeObserver to detect container size changes
+                const resizeObserver = new ResizeObserver(entries => {
+                    // No need to check target, just resize when the section resizes
+                    onParticleResize();
+                });
+                resizeObserver.observe(opportunitySection);
+
+                // Start animation loop
+                animateParticles();
+            }
+
+            /**
+             * Handles resizing of the canvas and re-populates particles.
+             */
+            function onParticleResize() {
+                const container = document.getElementById('opportunity');
+                const width = container.clientWidth;
+                const height = container.clientHeight;
+
+                particleCanvas.width = width;
+                particleCanvas.height = height;
+                
+                particles = []; // Clear old particles
+                const particleCount = 5000; // More particles for a "grainy" feel
+                const color = 'rgba(136, 136, 136, 0.25)'; // MOD: Increased opacity for better visibility
+
+                for (let i = 0; i < particleCount; i++) {
+                    let x = Math.random() * width;
+                    let y = Math.random() * height;
+                    particles.push(new Particle(x, y, color));
+                }
+            }
+
+            /**
+             * Animation loop for the particle scene.
+             */
+            function animateParticles() {
+                if (!ctx || !particleCanvas) return;
+                // MOD: ClearRect with transparency to allow parent bg-color to show
+                ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+                
+                for (let i = 0; i < particles.length; i++) {
+                    particles[i].update();
+                    particles[i].draw();
+                }
+                
+                animationFrameId = requestAnimationFrame(animateParticles);
+            }
+
+            // --- Signup Form Logic ---
+            const signupForm = document.getElementById('signup-form');
+            const successMessage = document.getElementById('signup-success');
+            const errorMessage = document.getElementById('signup-error');
+
+            if (signupForm) {
+                signupForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const formData = new FormData(this);
+                    const action = this.getAttribute('action');
+
+                    fetch(action, {
+                        method: 'POST',
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            signupForm.reset();
+                            signupForm.style.display = 'none';
+                            successMessage.classList.remove('hidden');
+                            errorMessage.classList.add('hidden');
+                        } else {
+                            response.json().then(data => {
+                                if (Object.hasOwn(data, 'errors')) {
+                                    errorMessage.textContent = data["errors"].map(error => error["message"]).join(", ");
+                                } else {
+                                    errorMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                                }
+                                errorMessage.classList.remove('hidden');
+                                successMessage.classList.add('hidden');
+                            }).catch(() => {
+                                errorMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                                errorMessage.classList.remove('hidden');
+                                successMessage.classList.add('hidden');
+                            });
+                        }
+                    }).catch(error => {
+                        errorMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                        errorMessage.classList.remove('hidden');
+                        successMessage.classList.add('hidden');
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
