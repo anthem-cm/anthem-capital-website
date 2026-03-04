@@ -7,14 +7,14 @@
     
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts - Inter --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Google Fonts - Roboto Mono --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Three.js Library REMOVED --><!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> --><style>
-        /* Apply Inter font family */
+        /* Apply Monospace font family */
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Roboto Mono', monospace;
             overflow: hidden; /* Hide main page scrollbar initially */
         }
         
@@ -28,15 +28,15 @@
             width: 8px;
         }
         .disclosure-scroll::-webkit-scrollbar-track {
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 4px;
         }
         .disclosure-scroll::-webkit-scrollbar-thumb {
-            background: #3b82f6; /* Blue-500 */
+            background: #6b7280; /* Gray-500 */
             border-radius: 4px;
         }
         .disclosure-scroll::-webkit-scrollbar-thumb:hover {
-            background: #2563eb; /* Blue-600 */
+            background: #9ca3af; /* Gray-400 */
         }
 
         /* Styles for floating tickers */
@@ -49,7 +49,7 @@
         }
         .ticker-item {
             position: absolute;
-            color: rgba(255, 255, 255, 0.15); /* Light white with transparency */
+            color: #888; /* Light gray, for transparency */
             white-space: nowrap;
             /* --start-x, --start-y, --end-x set by JS */
             animation: float-up linear infinite;
@@ -73,39 +73,29 @@
             height: 100%;
             cursor: crosshair; /* Indicate interactivity */
         }
-
-        /* Custom color variables for blue and gold theme */
-        :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3b82f6;
-            --accent-gold: #d4af37;
-            --light-bg: #f8fafc;
-            --dark-blue: #0f172a;
-            --text-gray: #475569;
-        }
     </style>
 </head>
-<body class="bg-white text-gray-700 antialiased">
+<body class="bg-black text-gray-300 antialiased">
 
-    <!-- Disclosure Modal --><div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4"> <!-- MOD: Changed flex-col --><!-- Backdrop --><div class="absolute inset-0 bg-slate-900 bg-opacity-90 backdrop-blur-sm"></div>
+    <!-- Disclosure Modal --><div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4"> <!-- MOD: Changed flex-col --><!-- Backdrop --><div class="absolute inset-0 bg-gray-900 bg-opacity-90 backdrop-blur-sm"></div>
         
         <!-- Logo --><img src="https://anthemcm.com/images/image2.png" 
              alt="Anthem Capital Management Logo" 
              class="relative z-10 w-full max-w-xl h-auto mb-4" <!-- MOD: Added logo, max-w-xl is 'almost' max-w-2xl of the box -->onerror="this.src='https://placehold.co/600x120/0a0a0a/gray?text=ANTHEM+CM'; this.onerror=null;">
         
-        <!-- Modal Content --><div class="relative z-10 w-full max-w-2xl bg-white text-gray-700 rounded-lg shadow-2xl flex flex-col" style="max-height: 80vh;"> <!-- MOD: Reduced max-height for logo --><h2 class="text-xl font-bold text-slate-900 p-6 border-b border-gray-200">
+        <!-- Modal Content --><div class="relative z-10 w-full max-w-2xl bg-gray-800 text-gray-300 rounded-lg shadow-2xl flex flex-col" style="max-height: 80vh;"> <!-- MOD: Reduced max-height for logo --><h2 class="text-xl font-bold text-white p-6 border-b border-gray-700">
                 Important Disclosures
             </h2>
-
+            
             <!-- Scrollable Terms --><div class="flex-grow p-6 overflow-y-auto disclosure-scroll space-y-4 text-xs">
                 <p>This report is not an offer to sell or a solicitation of an offer to purchase any investment product.</p>
                 <p>The information contained in this presentation is intended for informational purposes only and is qualified in its entirety by the more detailed information contained in our Form ADV and in the Anthem Maverick Fund LP confidential offering memorandum (the “Offering Memorandum”). An investment in the Fund involves significant investment considerations and risks which are described in the Offering Memorandum. Nothing contained herein constitutes investment, financial, legal, tax or other advice nor is to be relied on in making an investment decision.</p>
                 <p>The information and opinions contained in this presentation are provided by Anthem Capital Management LLC for informational purposes only and are subject to change without notice. It is for your private information and provided for the exclusive use of the person who has been authorized to receive it. Anthem Capital is soliciting no action based upon it. The content of this presentation is based upon information that we consider reliable, but neither Anthem Capital Management nor any of its managers or employees represents that it is accurate or complete, and it should not be relied upon as such.</p>
             </div>
             
-            <!-- Footer with Accept Button --><div class="p-6 border-t border-gray-200 bg-white rounded-b-lg">
-                <p class="text-xs text-gray-500 mb-4 text-center">Please scroll and read all disclosures before continuing.</p>
-                <button id="accept-button" class="w-full inline-flex justify-center items-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-sm" style="background-color: var(--accent-gold);">
+            <!-- Footer with Accept Button --><div class="p-6 border-t border-gray-700 bg-gray-800 rounded-b-lg">
+                <p class="text-xs text-gray-400 mb-4 text-center">Please scroll and read all disclosures before continuing.</p>
+                <button id="accept-button" class="w-full inline-flex justify-center items-center px-6 py-3 border border-gray-500 text-base font-medium rounded-md text-gray-200 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-gray-500 transition-colors duration-200 shadow-sm">
                     Accept and Enter Site
                 </button>
             </div>
@@ -113,7 +103,7 @@
     </div>
 
     <!-- Main Site Content (Hidden by default) --><div id="site-content" class="hidden">
-        <!-- Header & Navigation --><header class="bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
+        <!-- Header & Navigation --><header class="bg-black border-b border-gray-800 sticky top-0 z-50 w-full">
             <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-18">
                     <!-- Logo --><a href="#home" class="flex-shrink-0 flex items-center">
@@ -124,18 +114,18 @@
                     </a>
                     
                     <!-- Desktop Navigation --><div class="hidden md:flex md:items-center md:space-x-6">
-                        <a href="#home" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Home</a>
-                        <a href="#strategy" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Strategy</a>
-                        <a href="#performance" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Performance</a>
-                        <a href="bio.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Team</a>
-                        <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Contact</a>
-                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
+                        <a href="#home" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Home</a>
+                        <a href="#strategy" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Strategy</a>
+                        <a href="#performance" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Performance</a>
+                        <a href="bio.html" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Team</a>
+                        <a href="#contact" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Contact</a>
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200">
                             Client Login
                         </a>
                     </div>
                     
                     <!-- Mobile Menu Button --><div class="md:hidden flex items-center">
-                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500" aria-expanded="false">
                             <span class="sr-only">Open main menu</span>
                             <!-- Hamburger icon --><svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -148,12 +138,12 @@
                 </div>
                 
                 <!-- Mobile Menu (Hidden by default) --><div id="mobile-menu" class="hidden md:hidden pb-4">
-                    <a href="#home" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Home</a>
-                    <a href="#strategy" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Strategy</a>
-                    <a href="#performance" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Performance</a>
-                    <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Team</a>
-                    <a href="#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Contact</a>
-                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-left mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
+                    <a href="#home" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+                    <a href="#strategy" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Strategy</a>
+                    <a href="#performance" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Performance</a>
+                    <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Team</a>
+                    <a href="#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact</a>
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-left mt-2 px-4 py-2 border border-gray-600 text-base font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200">
                         Client Login
                     </a>
                 </div>
@@ -162,119 +152,119 @@
 
         <!-- Main Content --><main>
 
-            <!-- Hero Section --><section id="home" class="relative hero-min-height flex items-center justify-center text-center" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
+            <!-- Hero Section --><section id="home" class="relative hero-min-height flex items-center justify-center text-center bg-black">
                 <!-- Background Ticker Stream --><div id="ticker-stream-container">
                     <!-- Tickers will be dynamically injected here --></div>
-
+                
                 <!-- Hero Content --><div class="relative z-10 p-4 text-white">
                     <!-- Logo -->
-                    <img src="https://anthemcm.com/images/image2.png"
-                         alt="Anthem Capital Management Logo"
-                         class="h-8 w-auto mx-auto mb-6 opacity-90"
-                         onerror="this.src='https://placehold.co/160x40/1e3a8a/white?text=ANTHEM+CM'; this.onerror=null;">
+                    <img src="https://anthemcm.com/images/image2.png" 
+                         alt="Anthem Capital Management Logo" 
+                         class="h-8 w-auto mx-auto mb-6 opacity-75"
+                         onerror="this.src='https://placehold.co/160x40/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
 
                     <!-- Headline -->
                     <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4">
                         Quantitative Global Macro
                     </h1>
-                    <p class="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
+                    <p class="text-lg sm:text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto mb-8">
                         Systematic strategies capturing opportunities across global markets.
                     </p>
-                    <a href="#strategy" class="inline-flex items-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200 shadow-lg transform hover:scale-105" style="background-color: var(--accent-gold);">
+                    <a href="#strategy" class="inline-flex items-center px-6 py-3 border border-gray-500 text-base font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200 shadow-lg transform hover:scale-105">
                         Our Strategy
                     </a>
                 </div>
             </section>
 
-            <!-- Strategy Section --><section id="strategy" class="relative py-24 overflow-hidden" style="background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);">
-                <!-- Network Pattern Canvas (background) -->
+            <!-- Strategy Section --><section id="strategy" class="relative py-24 bg-gray-900 overflow-hidden">
+                <!-- Physics Simulation Canvas (background) -->
                 <canvas id="physics-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
-
+                
                 <!-- Text Content (foreground) -->
                 <div class="relative z-10 container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-                    <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Quantitative Global Macro</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                    <span class="text-sm font-medium text-gray-400 uppercase tracking-wide">Quantitative Global Macro</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mt-2 mb-4">
                         Systematic Approach to Global Markets
                     </h2>
-                    <p class="text-base text-gray-700 mb-6">
+                    <p class="text-base text-gray-300 mb-6">
                         Global macro has made a strong comeback as rising interest rates and economic volatility have created long/short opportunities not seen in decades. We apply rigorous quantitative methods to capitalize on these macro trends across currencies, rates, equities, and commodities.
                     </p>
                     <div class="grid md:grid-cols-2 gap-8 text-left mb-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Data-Driven Research</h3>
-                            <p class="text-sm text-gray-600">
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-3">Data-Driven Research</h3>
+                            <p class="text-sm text-gray-300">
                                 Our strategies are built on systematic research, leveraging statistical analysis and machine learning to identify persistent market inefficiencies and macro signals.
                             </p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Risk Management</h3>
-                            <p class="text-sm text-gray-600">
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-3">Risk Management</h3>
+                            <p class="text-sm text-gray-300">
                                 We employ sophisticated risk models and position sizing algorithms to manage drawdowns while capturing upside, utilizing the same quantitative principles employed at major hedge funds.
                             </p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Portfolio Construction</h3>
-                            <p class="text-sm text-gray-600">
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-3">Portfolio Construction</h3>
+                            <p class="text-sm text-gray-300">
                                 Diversified across multiple uncorrelated strategies and asset classes, our portfolio is designed to deliver consistent returns through varying market regimes.
                             </p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
-                            <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Execution Excellence</h3>
-                            <p class="text-sm text-gray-600">
-                                Our proprietary technology platform enables sophisticated trade execution with real-time monitoring across all positions. Advanced infrastructure minimizes market impact and slippage while maintaining comprehensive oversight.
+                        <div>
+                            <h3 class="text-lg font-bold text-white mb-3">Execution Excellence</h3>
+                            <p class="text-sm text-gray-300">
+                                Proprietary technology and automated execution systems minimize market impact and slippage, powered by our custom-built data science toolkit with real-time market monitoring.
                             </p>
                         </div>
                     </div>
                 </div>
             </section>
             
-            <!-- Tenets Section --><section id="tenets" class="py-16 bg-white">
+            <!-- Tenets Section --><section id="tenets" class="py-16 bg-black">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Our Tenets</span>
-                        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wide">Our Tenets</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mt-2 mb-4">
                             Core Principles
                         </h2>
-                        <p class="text-base text-gray-600 mb-8">
+                        <p class="text-base text-gray-300 mb-8">
                             Our fund is built on three core principles that guide every decision.
                         </p>
                     </div>
-
+                    
                     <div class="grid md:grid-cols-3 gap-6">
-                        <!-- Tenet Card 1: Growth --><div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-lg shadow-md border border-blue-100 transform hover:shadow-lg transition-all duration-300">
+                        <!-- Tenet Card 1: Growth --><div class="bg-gray-900 p-6 rounded-lg shadow-lg transform hover:bg-gray-800 transition-colors duration-300">
                             <div class="flex-shrink-0">
-                                <!-- Heroicon: Arrow Trending Up --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <!-- Heroicon: Arrow Trending Up --><svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.5 4.5 6.75-6.75" />
                                   <path stroke-linecap="round" stroke-linejoin="round" d="m17.25 4.5 4.5 4.5m-4.5-4.5v4.5m0-4.5h-4.5" />
                                 </svg>
                             </div>
-                            <h3 class="text-xl font-bold mt-5 mb-3" style="color: var(--primary-blue);">Growth</h3>
-                            <p class="text-base text-gray-600">
+                            <h3 class="text-xl font-bold text-gray-100 mt-5 mb-3">Growth</h3>
+                            <p class="text-base text-gray-300">
                                 Building a sustainable, scalable, and resilient fund with a focus on continuous improvement and innovation.
                             </p>
                         </div>
-
-                        <!-- Tenet Card 2: Performance --><div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-lg shadow-md border border-blue-100 transform hover:shadow-lg transition-all duration-300">
+                        
+                        <!-- Tenet Card 2: Performance --><div class="bg-gray-900 p-6 rounded-lg shadow-lg transform hover:bg-gray-800 transition-colors duration-300">
                             <div class="flex-shrink-0">
-                                <!-- Heroicon: Chart Bar --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <!-- Heroicon: Chart Bar --><svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0h10a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2z" />
                                 </svg>
                             </div>
-                            <h3 class="text-xl font-bold mt-5 mb-3" style="color: var(--primary-blue);">Performance</h3>
-                            <p class="text-base text-gray-600">
+                            <h3 class="text-xl font-bold text-gray-100 mt-5 mb-3">Performance</h3>
+                            <p class="text-base text-gray-300">
                                 Delivering consistent, high-quality returns through disciplined investment strategies and market insights.
                             </p>
                         </div>
-
-                        <!-- Tenet Card 3: Doing Right --><div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-lg shadow-md border border-blue-100 transform hover:shadow-lg transition-all duration-300">
+                        
+                        <!-- Tenet Card 3: Doing Right --><div class="bg-gray-900 p-6 rounded-lg shadow-lg transform hover:bg-gray-800 transition-colors duration-300">
                             <div class="flex-shrink-0">
-                                <!-- Heroicon: Handshake (Custom) --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+                                <!-- Heroicon: Handshake (Custom) --><svg class="h-10 w-10 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v-1.5a3 3 0 0 1 3-3h1.5m6.354 3H18a3 3 0 0 0 3-3V8.25a3 3 0 0 0-3-3h-1.5a3 3 0 0 0-3 3v.75m-6.354 6H9a3 3 0 0 1 3 3v1.5m-6.354 0a3.001 3.001 0 0 0 3.75 2.635m2.604-2.635a3.001 3.001 0 0 1 3.75 2.635m-6.354 0H9" />
                                   <path stroke-linecap="round" stroke-linejoin="round" d="m15 12-3-3m0 0-3 3m3-3v11.25" />
                                 </svg>
                             </div>
-                            <h3 class="text-xl font-bold mt-5 mb-3" style="color: var(--primary-blue);">Doing Right By Our Partners</h3>
-                            <p class="text-base text-gray-600">
+                            <h3 class="text-xl font-bold text-gray-100 mt-5 mb-3">Doing Right By Our Partners</h3>
+                            <p class="text-base text-gray-300">
                                 We prioritize transparency, alignment of interests, and ethical practices to ensure investor trust and satisfaction.
                             </p>
                         </div>
@@ -282,225 +272,190 @@
                 </div>
             </section>
             
-            <!-- Performance Section --><section id="performance" class="py-16 relative" style="background-color: var(--light-bg);">
-                <!-- Qualification Overlay -->
-                <div id="performance-gate" class="absolute inset-0 z-50 flex items-center justify-center" style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.8);">
-                    <div class="bg-white rounded-lg shadow-2xl max-w-2xl mx-4 p-8 border-2 border-blue-200">
-                        <h3 class="text-2xl font-bold mb-4" style="color: var(--primary-blue);">Accredited Investor Verification</h3>
-                        <div class="text-sm text-gray-700 space-y-3 mb-6">
-                            <p>The performance information on this page is only available to accredited investors and qualified purchasers.</p>
-
-                            <p class="font-semibold">By clicking "I Qualify" below, you represent and warrant that you are:</p>
-
-                            <ul class="list-disc ml-6 space-y-2">
-                                <li>An "accredited investor" as defined in Rule 501(a) of Regulation D under the Securities Act of 1933, as amended; OR</li>
-                                <li>A "qualified purchaser" as defined in Section 2(a)(51) of the Investment Company Act of 1940, as amended; OR</li>
-                                <li>A qualified institutional buyer or other person to whom this information may lawfully be provided.</li>
-                            </ul>
-
-                            <p class="text-xs text-gray-600 mt-4 pt-4 border-t border-gray-200">
-                                The information contained herein is confidential and may not be reproduced or redistributed. This is not an offer to sell or a solicitation of an offer to purchase any securities. Past performance is not indicative of future results.
-                            </p>
-                        </div>
-
-                        <div class="flex gap-4">
-                            <button id="qualify-accept" class="flex-1 px-6 py-3 font-semibold rounded-md text-white transition-colors" style="background-color: var(--primary-blue);" onmouseover="this.style.backgroundColor='#1e40af'" onmouseout="this.style.backgroundColor='var(--primary-blue)'">
-                                I Qualify
-                            </button>
-                            <button id="qualify-decline" class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-100 transition-colors">
-                                I Do Not Qualify
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
+            <!-- Performance Section --><section id="performance" class="py-16 bg-black">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto mb-12">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Performance</span>
-                        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wide">Performance</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mt-2 mb-4">
                             Track Record
                         </h2>
-                        <p class="text-base text-gray-600">
+                        <p class="text-base text-gray-300">
                             Anthem Maverick Fund LP since inception. Past performance does not guarantee future results.
                         </p>
                     </div>
 
                     <!-- Key Metrics -->
                     <div class="grid md:grid-cols-3 gap-6 mb-12">
-                        <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
-                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">37.7%*</div>
-                            <div class="text-sm text-gray-600">Total Return Since Inception</div>
+                        <div class="bg-gray-900 p-6 rounded-lg text-center">
+                            <div class="text-4xl font-bold text-white mb-2">37.7%*</div>
+                            <div class="text-sm text-gray-400">Total Return Since Inception</div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
-                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">18.9%</div>
-                            <div class="text-sm text-gray-600">2025 Return</div>
+                        <div class="bg-gray-900 p-6 rounded-lg text-center">
+                            <div class="text-4xl font-bold text-white mb-2">18.9%</div>
+                            <div class="text-sm text-gray-400">2025 Return</div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
-                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">0.38</div>
-                            <div class="text-sm text-gray-600">Correlation to S&P 500</div>
+                        <div class="bg-gray-900 p-6 rounded-lg text-center">
+                            <div class="text-4xl font-bold text-white mb-2">0.38</div>
+                            <div class="text-sm text-gray-400">Correlation to S&P 500</div>
                         </div>
                     </div>
 
                     <!-- Monthly Returns Table -->
-                    <div class="bg-white rounded-lg p-6 overflow-x-auto shadow-md border border-blue-100">
-                        <h3 class="text-2xl font-bold mb-6" style="color: var(--primary-blue);">Monthly Returns (%)</h3>
+                    <div class="bg-gray-900 rounded-lg p-6 overflow-x-auto">
+                        <h3 class="text-2xl font-bold text-white mb-6">Monthly Returns (%)</h3>
                         <table class="w-full text-sm">
                             <thead>
-                                <tr class="border-b border-blue-200">
-                                    <th class="text-left py-3 px-2 font-semibold text-gray-600">Year</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Jan</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Feb</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Mar</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Apr</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">May</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Jun</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Jul</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Aug</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Sep</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Oct</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Nov</th>
-                                    <th class="text-right py-3 px-2 font-semibold text-gray-600">Dec</th>
-                                    <th class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">YTD</th>
+                                <tr class="border-b border-gray-700">
+                                    <th class="text-left py-3 px-2 font-medium text-gray-400">Year</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Jan</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Feb</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Mar</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Apr</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">May</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Jun</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Jul</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Aug</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Sep</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Oct</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Nov</th>
+                                    <th class="text-right py-3 px-2 font-medium text-gray-400">Dec</th>
+                                    <th class="text-right py-3 px-2 font-bold text-white">YTD</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="border-b border-gray-200">
-                                    <td class="py-3 px-2 font-semibold" style="color: var(--primary-blue);">2025</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">9.1</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">3.7</td>
-                                    <td class="text-right py-3 px-2 text-red-500">-7.9</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">5.0</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">0.2</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">2.0</td>
-                                    <td class="text-right py-3 px-2 text-red-500">-2.7</td>
-                                    <td class="text-right py-3 px-2 text-red-500">-2.7</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">0.8</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">4.6</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">2.1</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">4.5</td>
-                                    <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">18.9</td>
+                                <tr class="border-b border-gray-800">
+                                    <td class="py-3 px-2 font-medium text-white">2025</td>
+                                    <td class="text-right py-3 px-2">9.1</td>
+                                    <td class="text-right py-3 px-2">3.7</td>
+                                    <td class="text-right py-3 px-2 text-red-400">-7.9</td>
+                                    <td class="text-right py-3 px-2">5.0</td>
+                                    <td class="text-right py-3 px-2">0.2</td>
+                                    <td class="text-right py-3 px-2">2.0</td>
+                                    <td class="text-right py-3 px-2 text-red-400">-2.7</td>
+                                    <td class="text-right py-3 px-2 text-red-400">-2.7</td>
+                                    <td class="text-right py-3 px-2">0.8</td>
+                                    <td class="text-right py-3 px-2">4.6</td>
+                                    <td class="text-right py-3 px-2">2.1</td>
+                                    <td class="text-right py-3 px-2">4.5</td>
+                                    <td class="text-right py-3 px-2 font-bold text-white">18.9</td>
                                 </tr>
-                                <tr class="border-b border-gray-200">
-                                    <td class="py-3 px-2 font-semibold" style="color: var(--primary-blue);">2024</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">15*</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">12*</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">3*</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">3*</td>
-                                    <td class="text-right py-3 px-2 text-red-500">-2.2</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">5.4</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">3.3</td>
-                                    <td class="text-right py-3 px-2 text-red-500">-2.2</td>
-                                    <td class="text-right py-3 px-2 text-red-500">-1.7</td>
-                                    <td class="text-right py-3 px-2 text-red-500">-2.0</td>
-                                    <td class="text-right py-3 px-2 text-gray-700">1.0</td>
-                                    <td class="text-right py-3 px-2 text-red-500">-9.3</td>
-                                    <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">18.8*</td>
+                                <tr class="border-b border-gray-800">
+                                    <td class="py-3 px-2 font-medium text-white">2024</td>
+                                    <td class="text-right py-3 px-2">15*</td>
+                                    <td class="text-right py-3 px-2">12*</td>
+                                    <td class="text-right py-3 px-2">3*</td>
+                                    <td class="text-right py-3 px-2">3*</td>
+                                    <td class="text-right py-3 px-2 text-red-400">-2.2</td>
+                                    <td class="text-right py-3 px-2">5.4</td>
+                                    <td class="text-right py-3 px-2">3.3</td>
+                                    <td class="text-right py-3 px-2 text-red-400">-2.2</td>
+                                    <td class="text-right py-3 px-2 text-red-400">-1.7</td>
+                                    <td class="text-right py-3 px-2 text-red-400">-2.0</td>
+                                    <td class="text-right py-3 px-2">1.0</td>
+                                    <td class="text-right py-3 px-2 text-red-400">-9.3</td>
+                                    <td class="text-right py-3 px-2 font-bold text-white">18.8*</td>
                                 </tr>
                             </tbody>
                         </table>
-                        <div class="text-xs text-gray-500 mt-6 space-y-2">
+                        <div class="text-xs text-gray-400 mt-6 space-y-2">
                             <p>* Represents seed fund performance. Past performance does not guarantee future results. Individual results may vary.</p>
-                            <p>Returns shown are gross returns. Net returns are subject to incentive fees and management fees which vary by share class in the fund.</p>
                         </div>
                     </div>
 
                     <!-- Annualized Returns Comparison -->
-                    <div class="bg-white rounded-lg p-6 mt-8 shadow-md border border-blue-100">
-                        <h3 class="text-2xl font-bold mb-6" style="color: var(--primary-blue);">Annualized Returns</h3>
+                    <div class="bg-gray-900 rounded-lg p-6 mt-8">
+                        <h3 class="text-2xl font-bold text-white mb-6">Annualized Returns</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
-                                    <tr class="border-b border-blue-200">
-                                        <th class="text-left py-3 px-2 font-semibold text-gray-600">Period</th>
-                                        <th class="text-right py-3 px-2 font-semibold" style="color: var(--primary-blue);">Anthem</th>
-                                        <th class="text-right py-3 px-2 font-semibold text-gray-600">Hedge Funds*</th>
-                                        <th class="text-right py-3 px-2 font-semibold text-gray-600">S&P 500</th>
+                                    <tr class="border-b border-gray-700">
+                                        <th class="text-left py-3 px-2 font-medium text-gray-400">Period</th>
+                                        <th class="text-right py-3 px-2 font-medium text-white">Anthem</th>
+                                        <th class="text-right py-3 px-2 font-medium text-gray-400">Hedge Funds</th>
+                                        <th class="text-right py-3 px-2 font-medium text-gray-400">S&P 500</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr class="border-b border-gray-200">
-                                        <td class="py-3 px-2 text-gray-700">1-Yr</td>
-                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">18.90%</td>
-                                        <td class="text-right py-3 px-2 text-gray-600">8.65%</td>
-                                        <td class="text-right py-3 px-2 text-gray-600">16.39%</td>
+                                    <tr class="border-b border-gray-800">
+                                        <td class="py-3 px-2 text-gray-300">1-Yr</td>
+                                        <td class="text-right py-3 px-2 font-bold text-white">18.90%</td>
+                                        <td class="text-right py-3 px-2 text-gray-400">8.65%</td>
+                                        <td class="text-right py-3 px-2 text-gray-400">16.39%</td>
                                     </tr>
-                                    <tr class="border-b border-gray-200">
-                                        <td class="py-3 px-2 text-gray-700">Since Inception*</td>
-                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">37.7%</td>
-                                        <td class="text-right py-3 px-2 text-gray-600">16.25%</td>
-                                        <td class="text-right py-3 px-2 text-gray-600">32.96%</td>
+                                    <tr class="border-b border-gray-800">
+                                        <td class="py-3 px-2 text-gray-300">Since Inception*</td>
+                                        <td class="text-right py-3 px-2 font-bold text-white">37.7%</td>
+                                        <td class="text-right py-3 px-2 text-gray-400">16.25%</td>
+                                        <td class="text-right py-3 px-2 text-gray-400">32.96%</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <p class="text-xs text-gray-500 mt-4">
-                            * Hedge Funds performance represents the HFRX Global Hedge Fund Index.
-                        </p>
                     </div>
                 </div>
             </section>
 
-            <!-- Why Choose Us Section --><section id="insights" class="py-16 bg-white">
+            <!-- Why Choose Us Section --><section id="insights" class="py-16 bg-gray-900">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Why Anthem Capital</span>
-                        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wide">Why Anthem Capital</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-100 mt-2 mb-4">
                             Institutional Edge, Focused Execution
                         </h2>
-                        <p class="text-base text-gray-600 mb-8">
+                        <p class="text-base text-gray-300 mb-8">
                             We bring institutional-grade quantitative methods to global macro investing. Our proprietary technology infrastructure, built from over a decade of research, enables us to design, backtest, and execute strategies with precision while maintaining real-time market monitoring and risk management.
                         </p>
-                        <a href="bio.html" class="inline-flex items-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
+                        <a href="bio.html" class="inline-flex items-center px-6 py-3 border border-gray-500 text-base font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200">
                             Meet Our Team
                         </a>
                     </div>
                 </div>
             </section>
 
-            <!-- Contact and Newsletter Section --><section id="contact" class="py-16" style="background-color: var(--light-bg);">
+            <!-- Signup and Contact Section --><section id="contact" class="py-16 bg-black">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="grid md:grid-cols-2 gap-12 items-start">
-
+                        
                         <!-- Left: Sign Up -->
                         <div class="text-left">
-                            <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--primary-blue);">
-                                Sign Up for Updates
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
+                                Sign Up for Future Updates
                             </h2>
-                            <p class="text-base text-gray-600 mb-8">
-                                Stay informed about our latest insights, market commentary, and fund updates.
+                            <p class="text-base text-gray-300 mb-8">
+                                Be the first to know about our fund's progress, new insights, and exclusive opportunities.
                             </p>
-
+                            
                             <form id="signup-form" action="https://formspree.io/f/xkgnawra" method="POST">
                                 <div class="flex flex-col sm:flex-row gap-4">
                                     <label for="email-address" class="sr-only">Email address</label>
-                                    <input type="email" name="email" id="email-address" autocomplete="email" required class="flex-grow px-4 py-3 rounded-md bg-white border border-gray-300 text-gray-900 focus:ring-blue-500 focus:border-blue-500 text-sm" placeholder="Enter your email">
-                                    <button type="submit" class="flex-shrink-0 inline-flex justify-center items-center px-6 py-3 rounded-md shadow-sm text-base font-semibold text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 transition-all duration-200" style="background-color: var(--accent-gold);">
+                                    <input type="email" name="email" id="email-address" autocomplete="email" required class="flex-grow px-4 py-3 rounded-md bg-gray-800 border-gray-700 text-white focus:ring-gray-500 focus:border-gray-500 text-sm" placeholder="Enter your email">
+                                    <button type="submit" class="flex-shrink-0 inline-flex justify-center items-center px-6 py-3 border border-gray-600 rounded-md shadow-sm text-base font-medium text-gray-200 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-900 focus:ring-gray-500 transition-colors duration-200">
                                         Subscribe
                                     </button>
                                 </div>
                             </form>
-                            <div id="signup-success" class="hidden mt-4 text-green-600">
+                            <div id="signup-success" class="hidden mt-4 text-green-400">
                                 Thank you for subscribing!
                             </div>
-                            <div id="signup-error" class="hidden mt-4 text-red-600">
+                            <div id="signup-error" class="hidden mt-4 text-red-400">
                                 Oops! Something went wrong. Please try again.
                             </div>
                         </div>
 
                         <!-- Right: Contact -->
                         <div class="text-left md:pl-12">
-                            <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--primary-blue);">
+                            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
                                 Contact Us
                             </h2>
-                            <div class="text-base text-gray-600 space-y-4">
+                            <div class="text-base text-gray-300 space-y-4">
                                 <p>
-                                    <strong class="text-gray-800">Anthem Capital Management, LLC</strong><br>
+                                    <strong>Anthem Capital Management, LLC</strong><br>
                                     4000 Hollywood Blvd. Hills #555<br>
                                     South Hollywood, FL 33021
                                 </p>
                                 <p>
-                                    <strong class="text-gray-800">For inquiries:</strong><br>
-                                    <a href="mailto:steven@anthemcm.com" class="hover:opacity-80 transition-opacity" style="color: var(--secondary-blue);">steven@anthemcm.com</a>
+                                    <strong>For inquiries:</strong><br>
+                                    <a href="mailto:steven@anthemcm.com" class="text-gray-300 hover:text-white underline">steven@anthemcm.com</a>
                                 </p>
                             </div>
                         </div>
@@ -508,29 +463,28 @@
                     </div>
                 </div>
             </section>
-
         </main>
         
-        <!-- Footer --><footer class="border-t border-gray-300" style="background-color: var(--primary-blue);">
+        <!-- Footer --><footer class="bg-gray-900 border-t border-gray-800">
             <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <!-- Logo and Copyright --><div class="text-center md:text-left mb-4 md:mb-0">
                         <a href="#home" class="flex-shrink-0 flex items-center justify-center md:justify-start">
-                             <img src="https://anthemcm.com/images/image2.png"
-                                 alt="Anthem Capital Management Logo"
-                                 class="h-10 w-auto brightness-0 invert"
-                                 onerror="this.src='https://placehold.co/200x50/1e3a8a/white?text=ANTHEM+CM'; this.onerror=null;">
+                             <img src="https://anthemcm.com/images/image2.png" 
+                                 alt="Anthem Capital Management Logo" 
+                                 class="h-10 w-auto"
+                                 onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
                         </a>
-                        <p class="mt-2 text-sm text-blue-200">
+                        <p class="mt-2 text-sm text-gray-400">
                             &copy; 2025 Anthem Capital Management LLC. All rights reserved.
                         </p>
                     </div>
-
+                    
                     <!-- Footer Navigation --><div class="flex space-x-6">
-                        <a href="#strategy" class="text-sm text-blue-200 hover:text-white transition-colors">Strategy</a>
-                        <a href="#performance" class="text-sm text-blue-200 hover:text-white transition-colors">Performance</a>
-                        <a href="bio.html" class="text-sm text-blue-200 hover:text-white transition-colors">Team</a>
-                        <a href="#contact" class="text-sm text-blue-200 hover:text-white transition-colors">Contact</a>
+                        <a href="#strategy" class="text-sm text-gray-400 hover:text-white transition-colors">Strategy</a>
+                        <a href="#performance" class="text-sm text-gray-400 hover:text-white transition-colors">Performance</a>
+                        <a href="bio.html" class="text-sm text-gray-400 hover:text-white transition-colors">Team</a>
+                        <a href="#contact" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a>
                     </div>
                 </div>
             </div>
@@ -560,38 +514,6 @@
                     initParticleScene();
                     hasParticleSceneInitialized = true;
                 }
-            });
-
-            // --- Performance Gate Logic ---
-            const performanceGate = document.getElementById('performance-gate');
-            const qualifyAccept = document.getElementById('qualify-accept');
-            const qualifyDecline = document.getElementById('qualify-decline');
-
-            // Check if user has already qualified in this session
-            if (sessionStorage.getItem('qualifiedInvestor') === 'true') {
-                performanceGate.style.display = 'none';
-            }
-
-            qualifyAccept.addEventListener('click', () => {
-                sessionStorage.setItem('qualifiedInvestor', 'true');
-                performanceGate.style.display = 'none';
-            });
-
-            qualifyDecline.addEventListener('click', () => {
-                alert('Performance information is only available to qualified investors. You will be redirected to the home page.');
-                window.location.href = '#home';
-            });
-
-            // Show gate when navigating to performance section
-            const performanceLinks = document.querySelectorAll('a[href="#performance"]');
-            performanceLinks.forEach(link => {
-                link.addEventListener('click', () => {
-                    if (sessionStorage.getItem('qualifiedInvestor') !== 'true') {
-                        setTimeout(() => {
-                            performanceGate.style.display = 'flex';
-                        }, 100);
-                    }
-                });
             });
 
             // --- Mobile Menu Logic ---
@@ -692,10 +614,10 @@
                 }
             }
 
-            // --- ✨ Network Particle Scene ---
+            // --- ✨ "Grainy" Particle Gravity Scene ---
 
             /**
-             * Particle Class - Network Node
+             * Particle Class
              */
             class Particle {
                 constructor(x, y, color) {
@@ -705,18 +627,16 @@
                     this.baseY = this.y; // Original Y
                     this.vx = 0; // Velocity X
                     this.vy = 0; // Velocity Y
-                    this.density = (Math.random() * 5) + 1;
+                    this.density = (Math.random() * 10) + 1; // MOD: Further reduced density range
                     this.color = color;
                     this.angle = Math.random() * Math.PI * 2; // Random angle for floating
-                    this.floatSpeed = 0.5 + Math.random() * 0.5; // Slow, variable float speed
-                    this.size = Math.random() * 2 + 1; // Node size
+                    this.floatSpeed = 1.35 + Math.random() // Slow, variable float speed
                 }
 
                 draw() {
-                    // Draw node
                     ctx.fillStyle = this.color;
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.arc(this.x, this.y, 1, 0, Math.PI * 2); // Draw 1px dots
                     ctx.closePath();
                     ctx.fill();
                 }
@@ -728,11 +648,11 @@
                     let dist = Math.sqrt(dx * dx + dy * dy);
                     let forceDirX = dx / dist;
                     let forceDirY = dy / dist;
-
+                    
                     // Max distance (radius of gravity)
                     let maxDist = mouse.radius;
                     let force = (maxDist - dist) / maxDist; // Force is stronger closer
-
+                    
                     // Calculate acceleration
                     let ax = 0;
                     let ay = 0;
@@ -744,22 +664,21 @@
                     }
 
                     // Add spring force to return to base
-                    ax += (this.baseX - this.x) * 0.02;
+                    ax += (this.baseX - this.x) * 0.02; // MOD: Reduced spring force
                     ay += (this.baseY - this.y) * 0.02;
 
                     // Add slow, ambient floating motion
-                    this.angle += 0.005;
-                    ax += Math.cos(this.angle) * this.floatSpeed * 0.05;
-                    ay += Math.sin(this.angle) * this.floatSpeed * 0.05;
+                    this.angle += 0.01;
+                    ay += Math.sin(this.angle) * this.floatSpeed * 0.1;
 
                     // Apply acceleration to velocity
                     this.vx += ax;
                     this.vy += ay;
-
+                    
                     // Apply friction (damping)
-                    this.vx *= 0.92;
-                    this.vy *= 0.92;
-
+                    this.vx *= 0.9; // MOD: Increased friction
+                    this.vy *= 0.9; // MOD: Increased friction
+                    
                     // Update position
                     this.x += this.vx;
                     this.y += this.vy;
@@ -822,10 +741,10 @@
 
                 particleCanvas.width = width;
                 particleCanvas.height = height;
-
+                
                 particles = []; // Clear old particles
-                const particleCount = 120; // Fewer particles for network nodes
-                const color = 'rgba(59, 130, 246, 0.6)'; // Blue nodes
+                const particleCount = 5000; // More particles for a "grainy" feel
+                const color = 'rgba(136, 136, 136, 0.25)'; // MOD: Increased opacity for better visibility
 
                 for (let i = 0; i < particleCount; i++) {
                     let x = Math.random() * width;
@@ -835,47 +754,18 @@
             }
 
             /**
-             * Draws connections between nearby particles
-             */
-            function connectParticles() {
-                const maxDistance = 150; // Max distance to draw connections
-                for (let i = 0; i < particles.length; i++) {
-                    for (let j = i + 1; j < particles.length; j++) {
-                        let dx = particles[i].x - particles[j].x;
-                        let dy = particles[i].y - particles[j].y;
-                        let dist = Math.sqrt(dx * dx + dy * dy);
-
-                        if (dist < maxDistance) {
-                            // Draw line with opacity based on distance
-                            let opacity = 1 - (dist / maxDistance);
-                            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.3})`; // Blue lines
-                            ctx.lineWidth = 0.5;
-                            ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
-                            ctx.stroke();
-                        }
-                    }
-                }
-            }
-
-            /**
              * Animation loop for the particle scene.
              */
             function animateParticles() {
                 if (!ctx || !particleCanvas) return;
-                // Clear canvas with transparency to allow parent bg-color to show
+                // MOD: ClearRect with transparency to allow parent bg-color to show
                 ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-
-                // Draw connections first (behind nodes)
-                connectParticles();
-
-                // Update and draw particles
+                
                 for (let i = 0; i < particles.length; i++) {
                     particles[i].update();
                     particles[i].draw();
                 }
-
+                
                 animationFrameId = requestAnimationFrame(animateParticles);
             }
 

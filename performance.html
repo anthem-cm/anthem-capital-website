@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance | Anthem Capital Management</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts - Roboto Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        .performance-table {
+            overflow-x: auto;
+        }
+
+        .performance-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .performance-table th,
+        .performance-table td {
+            padding: 12px;
+            text-align: right;
+            border-bottom: 1px solid #374151;
+        }
+
+        .performance-table th:first-child,
+        .performance-table td:first-child {
+            text-align: left;
+        }
+
+        .performance-table th {
+            background-color: #1f2937;
+            font-weight: 600;
+            position: sticky;
+            top: 0;
+        }
+
+        .positive {
+            color: #10b981;
+        }
+
+        .negative {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body class="bg-black text-gray-300 antialiased">
+
+    <!-- Disclosure Modal -->
+    <div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-gray-900 bg-opacity-90 backdrop-blur-sm"></div>
+
+        <!-- Logo -->
+        <img src="https://anthemcm.com/images/image2.png"
+             alt="Anthem Capital Management Logo"
+             class="relative z-10 w-full max-w-xl h-auto mb-4"
+             onerror="this.src='https://placehold.co/600x120/0a0a0a/gray?text=ANTHEM+CM'; this.onerror=null;">
+
+        <!-- Modal Content -->
+        <div class="relative z-10 w-full max-w-2xl bg-gray-800 text-gray-300 rounded-lg shadow-2xl flex flex-col" style="max-height: 80vh;">
+            <h2 class="text-xl font-bold text-white p-6 border-b border-gray-700">
+                Important Disclosures
+            </h2>
+
+            <!-- Scrollable Terms -->
+            <div class="flex-grow p-6 overflow-y-auto disclosure-scroll space-y-4 text-xs">
+                <p>This report is not an offer to sell or a solicitation of an offer to purchase any investment product.</p>
+                <p>The information contained in this presentation is intended for informational purposes only and is qualified in its entirety by the more detailed information contained in our Form ADV and in the Anthem Maverick Fund LP confidential offering memorandum (the "Offering Memorandum"). An investment in the Fund involves significant investment considerations and risks which are described in the Offering Memorandum. Nothing contained herein constitutes investment, financial, legal, tax or other advice nor is to be relied on in making an investment decision.</p>
+                <p>The information and opinions contained in this presentation are provided by Anthem Capital Management LLC for informational purposes only and are subject to change without notice. It is for your private information and provided for the exclusive use of the person who has been authorized to receive it. Anthem Capital is soliciting no action based upon it. The content of this presentation is based upon information that we consider reliable, but neither Anthem Capital Management nor any of its managers or employees represents that it is accurate or complete, and it should not be relied upon as such.</p>
+            </div>
+
+            <!-- Footer with Accept Button -->
+            <div class="p-6 border-t border-gray-700 bg-gray-800 rounded-b-lg">
+                <p class="text-xs text-gray-400 mb-4 text-center">Please scroll and read all disclosures before continuing.</p>
+                <button id="accept-button" class="w-full inline-flex justify-center items-center px-6 py-3 border border-gray-500 text-base font-medium rounded-md text-gray-200 hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-gray-500 transition-colors duration-200 shadow-sm">
+                    Accept and Enter Site
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Site Content (Hidden by default) -->
+    <div id="site-content" class="hidden">
+        <!-- Header & Navigation -->
+        <header class="bg-black border-b border-gray-800 sticky top-0 z-50 w-full">
+            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-18">
+                    <!-- Logo -->
+                    <a href="index.html" class="flex-shrink-0 flex items-center">
+                        <img src="https://anthemcm.com/images/image2.png"
+                             alt="Anthem Capital Management Logo"
+                             class="h-10 w-auto"
+                             onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
+                    </a>
+
+                    <!-- Desktop Navigation -->
+                    <div class="hidden md:flex md:items-center md:space-x-6">
+                        <a href="index.html" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Home</a>
+                        <a href="strategy.html" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Strategy</a>
+                        <a href="performance.html" class="text-white border-b-2 border-gray-500 transition-colors duration-200 font-medium text-sm">Performance</a>
+                        <a href="bio.html" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Team</a>
+                        <a href="contact.html" class="text-gray-300 hover:text-white transition-colors duration-200 font-medium text-sm">Contact</a>
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 border border-gray-600 text-sm font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200">
+                            Client Login
+                        </a>
+                    </div>
+
+                    <!-- Mobile Menu Button -->
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-gray-500" aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <!-- Hamburger icon -->
+                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                            <!-- Close icon (hidden by default) -->
+                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Mobile Menu (Hidden by default) -->
+                <div id="mobile-menu" class="hidden md:hidden pb-4">
+                    <a href="index.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Home</a>
+                    <a href="strategy.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Strategy</a>
+                    <a href="performance.html" class="block py-2 px-3 rounded-md text-base font-medium text-white bg-gray-800">Performance</a>
+                    <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Team</a>
+                    <a href="contact.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact</a>
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-left mt-2 px-4 py-2 border border-gray-600 text-base font-medium rounded-md text-gray-200 hover:bg-gray-800 transition-colors duration-200">
+                        Client Login
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Performance Section -->
+            <section class="py-24 bg-black">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="text-center max-w-3xl mx-auto mb-12">
+                        <span class="text-sm font-medium text-gray-400 uppercase tracking-wide">Fund Performance</span>
+                        <h1 class="text-4xl md:text-5xl font-bold text-gray-100 mt-2 mb-4">
+                            Performance Track Record
+                        </h1>
+                        <p class="text-base text-gray-300">
+                            Historical returns of the Anthem Maverick Fund LP. Past performance is not indicative of future results.
+                        </p>
+                    </div>
+
+                    <!-- Key Metrics -->
+                    <div class="grid md:grid-cols-4 gap-6 mb-12">
+                        <div class="bg-gray-900 p-6 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-white mb-2">--</div>
+                            <div class="text-sm text-gray-400">Annualized Return</div>
+                        </div>
+                        <div class="bg-gray-900 p-6 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-white mb-2">--</div>
+                            <div class="text-sm text-gray-400">Sharpe Ratio</div>
+                        </div>
+                        <div class="bg-gray-900 p-6 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-white mb-2">--</div>
+                            <div class="text-sm text-gray-400">Max Drawdown</div>
+                        </div>
+                        <div class="bg-gray-900 p-6 rounded-lg text-center">
+                            <div class="text-3xl font-bold text-white mb-2">--</div>
+                            <div class="text-sm text-gray-400">Volatility</div>
+                        </div>
+                    </div>
+
+                    <!-- Monthly Returns Table -->
+                    <div class="bg-gray-900 rounded-lg p-6 mb-8">
+                        <h2 class="text-2xl font-bold text-white mb-6">Monthly Returns (%)</h2>
+                        <div class="performance-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Year</th>
+                                        <th>Jan</th>
+                                        <th>Feb</th>
+                                        <th>Mar</th>
+                                        <th>Apr</th>
+                                        <th>May</th>
+                                        <th>Jun</th>
+                                        <th>Jul</th>
+                                        <th>Aug</th>
+                                        <th>Sep</th>
+                                        <th>Oct</th>
+                                        <th>Nov</th>
+                                        <th>Dec</th>
+                                        <th>YTD</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="font-medium text-white">2026</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td class="font-bold text-white">--</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="font-medium text-white">2025</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td>--</td>
+                                        <td class="font-bold text-white">--</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-4">
+                            * Net of all fees and expenses. Returns are presented on a monthly basis.
+                        </p>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="bg-gray-800 border border-gray-700 rounded-lg p-6">
+                        <h3 class="text-lg font-bold text-white mb-3">Important Disclaimers</h3>
+                        <div class="text-xs text-gray-400 space-y-2">
+                            <p>Past performance is not indicative of future results. Performance data represents the performance of the Anthem Maverick Fund LP and is net of all fees and expenses.</p>
+                            <p>The information presented is for informational purposes only and should not be construed as investment advice. Please refer to the fund's offering memorandum and Form ADV for complete details on fees, expenses, and risks.</p>
+                            <p>Returns are unaudited and subject to change. Performance calculations are based on month-end valuations.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="bg-gray-900 border-t border-gray-800">
+            <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <!-- Logo and Copyright -->
+                    <div class="text-center md:text-left mb-4 md:mb-0">
+                        <a href="index.html" class="flex-shrink-0 flex items-center justify-center md:justify-start">
+                             <img src="https://anthemcm.com/images/image2.png"
+                                 alt="Anthem Capital Management Logo"
+                                 class="h-10 w-auto"
+                                 onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
+                        </a>
+                        <p class="mt-2 text-sm text-gray-400">
+                            &copy; 2025 Anthem Capital Management LLC. All rights reserved.
+                        </p>
+                    </div>
+
+                    <!-- Footer Navigation -->
+                    <div class="flex space-x-6">
+                        <a href="strategy.html" class="text-sm text-gray-400 hover:text-white transition-colors">Strategy</a>
+                        <a href="performance.html" class="text-sm text-gray-400 hover:text-white transition-colors">Performance</a>
+                        <a href="bio.html" class="text-sm text-gray-400 hover:text-white transition-colors">Team</a>
+                        <a href="contact.html" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- JavaScript for Modal and Mobile Menu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('disclosure-modal');
+            const acceptButton = document.getElementById('accept-button');
+            const siteContent = document.getElementById('site-content');
+
+            // Disclosure Modal Logic
+            acceptButton.addEventListener('click', () => {
+                modal.classList.add('hidden');
+                siteContent.classList.remove('hidden');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Mobile Menu Logic
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = menuButton.querySelector('svg:first-child');
+            const closeIcon = menuButton.querySelector('svg:last-child');
+
+            menuButton.addEventListener('click', () => {
+                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                menuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
