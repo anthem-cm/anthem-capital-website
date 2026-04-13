@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gas Prices vs. Consumer Spending | Anthem Capital Research</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        :root {
+            --primary-blue: #1e3a8a;
+            --secondary-blue: #3b82f6;
+            --accent-gold: #d4af37;
+            --light-bg: #f8fafc;
+            --dark-blue: #0f172a;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+    <div id="site-content">
+        <header class="bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
+            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-18">
+                    <a href="index.html" class="flex-shrink-0 flex items-center">
+                        <img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-10 w-auto">
+                    </a>
+
+                    <div class="hidden md:flex md:items-center md:space-x-6">
+                        <a href="index.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Home</a>
+                        <a href="index.html#strategy" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Strategy</a>
+                        <a href="index.html#performance" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Performance</a>
+                        <a href="research.html" class="text-blue-600 border-b-2 border-blue-600 transition-colors duration-200 font-medium text-sm">Research</a>
+                        <a href="bio.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Team</a>
+                        <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Contact</a>
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">
+                            Client Login
+                        </a>
+                    </div>
+
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="mobile-menu" class="hidden md:hidden pb-4 bg-white">
+                    <a href="index.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Home</a>
+                    <a href="index.html#strategy" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Strategy</a>
+                    <a href="index.html#performance" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Performance</a>
+                    <a href="research.html" class="block py-2 px-3 rounded-md text-base font-medium text-blue-600 bg-blue-50">Research</a>
+                    <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Team</a>
+                    <a href="index.html#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Contact</a>
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-center mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">
+                        Client Login
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 58%, #3b82f6 100%);">
+                <div class="absolute inset-0 opacity-25" style="background-image: radial-gradient(circle at 18% 18%, rgba(212, 175, 55, 0.35), transparent 28%), radial-gradient(circle at 85% 10%, rgba(255, 255, 255, 0.2), transparent 22%);"></div>
+                <div class="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-24">
+                    <a href="research.html" class="inline-flex items-center text-sm font-semibold text-blue-100 hover:text-white transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                        </svg>
+                        Back to Research
+                    </a>
+                    <div class="max-w-4xl mt-6">
+                        <span class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">Featured Report</span>
+                        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mt-4">
+                            Gas Prices vs. Consumer Spending
+                        </h1>
+                        <p class="text-lg md:text-xl text-blue-100 mt-6 leading-relaxed">
+                            A themed Anthem research page built from the supplied dashboard. The analysis compares gasoline shocks with consumer sentiment and discretionary expenditure categories to test whether higher fuel costs function as a tax on the household wallet.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 bg-white">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-8 shadow-sm">
+                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Question</div>
+                            <h2 class="text-2xl font-bold mt-3 mb-3" style="color: var(--primary-blue);">Does gas inflation crowd out discretionary demand?</h2>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                The report tests whether rising fuel costs are followed by weaker consumer sentiment and slower spend in categories such as entertainment, dining, and apparel.
+                            </p>
+                        </div>
+                        <div class="rounded-2xl border border-blue-100 bg-white p-8 shadow-sm">
+                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Data</div>
+                            <h2 class="text-2xl font-bold mt-3 mb-3" style="color: var(--primary-blue);">EIA, UMich, and BLS</h2>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                The dashboard combines monthly gasoline prices, monthly Michigan consumer sentiment, and annual BLS consumer expenditure category changes.
+                            </p>
+                        </div>
+                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-8 shadow-sm">
+                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Use</div>
+                            <h2 class="text-2xl font-bold mt-3 mb-3" style="color: var(--primary-blue);">Interactive scenario work</h2>
+                            <p class="text-sm text-gray-600 leading-relaxed">
+                                Use the controls to change lag assumptions, move between scatter and time-series views, and inspect specific historical episodes.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="pb-20" style="background-color: var(--light-bg);">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="max-w-3xl pt-16 mb-10">
+                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Interactive Dashboard</span>
+                        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                            Explore the relationship directly
+                        </h2>
+                        <p class="text-base text-gray-600">
+                            The embedded dashboard preserves the original interactive logic while fitting the current Anthem site theme. Monthly views highlight timing and lag behavior; annual views focus on category sensitivity; episode views isolate notable shock years.
+                        </p>
+                    </div>
+
+                    <div id="research-dashboard-root">
+                        <div class="rounded-3xl border border-blue-100 bg-white p-8 shadow-sm text-sm text-gray-500">
+                            Loading dashboard...
+                        </div>
+                    </div>
+
+                    <div class="grid lg:grid-cols-2 gap-8 mt-10">
+                        <div class="rounded-3xl border border-blue-100 bg-white p-8 shadow-sm">
+                            <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">How to Read It</span>
+                            <ul class="mt-4 space-y-3 text-sm text-gray-600 leading-relaxed">
+                                <li>Scatter view tests direction and strength with an OLS fit and summary statistics.</li>
+                                <li>Time-series view shows how gasoline moves line up against sentiment or category performance through time.</li>
+                                <li>Episode view summarizes selected spike and relief periods for fast historical comparison.</li>
+                            </ul>
+                        </div>
+                        <div class="rounded-3xl border border-blue-100 bg-white p-8 shadow-sm">
+                            <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Sources and Framing</span>
+                            <ul class="mt-4 space-y-3 text-sm text-gray-600 leading-relaxed">
+                                <li>EIA monthly gasoline series anchors the price-shock side of the analysis.</li>
+                                <li>University of Michigan sentiment captures consumer reaction at monthly frequency.</li>
+                                <li>BLS consumer expenditure categories are used to compare discretionary and necessity buckets.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="border-t border-gray-300" style="background-color: #1e3a8a;">
+            <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-center md:text-left mb-4 md:mb-0">
+                        <a href="index.html" class="flex-shrink-0 flex items-center justify-center md:justify-start">
+                            <img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-10 w-auto brightness-0 invert">
+                        </a>
+                        <p class="mt-2 text-sm text-blue-200">
+                            &copy; 2025 Anthem Capital Management LLC. All rights reserved.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <a href="index.html#strategy" class="text-sm text-blue-200 hover:text-white transition-colors">Strategy</a>
+                        <a href="index.html#performance" class="text-sm text-blue-200 hover:text-white transition-colors">Performance</a>
+                        <a href="research.html" class="text-sm text-white transition-colors">Research</a>
+                        <a href="bio.html" class="text-sm text-blue-200 hover:text-white transition-colors">Team</a>
+                        <a href="index.html#contact" class="text-sm text-blue-200 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="scripts/research-gas-prices-vs-consumer-spending.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = menuButton.querySelector('svg:first-child');
+            const closeIcon = menuButton.querySelector('svg:last-child');
+
+            menuButton.addEventListener('click', () => {
+                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                menuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('hidden');
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
