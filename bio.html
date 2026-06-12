@@ -20,8 +20,8 @@
 
         /* CSS Variables matching main site */
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3b82f6;
+            --primary-blue: #172554;
+            --secondary-blue: #2563eb;
             --accent-gold: #d4af37;
             --light-gold: #f3e5ab;
             --dark-blue: #0f172a;
@@ -55,7 +55,7 @@
                 <div class="flex justify-between items-center h-18">
                     <!-- Logo -->
                     <a href="index.html" class="flex-shrink-0 flex items-center">
-                        <img src="https://anthemcm.com/images/image2.png"
+                        <img src="images/image2.png"
                              alt="Anthem Capital Management Logo"
                              class="h-10 w-auto"
                              onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
@@ -236,7 +236,7 @@
                     <!-- Logo and Copyright -->
                     <div class="text-center md:text-left mb-4 md:mb-0">
                         <a href="index.html" class="flex-shrink-0 flex items-center justify-center md:justify-start">
-                             <img src="https://anthemcm.com/images/image2.png"
+                             <img src="images/image2.png"
                                  alt="Anthem Capital Management Logo"
                                  class="h-10 w-auto brightness-0 invert"
                                  onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
@@ -259,20 +259,9 @@
         </footer>
     </div>
 
-    <!-- JavaScript for Modal and Mobile Menu -->
+    <!-- JavaScript for Mobile Menu -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('disclosure-modal');
-            const acceptButton = document.getElementById('accept-button');
-            const siteContent = document.getElementById('site-content');
-
-            // Disclosure Modal Logic
-            acceptButton.addEventListener('click', () => {
-                modal.classList.add('hidden');
-                siteContent.classList.remove('hidden');
-                document.body.style.overflow = 'auto';
-            });
-
             // Mobile Menu Logic
             const menuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');

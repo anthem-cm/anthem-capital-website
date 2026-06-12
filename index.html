@@ -18,11 +18,6 @@
             overflow: hidden; /* Hide main page scrollbar initially */
         }
         
-        /* Custom hero section minimum height */
-        .hero-min-height {
-            min-height: calc(100vh - 72px); /* Full viewport height minus header height (h-18) */
-        }
-
         /* Styles for the disclosure modal scrollbar */
         .disclosure-scroll::-webkit-scrollbar {
             width: 8px;
@@ -39,61 +34,60 @@
             background: #2563eb; /* Blue-600 */
         }
 
-        /* Styles for floating tickers */
-        #ticker-stream-container {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-            z-index: 0; /* Behind hero content */
-            pointer-events: none; /* Allow clicks to go through */
-        }
-        .ticker-item {
-            position: absolute;
-            color: rgba(255, 255, 255, 0.15); /* Light white with transparency */
-            white-space: nowrap;
-            /* --start-x, --start-y, --end-x set by JS */
-            animation: float-up linear infinite;
-        }
-
-        @keyframes float-up {
-            from {
-                /* Start below the viewport */
-                transform: translateY(var(--start-y)) translateX(var(--start-x));
-            }
-            to {
-                /* End 100vh above the viewport */
-                transform: translateY(-100vh) translateX(var(--end-x));
-            }
-        }
-
-        /* Style for the 3D canvas */
+        /* Strategy section physics field */
         #physics-canvas {
             display: block;
             width: 100%;
             height: 100%;
-            cursor: crosshair; /* Indicate interactivity */
+            cursor: crosshair;
+            opacity: 0.95;
+            pointer-events: none;
+        }
+
+        #strategy {
+            cursor: crosshair;
         }
 
         /* Custom color variables for blue and gold theme */
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3b82f6;
+            --primary-blue: #172554;
+            --secondary-blue: #2563eb;
             --accent-gold: #d4af37;
             --light-bg: #f8fafc;
             --dark-blue: #0f172a;
             --text-gray: #475569;
+            --ink: #111827;
+        }
+
+        .section-kicker {
+            color: var(--secondary-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .institutional-card {
+            border: 1px solid rgba(30, 58, 138, 0.12);
+            border-radius: 8px;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+        }
+
+        .hero-min-height {
+            min-height: calc(92vh - 72px);
         }
     </style>
 </head>
 <body class="bg-white text-gray-700 antialiased">
 
-    <!-- Disclosure Modal --><div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4"> <!-- MOD: Changed flex-col --><!-- Backdrop --><div class="absolute inset-0 bg-slate-900 bg-opacity-90 backdrop-blur-sm"></div>
+    <!-- Disclosure Modal --><div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4"><!-- Backdrop --><div class="absolute inset-0 bg-slate-900 bg-opacity-90 backdrop-blur-sm"></div>
         
-        <!-- Logo --><img src="https://anthemcm.com/images/image2.png" 
+        <!-- Logo --><img src="images/image2.png" 
              alt="Anthem Capital Management Logo" 
-             class="relative z-10 w-full max-w-xl h-auto mb-4" <!-- MOD: Added logo, max-w-xl is 'almost' max-w-2xl of the box -->onerror="this.src='https://placehold.co/600x120/0a0a0a/gray?text=ANTHEM+CM'; this.onerror=null;">
+             class="relative z-10 w-full max-w-xl h-auto mb-4"
+             onerror="this.src='https://placehold.co/600x120/0a0a0a/gray?text=ANTHEM+CM'; this.onerror=null;">
         
-        <!-- Modal Content --><div class="relative z-10 w-full max-w-2xl bg-white text-gray-700 rounded-lg shadow-2xl flex flex-col" style="max-height: 80vh;"> <!-- MOD: Reduced max-height for logo --><h2 class="text-xl font-bold text-slate-900 p-6 border-b border-gray-200">
+        <!-- Modal Content --><div class="relative z-10 w-full max-w-2xl bg-white text-gray-700 rounded-lg shadow-2xl flex flex-col" style="max-height: 80vh;"><h2 class="text-xl font-bold text-slate-900 p-6 border-b border-gray-200">
                 Important Disclosures
             </h2>
 
@@ -117,7 +111,7 @@
             <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-between items-center h-18">
                     <!-- Logo --><a href="#home" class="flex-shrink-0 flex items-center">
-                        <img src="https://anthemcm.com/images/image2.png" 
+                        <img src="images/image2.png" 
                              alt="Anthem Capital Management Logo" 
                              class="h-10 w-auto"
                              onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
@@ -164,37 +158,53 @@
 
         <!-- Main Content --><main>
 
-            <!-- Hero Section --><section id="home" class="relative hero-min-height flex items-center justify-center text-center" style="background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);">
-                <!-- Background Ticker Stream --><div id="ticker-stream-container">
-                    <!-- Tickers will be dynamically injected here --></div>
-
-                <!-- Hero Content --><div class="relative z-10 p-4 text-white">
+            <!-- Hero Section --><section id="home" class="relative hero-min-height flex items-center overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.78) 48%, rgba(15,23,42,0.42) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
+                <!-- Hero Content --><div class="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-white">
                     <!-- Logo -->
-                    <img src="https://anthemcm.com/images/image2.png"
+                    <img src="images/image2.png"
                          alt="Anthem Capital Management Logo"
-                         class="h-8 w-auto mx-auto mb-6 opacity-90"
+                         class="h-9 w-auto mb-8 opacity-95 brightness-0 invert"
                          onerror="this.src='https://placehold.co/160x40/1e3a8a/white?text=ANTHEM+CM'; this.onerror=null;">
 
-                    <!-- Headline -->
-                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight mb-4">
+                    <span class="section-kicker" style="color: #f5d56f;">Systematic Global Macro</span>
+                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mt-4 mb-6 max-w-4xl leading-tight">
                         Quantitative Global Macro
                     </h1>
-                    <p class="text-lg sm:text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-8">
-                        Systematic strategies capturing opportunities across global markets.
+                    <p class="text-lg sm:text-xl md:text-2xl text-slate-200 max-w-3xl mb-10 leading-relaxed">
+                        Systematic strategies designed to identify, size, and manage macro opportunities across global markets.
                     </p>
-                    <a href="#strategy" class="inline-flex items-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200 shadow-lg transform hover:scale-105" style="background-color: var(--accent-gold);">
-                        Our Strategy
-                    </a>
+                    <div class="flex flex-col sm:flex-row gap-4 mb-14">
+                        <a href="#strategy" class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200 shadow-lg" style="background-color: var(--accent-gold);">
+                            Our Strategy
+                        </a>
+                        <a href="research.html" class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-md text-white border border-white/30 hover:bg-white/10 transition-all duration-200">
+                            Research Library
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
+                        <div class="border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                            <div class="text-sm font-bold uppercase tracking-[0.16em] text-white">Systematic Signals</div>
+                            <div class="text-xs uppercase tracking-wide text-slate-300 mt-2">Rules-based macro research</div>
+                        </div>
+                        <div class="border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                            <div class="text-sm font-bold uppercase tracking-[0.16em] text-white">Risk-Led Sizing</div>
+                            <div class="text-xs uppercase tracking-wide text-slate-300 mt-2">Disciplined exposure control</div>
+                        </div>
+                        <div class="border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                            <div class="text-sm font-bold uppercase tracking-[0.16em] text-white">Global Markets</div>
+                            <div class="text-xs uppercase tracking-wide text-slate-300 mt-2">Rates, FX, equities, commodities</div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Strategy Section --><section id="strategy" class="relative py-24 overflow-hidden" style="background: linear-gradient(to bottom, #ffffff 0%, #f8fafc 100%);">
+            <!-- Strategy Section --><section id="strategy" class="relative py-24 overflow-hidden" style="background: radial-gradient(circle at 18% 24%, rgba(37,99,235,0.12), transparent 28%), radial-gradient(circle at 78% 18%, rgba(212,175,55,0.13), transparent 22%), linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eef4ff 100%);">
                 <!-- Network Pattern Canvas (background) -->
                 <canvas id="physics-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
 
                 <!-- Text Content (foreground) -->
                 <div class="relative z-10 container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-                    <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Quantitative Global Macro</span>
+                    <span class="section-kicker">Quantitative Global Macro</span>
                     <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
                         Systematic Approach to Global Markets
                     </h2>
@@ -202,25 +212,25 @@
                         Global macro has made a strong comeback as rising interest rates and economic volatility have created long/short opportunities not seen in decades. We apply rigorous quantitative methods to capitalize on these macro trends across currencies, rates, equities, and commodities.
                     </p>
                     <div class="grid md:grid-cols-2 gap-8 text-left mb-8">
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <div class="bg-white p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Data-Driven Research</h3>
                             <p class="text-sm text-gray-600">
                                 Our strategies are built on systematic research, leveraging statistical analysis and machine learning to identify persistent market inefficiencies and macro signals.
                             </p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <div class="bg-white p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Risk Management</h3>
                             <p class="text-sm text-gray-600">
                                 We employ sophisticated risk models and position sizing algorithms to manage drawdowns while capturing upside, utilizing the same quantitative principles employed at major hedge funds.
                             </p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <div class="bg-white p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Portfolio Construction</h3>
                             <p class="text-sm text-gray-600">
                                 Diversified across multiple uncorrelated strategies and asset classes, our portfolio is designed to deliver consistent returns through varying market regimes.
                             </p>
                         </div>
-                        <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200">
+                        <div class="bg-white p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Execution Excellence</h3>
                             <p class="text-sm text-gray-600">
                                 Our proprietary technology platform enables sophisticated trade execution with real-time monitoring across all positions. Advanced infrastructure minimizes market impact and slippage while maintaining comprehensive oversight.
@@ -230,15 +240,15 @@
                 </div>
             </section>
             
-            <!-- AI & Technology Section --><section id="ai-technology" class="py-24 bg-gradient-to-b from-blue-50 to-white">
+            <!-- Research Infrastructure Section --><section id="ai-technology" class="py-24 bg-gradient-to-b from-slate-50 to-white">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto mb-16">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">AI-Powered Intelligence</span>
+                        <span class="section-kicker">Research Infrastructure</span>
                         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
-                            Exponential Productivity Through AI
+                            Systematic research at production speed
                         </h2>
                         <p class="text-base text-gray-700">
-                            We've trained proprietary local AI models on over a decade of trading data and our proven market methodology. These AI agents continuously analyze global markets, identifying patterns across asset classes.
+                            Anthem combines proprietary research tooling, market data workflows, and disciplined review processes to move from hypothesis to monitored strategy with speed and control.
                         </p>
                     </div>
 
@@ -363,7 +373,7 @@
             <!-- Tenets Section --><section id="tenets" class="py-16 bg-white">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Our Tenets</span>
+                        <span class="section-kicker">Our Tenets</span>
                         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
                             Core Principles
                         </h2>
@@ -373,7 +383,7 @@
                     </div>
 
                     <div class="grid md:grid-cols-3 gap-6">
-                        <!-- Tenet Card 1: Growth --><div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-lg shadow-md border border-blue-100 transform hover:shadow-lg transition-all duration-300">
+                        <!-- Tenet Card 1: Growth --><div class="bg-white p-6 institutional-card">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon: Arrow Trending Up --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.5 4.5 6.75-6.75" />
@@ -386,7 +396,7 @@
                             </p>
                         </div>
 
-                        <!-- Tenet Card 2: Performance --><div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-lg shadow-md border border-blue-100 transform hover:shadow-lg transition-all duration-300">
+                        <!-- Tenet Card 2: Performance --><div class="bg-white p-6 institutional-card">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon: Chart Bar --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0h10a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2z" />
@@ -398,7 +408,7 @@
                             </p>
                         </div>
 
-                        <!-- Tenet Card 3: Doing Right --><div class="bg-gradient-to-br from-blue-50 to-white p-6 rounded-lg shadow-md border border-blue-100 transform hover:shadow-lg transition-all duration-300">
+                        <!-- Tenet Card 3: Doing Right --><div class="bg-white p-6 institutional-card">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon: Handshake (Custom) --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v-1.5a3 3 0 0 1 3-3h1.5m6.354 3H18a3 3 0 0 0 3-3V8.25a3 3 0 0 0-3-3h-1.5a3 3 0 0 0-3 3v.75m-6.354 6H9a3 3 0 0 1 3 3v1.5m-6.354 0a3.001 3.001 0 0 0 3.75 2.635m2.604-2.635a3.001 3.001 0 0 1 3.75 2.635m-6.354 0H9" />
@@ -448,7 +458,7 @@
 
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="text-center max-w-3xl mx-auto mb-12">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Performance</span>
+                        <span class="section-kicker">Performance</span>
                         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
                             Track Record
                         </h2>
@@ -460,15 +470,15 @@
                     <!-- Key Metrics -->
                     <div class="grid md:grid-cols-3 gap-6 mb-12">
                         <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
-                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">37.7%*</div>
+                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">45.1%*</div>
                             <div class="text-sm text-gray-600">Total Return Since Inception</div>
                         </div>
                         <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
-                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">18.9%</div>
-                            <div class="text-sm text-gray-600">2025 Return</div>
+                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">7.4%</div>
+                            <div class="text-sm text-gray-600">2026 YTD Return</div>
                         </div>
                         <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
-                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">0.38</div>
+                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">0.31</div>
                             <div class="text-sm text-gray-600">Correlation to S&P 500</div>
                         </div>
                     </div>
@@ -496,6 +506,22 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <tr class="border-b border-gray-200">
+                                    <td class="py-3 px-2 font-semibold" style="color: var(--primary-blue);">2026</td>
+                                    <td class="text-right py-3 px-2 text-gray-700">1.25</td>
+                                    <td class="text-right py-3 px-2 text-gray-700">1.20</td>
+                                    <td class="text-right py-3 px-2 text-gray-700">1.15</td>
+                                    <td class="text-right py-3 px-2 text-gray-700">1.17</td>
+                                    <td class="text-right py-3 px-2 text-gray-700">2.46</td>
+                                    <td class="text-right py-3 px-2 text-gray-400">--</td>
+                                    <td class="text-right py-3 px-2 text-gray-400">--</td>
+                                    <td class="text-right py-3 px-2 text-gray-400">--</td>
+                                    <td class="text-right py-3 px-2 text-gray-400">--</td>
+                                    <td class="text-right py-3 px-2 text-gray-400">--</td>
+                                    <td class="text-right py-3 px-2 text-gray-400">--</td>
+                                    <td class="text-right py-3 px-2 text-gray-400">--</td>
+                                    <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">7.4</td>
+                                </tr>
                                 <tr class="border-b border-gray-200">
                                     <td class="py-3 px-2 font-semibold" style="color: var(--primary-blue);">2025</td>
                                     <td class="text-right py-3 px-2 text-gray-700">9.1</td>
@@ -536,37 +562,35 @@
                         </div>
                     </div>
 
-                    <!-- Annualized Returns Comparison -->
+                    <!-- Return Summary -->
                     <div class="bg-white rounded-lg p-6 mt-8 shadow-md border border-blue-100">
-                        <h3 class="text-2xl font-bold mb-6" style="color: var(--primary-blue);">Annualized Returns</h3>
+                        <h3 class="text-2xl font-bold mb-6" style="color: var(--primary-blue);">Return Summary</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
                                 <thead>
                                     <tr class="border-b border-blue-200">
                                         <th class="text-left py-3 px-2 font-semibold text-gray-600">Period</th>
                                         <th class="text-right py-3 px-2 font-semibold" style="color: var(--primary-blue);">Anthem</th>
-                                        <th class="text-right py-3 px-2 font-semibold text-gray-600">Hedge Funds*</th>
-                                        <th class="text-right py-3 px-2 font-semibold text-gray-600">S&P 500</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr class="border-b border-gray-200">
-                                        <td class="py-3 px-2 text-gray-700">1-Yr</td>
-                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">18.90%</td>
-                                        <td class="text-right py-3 px-2 text-gray-600">8.65%</td>
-                                        <td class="text-right py-3 px-2 text-gray-600">16.39%</td>
+                                        <td class="py-3 px-2 text-gray-700">Trailing 12 Mo.</td>
+                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">16.71%</td>
                                     </tr>
                                     <tr class="border-b border-gray-200">
                                         <td class="py-3 px-2 text-gray-700">Since Inception*</td>
-                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">37.7%</td>
-                                        <td class="text-right py-3 px-2 text-gray-600">16.25%</td>
-                                        <td class="text-right py-3 px-2 text-gray-600">32.96%</td>
+                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">45.1%</td>
+                                    </tr>
+                                    <tr class="border-b border-gray-200">
+                                        <td class="py-3 px-2 text-gray-700">Correlation to S&P 500</td>
+                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">0.31</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <p class="text-xs text-gray-500 mt-4">
-                            * Hedge Funds performance represents the HFRX Global Hedge Fund Index.
+                            * Represents seed fund performance. Past performance does not guarantee future results.
                         </p>
                     </div>
                 </div>
@@ -648,7 +672,7 @@
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <!-- Logo and Copyright --><div class="text-center md:text-left mb-4 md:mb-0">
                         <a href="#home" class="flex-shrink-0 flex items-center justify-center md:justify-start">
-                             <img src="https://anthemcm.com/images/image2.png"
+                             <img src="images/image2.png"
                                  alt="Anthem Capital Management Logo"
                                  class="h-10 w-auto brightness-0 invert"
                                  onerror="this.src='https://placehold.co/200x50/1e3a8a/white?text=ANTHEM+CM'; this.onerror=null;">
@@ -670,25 +694,20 @@
         </footer>
     </div> <!-- End #site-content --><!-- JavaScript for Modal and Mobile Menu --><script>
         document.addEventListener('DOMContentLoaded', () => {
-            const POLYGON_API_KEY = '{{POLYGON_API_KEY}}'; // This will be replaced by your build process
-            const tickers = ['SPY', 'AAPL', 'MSFT', 'GOOG', 'AMZN', 'TSLA', 'NVDA', 'XOM', 'TLT', 'EEM'];
-
             const modal = document.getElementById('disclosure-modal');
             const acceptButton = document.getElementById('accept-button');
             const siteContent = document.getElementById('site-content');
             
             // --- Particle Scene Variables ---
-            let particleCanvas, ctx, particles, mouse;
+            let particleCanvas, ctx, particles, mouse, shockwaves, obstacleRects;
             let hasParticleSceneInitialized = false;
-            let animationFrameId;
-
             // --- Disclosure Modal Logic ---
             acceptButton.addEventListener('click', () => {
                 modal.classList.add('hidden'); // Hide the modal
                 siteContent.classList.remove('hidden'); // Show the main site
                 document.body.style.overflow = 'auto'; // Restore scrolling to the page
 
-                // Initialize 3D scene *after* user enters site
+                // Initialize the strategy physics field after user enters site
                 if (!hasParticleSceneInitialized) {
                     initParticleScene();
                     hasParticleSceneInitialized = true;
@@ -739,8 +758,7 @@
                 menuButton.setAttribute('aria-expanded', !isExpanded);
                 mobileMenu.classList.toggle('hidden');
                 hamburgerIcon.classList.toggle('hidden');
-                closeIcon.classList.add('hidden'); // MOD: Ensure closeIcon is hidden if hamburger is shown, for state consistency
-                hamburgerIcon.classList.remove('hidden'); // MOD: Ensure hamburger is shown if menu is closing
+                closeIcon.classList.toggle('hidden');
             });
             
             // --- Smooth Scroll & Mobile Menu Close Logic ---
@@ -770,246 +788,435 @@
                 });
             });
 
-            // --- ✨ Market Widget Stream Logic ---
-            createInitialMarketWidgets();
+            // --- Chaotic Physics Field ---
 
-            /**
-             * Creates the initial set of floating market widgets.
-             */
-            function createInitialMarketWidgets() {
-                const container = document.getElementById('ticker-stream-container');
-                if (!container) return;
-
-                // Market elements with icons/symbols
-                const marketElements = [
-                    { symbol: '🛢️', label: 'Oil', suffix: '/bbl' },
-                    { symbol: '💹', label: 'Rates', suffix: '%' },
-                    { symbol: '💱', label: 'FX', suffix: '' },
-                    { symbol: '📊', label: 'Equities', suffix: '' },
-                    { symbol: '🌾', label: 'Commodities', suffix: '' },
-                    { symbol: '💰', label: 'Gold', suffix: '/oz' },
-                    { symbol: '📈', label: 'Vol', suffix: '' },
-                    { symbol: '🏦', label: 'Bonds', suffix: '' },
-                    { symbol: '⚡', label: 'Energy', suffix: '' },
-                    { symbol: '🌍', label: 'Global', suffix: '' },
-                ];
-
-                for (let i = 0; i < 35; i++) { // Create 35 floating widgets
-                    const element = marketElements[i % marketElements.length];
-                    const widget = document.createElement('div');
-
-                    widget.classList.add('ticker-item');
-
-                    // Random percentage or value
-                    const value = (Math.random() * 10 - 5).toFixed(2);
-                    const sign = value >= 0 ? '+' : '';
-                    widget.textContent = `${element.symbol} ${element.label} ${sign}${value}${element.suffix}`;
-
-                    // Randomize styles and animation
-                    const duration = Math.random() * 20 + 30; // 30-50s
-                    const delay = Math.random() * -50; // -50s to 0s delay to stagger starts
-                    const startX = Math.random() * 100;
-                    const startY = Math.random() * 100 + 100; // Start 100vh-200vh below
-                    const endX = startX + (Math.random() * 40 - 20); // Drift left/right
-                    const fontSize = Math.random() * 8 + 14; // 14px to 22px
-                    const opacity = Math.random() * 0.12 + 0.06; // 0.06 - 0.18
-
-                    widget.style.setProperty('--start-x', startX + 'vw');
-                    widget.style.setProperty('--start-y', startY + 'vh');
-                    widget.style.setProperty('--end-x', endX + 'vw');
-                    widget.style.fontSize = fontSize + 'px';
-                    widget.style.opacity = opacity;
-                    widget.style.animation = `float-up ${duration}s linear ${delay}s infinite`;
-
-                    container.appendChild(widget);
-                }
-            }
-
-            // --- ✨ Network Particle Scene ---
-
-            /**
-             * Particle Class - Network Node
-             */
             class Particle {
-                constructor(x, y, color) {
-                    this.x = x;
-                    this.y = y;
-                    this.baseX = this.x; // Original X
-                    this.baseY = this.y; // Original Y
-                    this.vx = 0; // Velocity X
-                    this.vy = 0; // Velocity Y
-                    this.density = (Math.random() * 5) + 1;
-                    this.color = color;
-                    this.angle = Math.random() * Math.PI * 2; // Random angle for floating
-                    this.floatSpeed = 0.5 + Math.random() * 0.5; // Slow, variable float speed
-                    this.size = Math.random() * 2 + 1; // Node size
+                constructor(width, height, index) {
+                    this.index = index;
+                    this.reset(width, height);
+                }
+
+                reset(width, height) {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.radius = Math.random() * 3.2 + 2.1;
+                    this.mass = this.radius * this.radius;
+                    this.vx = (Math.random() - 0.5) * 1.2;
+                    this.vy = (Math.random() - 0.5) * 1.2;
+                    this.phase = Math.random() * Math.PI * 2;
+                    this.energy = Math.random() * 0.55 + 0.45;
+                    this.color = Math.random() > 0.78 ? '212, 175, 55' : '37, 99, 235';
+                }
+
+                update(width, height) {
+                    const turbulence = 0.018 + this.energy * 0.012;
+                    this.phase += 0.012 + this.energy * 0.01;
+                    this.vx += Math.cos(this.phase + this.y * 0.006) * turbulence;
+                    this.vy += Math.sin(this.phase + this.x * 0.006) * turbulence;
+
+                    if (mouse.active) {
+                        const dx = this.x - mouse.x;
+                        const dy = this.y - mouse.y;
+                        const distSq = dx * dx + dy * dy;
+                        const radius = mouse.down ? mouse.radius * 1.35 : mouse.radius;
+
+                        if (distSq < radius * radius && distSq > 0.01) {
+                            const dist = Math.sqrt(distSq);
+                            const falloff = 1 - dist / radius;
+                            const nx = dx / dist;
+                            const ny = dy / dist;
+                            const pointerForce = Math.min(mouse.speed / 36, 12);
+                            const swirl = mouse.down ? 0.18 : 0.08;
+
+                            this.vx += nx * falloff * (1.2 + pointerForce * 0.18);
+                            this.vy += ny * falloff * (1.2 + pointerForce * 0.18);
+                            this.vx += mouse.vx * falloff * 0.018 - ny * falloff * pointerForce * swirl;
+                            this.vy += mouse.vy * falloff * 0.018 + nx * falloff * pointerForce * swirl;
+                        }
+                    }
+
+                    for (const wave of shockwaves) {
+                        const dx = this.x - wave.x;
+                        const dy = this.y - wave.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                        const band = Math.abs(dist - wave.radius);
+
+                        if (band < 42) {
+                            const force = (1 - band / 42) * wave.power;
+                            this.vx += (dx / dist) * force;
+                            this.vy += (dy / dist) * force;
+                        }
+                    }
+
+                    this.vx *= 0.988;
+                    this.vy *= 0.988;
+
+                    const speed = Math.hypot(this.vx, this.vy);
+                    const maxSpeed = 8.5;
+                    if (speed > maxSpeed) {
+                        this.vx = (this.vx / speed) * maxSpeed;
+                        this.vy = (this.vy / speed) * maxSpeed;
+                    }
+
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    this.bounceFromEdges(width, height);
+                    this.bounceFromCards();
+                }
+
+                bounceFromEdges(width, height) {
+                    const restitution = 0.86;
+                    if (this.x < this.radius) {
+                        this.x = this.radius;
+                        this.vx = Math.abs(this.vx) * restitution;
+                    } else if (this.x > width - this.radius) {
+                        this.x = width - this.radius;
+                        this.vx = -Math.abs(this.vx) * restitution;
+                    }
+
+                    if (this.y < this.radius) {
+                        this.y = this.radius;
+                        this.vy = Math.abs(this.vy) * restitution;
+                    } else if (this.y > height - this.radius) {
+                        this.y = height - this.radius;
+                        this.vy = -Math.abs(this.vy) * restitution;
+                    }
+                }
+
+                bounceFromCards() {
+                    for (const rect of obstacleRects) {
+                        const closestX = Math.max(rect.left, Math.min(this.x, rect.right));
+                        const closestY = Math.max(rect.top, Math.min(this.y, rect.bottom));
+                        let dx = this.x - closestX;
+                        let dy = this.y - closestY;
+                        let distSq = dx * dx + dy * dy;
+
+                        if (distSq < this.radius * this.radius) {
+                            if (distSq < 0.01) {
+                                const distances = [
+                                    { side: 'left', value: Math.abs(this.x - rect.left) },
+                                    { side: 'right', value: Math.abs(rect.right - this.x) },
+                                    { side: 'top', value: Math.abs(this.y - rect.top) },
+                                    { side: 'bottom', value: Math.abs(rect.bottom - this.y) }
+                                ].sort((a, b) => a.value - b.value);
+
+                                const side = distances[0].side;
+                                if (side === 'left') {
+                                    dx = -1;
+                                    dy = 0;
+                                    this.x = rect.left - this.radius;
+                                } else if (side === 'right') {
+                                    dx = 1;
+                                    dy = 0;
+                                    this.x = rect.right + this.radius;
+                                } else if (side === 'top') {
+                                    dx = 0;
+                                    dy = -1;
+                                    this.y = rect.top - this.radius;
+                                } else {
+                                    dx = 0;
+                                    dy = 1;
+                                    this.y = rect.bottom + this.radius;
+                                }
+                                distSq = 1;
+                            }
+
+                            const dist = Math.sqrt(distSq);
+                            const nx = dx / dist;
+                            const ny = dy / dist;
+                            const overlap = this.radius - dist;
+                            const velocityIntoSurface = this.vx * nx + this.vy * ny;
+
+                            this.x += nx * (overlap + 0.8);
+                            this.y += ny * (overlap + 0.8);
+
+                            if (velocityIntoSurface < 0) {
+                                this.vx -= (1.72 * velocityIntoSurface) * nx;
+                                this.vy -= (1.72 * velocityIntoSurface) * ny;
+                            }
+                        }
+                    }
                 }
 
                 draw() {
-                    // Draw node
-                    ctx.fillStyle = this.color;
+                    const speed = Math.hypot(this.vx, this.vy);
+                    const glow = Math.min(speed / 7, 1);
+
                     ctx.beginPath();
-                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                    ctx.closePath();
+                    ctx.fillStyle = `rgba(${this.color}, ${0.34 + glow * 0.34})`;
+                    ctx.arc(this.x, this.y, this.radius + glow * 1.8, 0, Math.PI * 2);
                     ctx.fill();
-                }
 
-                update() {
-                    // Calculate distance from mouse
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let dist = Math.sqrt(dx * dx + dy * dy);
-                    let forceDirX = dx / dist;
-                    let forceDirY = dy / dist;
-
-                    // Max distance (radius of gravity)
-                    let maxDist = mouse.radius;
-                    let force = (maxDist - dist) / maxDist; // Force is stronger closer
-
-                    // Calculate acceleration
-                    let ax = 0;
-                    let ay = 0;
-
-                    if (dist < maxDist) {
-                        // Mouse is pulling
-                        ax = forceDirX * force * this.density;
-                        ay = forceDirY * force * this.density;
+                    if (glow > 0.2) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(${this.color}, ${glow * 0.28})`;
+                        ctx.lineWidth = this.radius * 1.8;
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(this.x - this.vx * 4.5, this.y - this.vy * 4.5);
+                        ctx.stroke();
                     }
-
-                    // Add spring force to return to base
-                    ax += (this.baseX - this.x) * 0.02;
-                    ay += (this.baseY - this.y) * 0.02;
-
-                    // Add slow, ambient floating motion
-                    this.angle += 0.005;
-                    ax += Math.cos(this.angle) * this.floatSpeed * 0.05;
-                    ay += Math.sin(this.angle) * this.floatSpeed * 0.05;
-
-                    // Apply acceleration to velocity
-                    this.vx += ax;
-                    this.vy += ay;
-
-                    // Apply friction (damping)
-                    this.vx *= 0.92;
-                    this.vy *= 0.92;
-
-                    // Update position
-                    this.x += this.vx;
-                    this.y += this.vy;
                 }
             }
 
-            /**
-             * Initializes the Particle scene.
-             */
             function initParticleScene() {
                 particleCanvas = document.getElementById('physics-canvas');
                 if (!particleCanvas) return;
-                
+
                 ctx = particleCanvas.getContext('2d');
-                // MOD: Set canvas context to transparent
-                ctx.globalAlpha = 1; // Ensure no overall transparency issues
-                
+                if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                    particleCanvas.style.display = 'none';
+                    return;
+                }
+
                 particles = [];
+                shockwaves = [];
+                obstacleRects = [];
                 mouse = {
-                    x: -1000,
-                    y: -1000,
-                    radius: 150 // MOD: Increased radius of influence
+                    x: 0,
+                    y: 0,
+                    previousX: 0,
+                    previousY: 0,
+                    vx: 0,
+                    vy: 0,
+                    speed: 0,
+                    radius: 155,
+                    active: false,
+                    down: false,
+                    lastMoveTime: 0,
+                    lastShockTime: 0
                 };
 
-                // Set initial size and create particles
                 onParticleResize();
 
-                // Mouse move listener
                 const strategySection = document.getElementById('strategy');
-                strategySection.addEventListener('mousemove', (e) => {
+                strategySection.addEventListener('pointermove', (e) => {
+                    const rect = strategySection.getBoundingClientRect();
+                    const now = performance.now();
+                    const previousTime = mouse.lastMoveTime || now;
+                    const dt = Math.max(now - previousTime, 16);
+
+                    mouse.previousX = mouse.x;
+                    mouse.previousY = mouse.y;
+                    mouse.x = e.clientX - rect.left;
+                    mouse.y = e.clientY - rect.top;
+                    mouse.vx = (mouse.x - mouse.previousX) / dt * 16.67;
+                    mouse.vy = (mouse.y - mouse.previousY) / dt * 16.67;
+                    mouse.speed = Math.hypot(mouse.vx, mouse.vy);
+                    mouse.active = true;
+                    mouse.lastMoveTime = now;
+
+                    if (mouse.speed > 22 && now - mouse.lastShockTime > 180) {
+                        addShockwave(mouse.x, mouse.y, Math.min(mouse.speed / 18, 2.8));
+                        mouse.lastShockTime = now;
+                    }
+                });
+
+                strategySection.addEventListener('pointerdown', (e) => {
                     const rect = strategySection.getBoundingClientRect();
                     mouse.x = e.clientX - rect.left;
                     mouse.y = e.clientY - rect.top;
+                    mouse.active = true;
+                    mouse.down = true;
+                    addShockwave(mouse.x, mouse.y, 2.9);
                 });
 
-                // Mouse leave listener
-                strategySection.addEventListener('mouseleave', () => {
-                    mouse.x = -1000;
-                    mouse.y = -1000;
+                window.addEventListener('pointerup', () => {
+                    mouse.down = false;
                 });
 
-                // Use ResizeObserver to detect container size changes
-                const resizeObserver = new ResizeObserver(entries => {
-                    // No need to check target, just resize when the section resizes
+                strategySection.addEventListener('pointerleave', () => {
+                    mouse.active = false;
+                    mouse.down = false;
+                    mouse.speed = 0;
+                    mouse.vx = 0;
+                    mouse.vy = 0;
+                });
+
+                const resizeObserver = new ResizeObserver(() => {
                     onParticleResize();
                 });
                 resizeObserver.observe(strategySection);
 
-                // Start animation loop
                 animateParticles();
             }
 
-            /**
-             * Handles resizing of the canvas and re-populates particles.
-             */
             function onParticleResize() {
                 const container = document.getElementById('strategy');
                 const width = container.clientWidth;
                 const height = container.clientHeight;
+                const ratio = Math.min(window.devicePixelRatio || 1, 2);
 
-                particleCanvas.width = width;
-                particleCanvas.height = height;
+                particleCanvas.width = width * ratio;
+                particleCanvas.height = height * ratio;
+                particleCanvas.style.width = `${width}px`;
+                particleCanvas.style.height = `${height}px`;
+                ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
 
-                particles = []; // Clear old particles
-                const particleCount = 120; // Fewer particles for network nodes
-                const color = 'rgba(59, 130, 246, 0.6)'; // Blue nodes
+                updateObstacleRects();
 
+                particles = [];
+                const particleCount = Math.max(72, Math.min(150, Math.round((width * height) / 11500)));
                 for (let i = 0; i < particleCount; i++) {
-                    let x = Math.random() * width;
-                    let y = Math.random() * height;
-                    particles.push(new Particle(x, y, color));
+                    particles.push(new Particle(width, height, i));
                 }
             }
 
-            /**
-             * Draws connections between nearby particles
-             */
-            function connectParticles() {
-                const maxDistance = 150; // Max distance to draw connections
+            function updateObstacleRects() {
+                const strategySection = document.getElementById('strategy');
+                const sectionRect = strategySection.getBoundingClientRect();
+
+                obstacleRects = Array.from(strategySection.querySelectorAll('.institutional-card')).map(card => {
+                    const rect = card.getBoundingClientRect();
+                    return {
+                        left: rect.left - sectionRect.left - 14,
+                        top: rect.top - sectionRect.top - 14,
+                        right: rect.right - sectionRect.left + 14,
+                        bottom: rect.bottom - sectionRect.top + 14
+                    };
+                });
+            }
+
+            function addShockwave(x, y, power) {
+                shockwaves.push({
+                    x,
+                    y,
+                    radius: 0,
+                    power,
+                    alpha: 0.28
+                });
+                if (shockwaves.length > 5) shockwaves.shift();
+            }
+
+            function resolveParticleCollisions() {
+                const restitution = 0.78;
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
-                        let dx = particles[i].x - particles[j].x;
-                        let dy = particles[i].y - particles[j].y;
-                        let dist = Math.sqrt(dx * dx + dy * dy);
+                        const a = particles[i];
+                        const b = particles[j];
+                        const dx = b.x - a.x;
+                        const dy = b.y - a.y;
+                        const minDistance = a.radius + b.radius + 0.8;
+                        const distSq = dx * dx + dy * dy;
+
+                        if (distSq > 0.01 && distSq < minDistance * minDistance) {
+                            const dist = Math.sqrt(distSq);
+                            const nx = dx / dist;
+                            const ny = dy / dist;
+                            const overlap = minDistance - dist;
+                            const totalMass = a.mass + b.mass;
+
+                            a.x -= nx * overlap * (b.mass / totalMass);
+                            a.y -= ny * overlap * (b.mass / totalMass);
+                            b.x += nx * overlap * (a.mass / totalMass);
+                            b.y += ny * overlap * (a.mass / totalMass);
+
+                            const relativeVelocityX = b.vx - a.vx;
+                            const relativeVelocityY = b.vy - a.vy;
+                            const velocityAlongNormal = relativeVelocityX * nx + relativeVelocityY * ny;
+
+                            if (velocityAlongNormal < 0) {
+                                const impulse = -(1 + restitution) * velocityAlongNormal / (1 / a.mass + 1 / b.mass);
+                                const impulseX = impulse * nx;
+                                const impulseY = impulse * ny;
+
+                                a.vx -= impulseX / a.mass;
+                                a.vy -= impulseY / a.mass;
+                                b.vx += impulseX / b.mass;
+                                b.vy += impulseY / b.mass;
+                            }
+                        }
+                    }
+                }
+            }
+
+            function connectParticles() {
+                const maxDistance = 142;
+                for (let i = 0; i < particles.length; i++) {
+                    for (let j = i + 1; j < particles.length; j++) {
+                        const a = particles[i];
+                        const b = particles[j];
+                        const dx = a.x - b.x;
+                        const dy = a.y - b.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy);
 
                         if (dist < maxDistance) {
-                            // Draw line with opacity based on distance
-                            let opacity = 1 - (dist / maxDistance);
-                            ctx.strokeStyle = `rgba(59, 130, 246, ${opacity * 0.3})`; // Blue lines
-                            ctx.lineWidth = 0.5;
+                            const relativeSpeed = Math.min(Math.hypot(a.vx - b.vx, a.vy - b.vy) / 6, 1);
+                            const opacity = (1 - dist / maxDistance) * (0.12 + relativeSpeed * 0.28);
+                            ctx.strokeStyle = `rgba(37, 99, 235, ${opacity})`;
+                            ctx.lineWidth = 0.45 + relativeSpeed * 0.75;
                             ctx.beginPath();
-                            ctx.moveTo(particles[i].x, particles[i].y);
-                            ctx.lineTo(particles[j].x, particles[j].y);
+                            ctx.moveTo(a.x, a.y);
+                            ctx.lineTo(b.x, b.y);
                             ctx.stroke();
                         }
                     }
                 }
             }
 
-            /**
-             * Animation loop for the particle scene.
-             */
             function animateParticles() {
                 if (!ctx || !particleCanvas) return;
-                // Clear canvas with transparency to allow parent bg-color to show
-                ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+                const width = particleCanvas.clientWidth;
+                const height = particleCanvas.clientHeight;
 
-                // Draw connections first (behind nodes)
-                connectParticles();
+                ctx.clearRect(0, 0, width, height);
 
-                // Update and draw particles
-                for (let i = 0; i < particles.length; i++) {
-                    particles[i].update();
-                    particles[i].draw();
+                drawShockwaves();
+                drawMouseField();
+
+                for (const particle of particles) {
+                    particle.update(width, height);
                 }
 
-                animationFrameId = requestAnimationFrame(animateParticles);
+                resolveParticleCollisions();
+
+                connectParticles();
+
+                for (const particle of particles) {
+                    particle.draw();
+                }
+
+                requestAnimationFrame(animateParticles);
+            }
+
+            function drawShockwaves() {
+                for (let i = shockwaves.length - 1; i >= 0; i--) {
+                    const wave = shockwaves[i];
+                    wave.radius += 8.5 + wave.power * 1.7;
+                    wave.alpha *= 0.965;
+
+                    ctx.beginPath();
+                    ctx.strokeStyle = `rgba(212, 175, 55, ${wave.alpha})`;
+                    ctx.lineWidth = 1.5;
+                    ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+                    ctx.stroke();
+
+                    if (wave.alpha < 0.025) {
+                        shockwaves.splice(i, 1);
+                    }
+                }
+            }
+
+            function drawMouseField() {
+                if (!mouse || !mouse.active) return;
+
+                const intensity = Math.min(mouse.speed / 28, 1);
+                const radius = mouse.down ? mouse.radius * 1.35 : mouse.radius;
+                const gradient = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, radius);
+                gradient.addColorStop(0, `rgba(212, 175, 55, ${0.12 + intensity * 0.08})`);
+                gradient.addColorStop(0.34, `rgba(37, 99, 235, ${0.08 + intensity * 0.08})`);
+                gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.strokeStyle = `rgba(212, 175, 55, ${mouse.down ? 0.38 : 0.18 + intensity * 0.16})`;
+                ctx.lineWidth = mouse.down ? 1.8 : 1.1;
+                ctx.beginPath();
+                ctx.arc(mouse.x, mouse.y, radius * (0.34 + intensity * 0.14), 0, Math.PI * 2);
+                ctx.stroke();
             }
 
             // --- Signup Form Logic ---

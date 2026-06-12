@@ -17,11 +17,25 @@
         }
 
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3b82f6;
+            --primary-blue: #172554;
+            --secondary-blue: #2563eb;
             --accent-gold: #d4af37;
             --light-bg: #f8fafc;
             --dark-blue: #0f172a;
+        }
+
+        .section-kicker {
+            color: var(--secondary-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .institutional-card {
+            border: 1px solid rgba(30, 58, 138, 0.12);
+            border-radius: 8px;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
         }
     </style>
 </head>
@@ -74,8 +88,8 @@
         </header>
 
         <main>
-            <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 58%, #3b82f6 100%);">
-                <div class="absolute inset-0 opacity-25" style="background-image: radial-gradient(circle at 18% 18%, rgba(212, 175, 55, 0.35), transparent 28%), radial-gradient(circle at 85% 10%, rgba(255, 255, 255, 0.2), transparent 22%);"></div>
+            <section class="relative overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.94) 0%, rgba(23,37,84,0.84) 56%, rgba(15,23,42,0.48) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
+                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 18% 18%, rgba(212, 175, 55, 0.32), transparent 24%), radial-gradient(circle at 82% 24%, rgba(37, 99, 235, 0.28), transparent 26%);"></div>
                 <div class="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-24">
                     <a href="research.html" class="inline-flex items-center text-sm font-semibold text-blue-100 hover:text-white transition-colors">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -84,35 +98,35 @@
                         Back to Research
                     </a>
                     <div class="max-w-4xl mt-6">
-                        <span class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">Featured Report</span>
+                        <span class="section-kicker" style="color: #f5d56f;">Featured Report</span>
                         <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mt-4">
                             Gas Prices vs. Consumer Spending
                         </h1>
-                        <p class="text-lg md:text-xl text-blue-100 mt-6 leading-relaxed">
+                        <p class="text-lg md:text-xl text-slate-200 mt-6 leading-relaxed">
                             A themed Anthem research page built from the supplied dashboard. The analysis compares gasoline shocks with consumer sentiment and discretionary expenditure categories to test whether higher fuel costs function as a tax on the household wallet.
                         </p>
                     </div>
                 </div>
             </section>
 
-            <section class="py-16 bg-white">
+            <section class="py-16" style="background: radial-gradient(circle at 18% 24%, rgba(37,99,235,0.10), transparent 28%), radial-gradient(circle at 78% 18%, rgba(212,175,55,0.10), transparent 22%), linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eef4ff 100%);">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="grid md:grid-cols-3 gap-6">
-                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-8 shadow-sm">
+                        <div class="bg-white p-8 institutional-card">
                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Question</div>
                             <h2 class="text-2xl font-bold mt-3 mb-3" style="color: var(--primary-blue);">Does gas inflation crowd out discretionary demand?</h2>
                             <p class="text-sm text-gray-600 leading-relaxed">
                                 The report tests whether rising fuel costs are followed by weaker consumer sentiment and slower spend in categories such as entertainment, dining, and apparel.
                             </p>
                         </div>
-                        <div class="rounded-2xl border border-blue-100 bg-white p-8 shadow-sm">
+                        <div class="bg-white p-8 institutional-card">
                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Data</div>
                             <h2 class="text-2xl font-bold mt-3 mb-3" style="color: var(--primary-blue);">EIA, UMich, and BLS</h2>
                             <p class="text-sm text-gray-600 leading-relaxed">
                                 The dashboard combines monthly gasoline prices, monthly Michigan consumer sentiment, and annual BLS consumer expenditure category changes.
                             </p>
                         </div>
-                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-8 shadow-sm">
+                        <div class="bg-white p-8 institutional-card">
                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Use</div>
                             <h2 class="text-2xl font-bold mt-3 mb-3" style="color: var(--primary-blue);">Interactive scenario work</h2>
                             <p class="text-sm text-gray-600 leading-relaxed">
@@ -123,10 +137,10 @@
                 </div>
             </section>
 
-            <section class="pb-20" style="background-color: var(--light-bg);">
+            <section class="pb-20" style="background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="max-w-3xl pt-16 mb-10">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Interactive Dashboard</span>
+                        <span class="section-kicker">Interactive Dashboard</span>
                         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
                             Explore the relationship directly
                         </h2>
@@ -142,16 +156,16 @@
                     </div>
 
                     <div class="grid lg:grid-cols-2 gap-8 mt-10">
-                        <div class="rounded-3xl border border-blue-100 bg-white p-8 shadow-sm">
-                            <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">How to Read It</span>
+                        <div class="bg-white p-8 institutional-card">
+                            <span class="section-kicker">How to Read It</span>
                             <ul class="mt-4 space-y-3 text-sm text-gray-600 leading-relaxed">
                                 <li>Scatter view tests direction and strength with an OLS fit and summary statistics.</li>
                                 <li>Time-series view shows how gasoline moves line up against sentiment or category performance through time.</li>
                                 <li>Episode view summarizes selected spike and relief periods for fast historical comparison.</li>
                             </ul>
                         </div>
-                        <div class="rounded-3xl border border-blue-100 bg-white p-8 shadow-sm">
-                            <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Sources and Framing</span>
+                        <div class="bg-white p-8 institutional-card">
+                            <span class="section-kicker">Sources and Framing</span>
                             <ul class="mt-4 space-y-3 text-sm text-gray-600 leading-relaxed">
                                 <li>EIA monthly gasoline series anchors the price-shock side of the analysis.</li>
                                 <li>University of Michigan sentiment captures consumer reaction at monthly frequency.</li>
@@ -163,7 +177,7 @@
             </section>
         </main>
 
-        <footer class="border-t border-gray-300" style="background-color: #1e3a8a;">
+        <footer class="border-t border-gray-300" style="background-color: #172554;">
             <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="text-center md:text-left mb-4 md:mb-0">

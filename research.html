@@ -17,11 +17,25 @@
         }
 
         :root {
-            --primary-blue: #1e3a8a;
-            --secondary-blue: #3b82f6;
+            --primary-blue: #172554;
+            --secondary-blue: #2563eb;
             --accent-gold: #d4af37;
             --light-bg: #f8fafc;
             --dark-blue: #0f172a;
+        }
+
+        .section-kicker {
+            color: var(--secondary-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+
+        .institutional-card {
+            border: 1px solid rgba(30, 58, 138, 0.12);
+            border-radius: 8px;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
         }
     </style>
 </head>
@@ -74,15 +88,16 @@
         </header>
 
         <main>
-            <section class="relative overflow-hidden" style="background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 55%, #3b82f6 100%);">
-                <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at top right, rgba(212, 175, 55, 0.35), transparent 32%), radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.18), transparent 26%);"></div>
+            <section class="relative overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.94) 0%, rgba(23,37,84,0.84) 52%, rgba(15,23,42,0.48) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
+                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 18% 18%, rgba(212, 175, 55, 0.32), transparent 24%), radial-gradient(circle at 82% 24%, rgba(37, 99, 235, 0.28), transparent 26%);"></div>
                 <div class="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
                     <div class="max-w-3xl">
-                        <span class="text-sm font-semibold uppercase tracking-[0.2em] text-blue-100">Anthem Capital Research</span>
+                        <img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-9 w-auto mb-8 opacity-95 brightness-0 invert">
+                        <span class="section-kicker" style="color: #f5d56f;">Anthem Capital Research</span>
                         <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mt-4">
                             Research built around market structure, data, and economic transmission.
                         </h1>
-                        <p class="text-lg md:text-xl text-blue-100 mt-6 leading-relaxed">
+                        <p class="text-lg md:text-xl text-slate-200 mt-6 leading-relaxed">
                             A library of data-driven notes from Anthem Capital Management. We publish work that translates macro moves into observable cross-asset and consumer outcomes.
                         </p>
                         <div class="flex flex-col sm:flex-row gap-4 mt-10">
@@ -97,10 +112,10 @@
                 </div>
             </section>
 
-            <section class="py-20 bg-white">
+            <section class="py-20" style="background: radial-gradient(circle at 18% 24%, rgba(37,99,235,0.10), transparent 28%), radial-gradient(circle at 78% 18%, rgba(212,175,55,0.10), transparent 22%), linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eef4ff 100%);">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="grid md:grid-cols-3 gap-6">
-                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-8 shadow-sm">
+                        <div class="bg-white p-8 institutional-card">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(59, 130, 246, 0.12);">
                                 <svg class="w-6 h-6" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v8m0 0a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z"/>
@@ -111,7 +126,7 @@
                                 Each note is grounded in observable series such as EIA, BLS, and survey data rather than narrative-only market commentary.
                             </p>
                         </div>
-                        <div class="rounded-2xl border border-blue-100 bg-white p-8 shadow-sm">
+                        <div class="bg-white p-8 institutional-card">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(212, 175, 55, 0.12);">
                                 <svg class="w-6 h-6" style="color: var(--accent-gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z"/>
@@ -122,7 +137,7 @@
                                 We focus on lags, regime shifts, and transmission windows that matter for positioning, not just point-in-time correlations.
                             </p>
                         </div>
-                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-8 shadow-sm">
+                        <div class="bg-white p-8 institutional-card">
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(59, 130, 246, 0.12);">
                                 <svg class="w-6 h-6" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
@@ -137,10 +152,10 @@
                 </div>
             </section>
 
-            <section id="featured-research" class="py-20" style="background-color: var(--light-bg);">
+            <section id="featured-research" class="py-20" style="background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="max-w-3xl mb-12">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Featured Research</span>
+                        <span class="section-kicker">Featured Research</span>
                         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
                             Current publications
                         </h2>
@@ -150,7 +165,7 @@
                     </div>
 
                     <div class="grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)] gap-8 items-stretch">
-                        <article class="rounded-3xl overflow-hidden border border-blue-100 bg-white shadow-xl">
+                        <article class="overflow-hidden bg-white institutional-card">
                             <div class="px-8 py-10 md:px-10 md:py-12">
                                 <div class="flex flex-wrap gap-3 mb-6">
                                     <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Macro</span>
@@ -183,8 +198,8 @@
                             </div>
                         </article>
 
-                        <aside class="rounded-3xl border border-blue-100 bg-white shadow-lg p-8">
-                            <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Research Index</span>
+                        <aside class="bg-white p-8 institutional-card">
+                            <span class="section-kicker">Research Index</span>
                             <h3 class="text-2xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
                                 Library status
                             </h3>
@@ -212,7 +227,7 @@
             </section>
         </main>
 
-        <footer class="border-t border-gray-300" style="background-color: #1e3a8a;">
+        <footer class="border-t border-gray-300" style="background-color: #172554;">
             <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="text-center md:text-left mb-4 md:mb-0">
