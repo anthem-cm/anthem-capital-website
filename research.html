@@ -164,39 +164,74 @@
                         </p>
                     </div>
 
-                    <div class="grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)] gap-8 items-stretch">
-                        <article class="overflow-hidden bg-white institutional-card">
-                            <div class="px-8 py-10 md:px-10 md:py-12">
-                                <div class="flex flex-wrap gap-3 mb-6">
-                                    <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Macro</span>
-                                    <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Consumer</span>
-                                    <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold" style="background-color: rgba(212, 175, 55, 0.14); color: #9a7a13;">Interactive</span>
+                    <div class="grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)] gap-8 items-start">
+                        <div class="space-y-8">
+                            <article class="overflow-hidden bg-white institutional-card">
+                                <div class="px-8 py-10 md:px-10 md:py-12">
+                                    <div class="flex flex-wrap gap-3 mb-6">
+                                        <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Macro</span>
+                                        <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Consumer</span>
+                                        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold" style="background-color: rgba(212, 175, 55, 0.14); color: #9a7a13;">Interactive</span>
+                                    </div>
+                                    <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-blue);">
+                                        Gas Prices vs. Consumer Spending
+                                    </h3>
+                                    <p class="text-base text-gray-600 leading-relaxed mb-8">
+                                        An interactive research page based on EIA gasoline prices, University of Michigan consumer sentiment, and BLS consumer expenditure data. The report tests whether fuel shocks translate into softer discretionary spending and how long that drag takes to show up.
+                                    </p>
+                                    <div class="grid sm:grid-cols-3 gap-4 mb-8">
+                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">1993-2025</div>
+                                        </div>
+                                        <div class="rounded-2xl border border-blue-100 bg-white p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Inputs</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">EIA + UMich + BLS</div>
+                                        </div>
+                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Format</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">Charts + Notes</div>
+                                        </div>
+                                    </div>
+                                    <a href="research-gas-prices-vs-consumer-spending.html" class="inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
+                                        Open Research Page
+                                    </a>
                                 </div>
-                                <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-blue);">
-                                    Gas Prices vs. Consumer Spending
-                                </h3>
-                                <p class="text-base text-gray-600 leading-relaxed mb-8">
-                                    An interactive research page based on EIA gasoline prices, University of Michigan consumer sentiment, and BLS consumer expenditure data. The report tests whether fuel shocks translate into softer discretionary spending and how long that drag takes to show up.
-                                </p>
-                                <div class="grid sm:grid-cols-3 gap-4 mb-8">
-                                    <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
-                                        <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div>
-                                        <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">1993-2025</div>
+                            </article>
+
+                            <article class="overflow-hidden bg-white institutional-card">
+                                <div class="px-8 py-10 md:px-10 md:py-12">
+                                    <div class="flex flex-wrap gap-3 mb-6">
+                                        <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Options Walls</span>
+                                        <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">ATR / DTE</span>
+                                        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold" style="background-color: rgba(212, 175, 55, 0.14); color: #9a7a13;">Quant Research</span>
                                     </div>
-                                    <div class="rounded-2xl border border-blue-100 bg-white p-5">
-                                        <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Inputs</div>
-                                        <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">EIA + UMich + BLS</div>
+                                    <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-blue);">
+                                        Historical Call and Put Wall Studies
+                                    </h3>
+                                    <p class="text-base text-gray-600 leading-relaxed mb-8">
+                                        A large-cap options study using historical option volume walls, ATR distance, DTE, vanna proxies, and expiration outcomes to separate fade setups from momentum risk.
+                                    </p>
+                                    <div class="grid sm:grid-cols-3 gap-4 mb-8">
+                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">2025-2026</div>
+                                        </div>
+                                        <div class="rounded-2xl border border-blue-100 bg-white p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Inputs</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">9 Large Caps</div>
+                                        </div>
+                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Tests</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">864 Walls</div>
+                                        </div>
                                     </div>
-                                    <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
-                                        <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Format</div>
-                                        <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">Charts + Notes</div>
-                                    </div>
+                                    <a href="oi-wall-study.html" class="inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
+                                        Open Research Page
+                                    </a>
                                 </div>
-                                <a href="research-gas-prices-vs-consumer-spending.html" class="inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
-                                    Open Research Page
-                                </a>
-                            </div>
-                        </article>
+                            </article>
+                        </div>
 
                         <aside class="bg-white p-8 institutional-card">
                             <span class="section-kicker">Research Index</span>
@@ -206,12 +241,12 @@
                             <div class="space-y-5">
                                 <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
                                     <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Published</div>
-                                    <div class="text-3xl font-bold mt-2" style="color: var(--primary-blue);">1</div>
+                                    <div class="text-3xl font-bold mt-2" style="color: var(--primary-blue);">2</div>
                                 </div>
                                 <div class="rounded-2xl border border-blue-100 p-5">
                                     <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Focus</div>
                                     <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-                                        Macro transmission, risk signals, market structure, and consumer response.
+                                        Macro transmission, risk signals, path dependency, and consumer response.
                                     </p>
                                 </div>
                                 <div class="rounded-2xl border border-blue-100 p-5">
