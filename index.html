@@ -40,12 +40,24 @@
             width: 100%;
             height: 100%;
             cursor: crosshair;
-            opacity: 0.95;
+            opacity: 1;
             pointer-events: none;
         }
 
         #strategy {
             cursor: crosshair;
+            background-color: #0f172a;
+        }
+
+        #strategy::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background:
+                radial-gradient(circle at 50% 42%, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.64) 74%),
+                linear-gradient(180deg, rgba(15, 23, 42, 0.08), rgba(15, 23, 42, 0.18));
         }
 
         /* Custom color variables for blue and gold theme */
@@ -198,39 +210,39 @@
                 </div>
             </section>
 
-            <!-- Strategy Section --><section id="strategy" class="relative py-24 overflow-hidden" style="background: radial-gradient(circle at 18% 24%, rgba(37,99,235,0.12), transparent 28%), radial-gradient(circle at 78% 18%, rgba(212,175,55,0.13), transparent 22%), linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eef4ff 100%);">
-                <!-- Network Pattern Canvas (background) -->
+            <!-- Strategy Section --><section id="strategy" class="relative py-24 overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.96) 0%, rgba(15,23,42,0.88) 48%, rgba(15,23,42,0.70) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
+                <!-- Block Flow Canvas (background) -->
                 <canvas id="physics-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
 
                 <!-- Text Content (foreground) -->
                 <div class="relative z-10 container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-                    <span class="section-kicker">Quantitative Global Macro</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                    <span class="section-kicker" style="color: #f5d56f;">Quantitative Global Macro</span>
+                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 text-white">
                         Systematic Approach to Global Markets
                     </h2>
-                    <p class="text-base text-gray-700 mb-6">
+                    <p class="text-base text-slate-200 mb-6">
                         Global macro has made a strong comeback as rising interest rates and economic volatility have created long/short opportunities not seen in decades. We apply rigorous quantitative methods to capitalize on these macro trends across currencies, rates, equities, and commodities.
                     </p>
                     <div class="grid md:grid-cols-2 gap-8 text-left mb-8">
-                        <div class="bg-white p-6 institutional-card">
+                        <div class="bg-white/95 backdrop-blur-sm p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Data-Driven Research</h3>
                             <p class="text-sm text-gray-600">
                                 Our strategies are built on systematic research, leveraging statistical analysis and machine learning to identify persistent market inefficiencies and macro signals.
                             </p>
                         </div>
-                        <div class="bg-white p-6 institutional-card">
+                        <div class="bg-white/95 backdrop-blur-sm p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Risk Management</h3>
                             <p class="text-sm text-gray-600">
                                 We employ sophisticated risk models and position sizing algorithms to manage drawdowns while capturing upside, utilizing the same quantitative principles employed at major hedge funds.
                             </p>
                         </div>
-                        <div class="bg-white p-6 institutional-card">
+                        <div class="bg-white/95 backdrop-blur-sm p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Portfolio Construction</h3>
                             <p class="text-sm text-gray-600">
                                 Diversified across multiple uncorrelated strategies and asset classes, our portfolio is designed to deliver consistent returns through varying market regimes.
                             </p>
                         </div>
-                        <div class="bg-white p-6 institutional-card">
+                        <div class="bg-white/95 backdrop-blur-sm p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Execution Excellence</h3>
                             <p class="text-sm text-gray-600">
                                 Our proprietary technology platform enables sophisticated trade execution with real-time monitoring across all positions. Advanced infrastructure minimizes market impact and slippage while maintaining comprehensive oversight.
@@ -788,103 +800,129 @@
                 });
             });
 
-            // --- Chaotic Physics Field ---
+            // --- Block Flow Physics Field ---
 
-            class Particle {
+            class FlowBlock {
                 constructor(width, height, index) {
                     this.index = index;
                     this.reset(width, height);
                 }
 
                 reset(width, height) {
+                    const laneCount = Math.max(8, Math.round(height / 86));
+                    const lane = this.index % laneCount;
+                    const laneY = (lane + Math.random() * 0.8) / laneCount * height;
                     this.x = Math.random() * width;
-                    this.y = Math.random() * height;
-                    this.radius = Math.random() * 3.2 + 2.1;
-                    this.mass = this.radius * this.radius;
-                    this.vx = (Math.random() - 0.5) * 1.2;
-                    this.vy = (Math.random() - 0.5) * 1.2;
+                    this.y = laneY + (Math.random() - 0.5) * 90;
+                    this.length = 22 + Math.random() * 82;
+                    this.thickness = 2 + Math.random() * 5;
+                    this.mass = this.length * this.thickness;
+                    this.angle = -0.42 + (Math.random() - 0.5) * 0.22;
                     this.phase = Math.random() * Math.PI * 2;
-                    this.energy = Math.random() * 0.55 + 0.45;
-                    this.color = Math.random() > 0.78 ? '212, 175, 55' : '37, 99, 235';
+                    this.vx = 0.38 + Math.random() * 1.15;
+                    this.vy = (Math.random() - 0.5) * 0.42;
+                    this.depth = Math.random();
+                    this.charge = Math.random() * 0.24;
+                    this.color = Math.random() > 0.86 ? '212, 175, 55' : '148, 163, 184';
+                    this.edgeColor = Math.random() > 0.7 ? '37, 99, 235' : '255, 255, 255';
                 }
 
                 update(width, height) {
-                    const turbulence = 0.018 + this.energy * 0.012;
-                    this.phase += 0.012 + this.energy * 0.01;
-                    this.vx += Math.cos(this.phase + this.y * 0.006) * turbulence;
-                    this.vy += Math.sin(this.phase + this.x * 0.006) * turbulence;
+                    const flowAngle = -0.46
+                        + Math.sin(this.y * 0.006 + this.phase) * 0.13
+                        + Math.cos(this.x * 0.0028 + this.phase * 0.7) * 0.06;
+                    const flowSpeed = 0.22 + this.depth * 1.18;
 
-                    if (mouse.active) {
-                        const dx = this.x - mouse.x;
-                        const dy = this.y - mouse.y;
-                        const distSq = dx * dx + dy * dy;
-                        const radius = mouse.down ? mouse.radius * 1.35 : mouse.radius;
+                    this.phase += 0.006 + this.depth * 0.008;
+                    this.vx += Math.cos(flowAngle) * flowSpeed * 0.025;
+                    this.vy += Math.sin(flowAngle) * flowSpeed * 0.025;
+                    this.angle += (flowAngle - this.angle) * 0.035;
 
-                        if (distSq < radius * radius && distSq > 0.01) {
-                            const dist = Math.sqrt(distSq);
-                            const falloff = 1 - dist / radius;
-                            const nx = dx / dist;
-                            const ny = dy / dist;
-                            const pointerForce = Math.min(mouse.speed / 36, 12);
-                            const swirl = mouse.down ? 0.18 : 0.08;
+                    this.reactToPointer();
+                    this.reactToShockwaves();
 
-                            this.vx += nx * falloff * (1.2 + pointerForce * 0.18);
-                            this.vy += ny * falloff * (1.2 + pointerForce * 0.18);
-                            this.vx += mouse.vx * falloff * 0.018 - ny * falloff * pointerForce * swirl;
-                            this.vy += mouse.vy * falloff * 0.018 + nx * falloff * pointerForce * swirl;
-                        }
+                    this.vx *= 0.988;
+                    this.vy *= 0.988;
+                    this.charge *= 0.94;
+
+                    const maxSpeed = 5.8 + this.depth * 2.4;
+                    const speed = Math.hypot(this.vx, this.vy);
+                    if (speed > maxSpeed) {
+                        this.vx = this.vx / speed * maxSpeed;
+                        this.vy = this.vy / speed * maxSpeed;
                     }
 
+                    this.x += this.vx;
+                    this.y += this.vy;
+
+                    this.wrapAndBounce(width, height);
+                    this.bounceFromCards();
+                }
+
+                reactToPointer() {
+                    if (!mouse.active) return;
+
+                    const dx = this.x - mouse.x;
+                    const dy = this.y - mouse.y;
+                    const distSq = dx * dx + dy * dy;
+                    const radius = mouse.down ? mouse.radius * 1.22 : mouse.radius;
+
+                    if (distSq > radius * radius || distSq < 0.01) return;
+
+                    const dist = Math.sqrt(distSq);
+                    const falloff = Math.pow(1 - dist / radius, 1.45);
+                    const nx = dx / dist;
+                    const ny = dy / dist;
+                    const pointerEnergy = Math.min(mouse.speed / 26, 2.4);
+                    const swirl = mouse.down ? 0.22 : 0.105;
+
+                    this.vx += nx * falloff * (0.28 + pointerEnergy * 0.74);
+                    this.vy += ny * falloff * (0.28 + pointerEnergy * 0.74);
+                    this.vx += mouse.vx * falloff * 0.026 - ny * falloff * pointerEnergy * swirl;
+                    this.vy += mouse.vy * falloff * 0.026 + nx * falloff * pointerEnergy * swirl;
+                    this.angle += falloff * (mouse.vx * 0.012 + pointerEnergy * 0.16);
+                    this.charge = Math.min(1, this.charge + falloff * 0.55);
+                }
+
+                reactToShockwaves() {
                     for (const wave of shockwaves) {
                         const dx = this.x - wave.x;
                         const dy = this.y - wave.y;
                         const dist = Math.sqrt(dx * dx + dy * dy) || 1;
                         const band = Math.abs(dist - wave.radius);
 
-                        if (band < 42) {
-                            const force = (1 - band / 42) * wave.power;
-                            this.vx += (dx / dist) * force;
-                            this.vy += (dy / dist) * force;
+                        if (band < 68) {
+                            const force = (1 - band / 68) * wave.power;
+                            this.vx += (dx / dist) * force * 0.46;
+                            this.vy += (dy / dist) * force * 0.46;
+                            this.angle += force * 0.08;
+                            this.charge = Math.min(1, this.charge + force * 0.18);
                         }
                     }
-
-                    this.vx *= 0.988;
-                    this.vy *= 0.988;
-
-                    const speed = Math.hypot(this.vx, this.vy);
-                    const maxSpeed = 8.5;
-                    if (speed > maxSpeed) {
-                        this.vx = (this.vx / speed) * maxSpeed;
-                        this.vy = (this.vy / speed) * maxSpeed;
-                    }
-
-                    this.x += this.vx;
-                    this.y += this.vy;
-
-                    this.bounceFromEdges(width, height);
-                    this.bounceFromCards();
                 }
 
-                bounceFromEdges(width, height) {
-                    const restitution = 0.86;
-                    if (this.x < this.radius) {
-                        this.x = this.radius;
-                        this.vx = Math.abs(this.vx) * restitution;
-                    } else if (this.x > width - this.radius) {
-                        this.x = width - this.radius;
-                        this.vx = -Math.abs(this.vx) * restitution;
+                wrapAndBounce(width, height) {
+                    const pad = Math.max(this.length, 120);
+
+                    if (this.x > width + pad) {
+                        this.x = -pad;
+                        this.y = Math.random() * height;
+                    } else if (this.x < -pad) {
+                        this.x = width + pad;
                     }
 
-                    if (this.y < this.radius) {
-                        this.y = this.radius;
-                        this.vy = Math.abs(this.vy) * restitution;
-                    } else if (this.y > height - this.radius) {
-                        this.y = height - this.radius;
-                        this.vy = -Math.abs(this.vy) * restitution;
+                    if (this.y < -40) {
+                        this.y = -40;
+                        this.vy = Math.abs(this.vy) * 0.72;
+                    } else if (this.y > height + 40) {
+                        this.y = height + 40;
+                        this.vy = -Math.abs(this.vy) * 0.72;
                     }
                 }
 
                 bounceFromCards() {
+                    const radius = Math.max(this.thickness * 2, 5);
+
                     for (const rect of obstacleRects) {
                         const closestX = Math.max(rect.left, Math.min(this.x, rect.right));
                         const closestY = Math.max(rect.top, Math.min(this.y, rect.bottom));
@@ -892,70 +930,79 @@
                         let dy = this.y - closestY;
                         let distSq = dx * dx + dy * dy;
 
-                        if (distSq < this.radius * this.radius) {
-                            if (distSq < 0.01) {
-                                const distances = [
-                                    { side: 'left', value: Math.abs(this.x - rect.left) },
-                                    { side: 'right', value: Math.abs(rect.right - this.x) },
-                                    { side: 'top', value: Math.abs(this.y - rect.top) },
-                                    { side: 'bottom', value: Math.abs(rect.bottom - this.y) }
-                                ].sort((a, b) => a.value - b.value);
+                        if (distSq >= radius * radius) continue;
 
-                                const side = distances[0].side;
-                                if (side === 'left') {
-                                    dx = -1;
-                                    dy = 0;
-                                    this.x = rect.left - this.radius;
-                                } else if (side === 'right') {
-                                    dx = 1;
-                                    dy = 0;
-                                    this.x = rect.right + this.radius;
-                                } else if (side === 'top') {
-                                    dx = 0;
-                                    dy = -1;
-                                    this.y = rect.top - this.radius;
-                                } else {
-                                    dx = 0;
-                                    dy = 1;
-                                    this.y = rect.bottom + this.radius;
-                                }
-                                distSq = 1;
+                        if (distSq < 0.01) {
+                            const exits = [
+                                { side: 'left', value: Math.abs(this.x - rect.left) },
+                                { side: 'right', value: Math.abs(rect.right - this.x) },
+                                { side: 'top', value: Math.abs(this.y - rect.top) },
+                                { side: 'bottom', value: Math.abs(rect.bottom - this.y) }
+                            ].sort((a, b) => a.value - b.value);
+
+                            if (exits[0].side === 'left') {
+                                dx = -1;
+                                dy = 0;
+                                this.x = rect.left - radius;
+                            } else if (exits[0].side === 'right') {
+                                dx = 1;
+                                dy = 0;
+                                this.x = rect.right + radius;
+                            } else if (exits[0].side === 'top') {
+                                dx = 0;
+                                dy = -1;
+                                this.y = rect.top - radius;
+                            } else {
+                                dx = 0;
+                                dy = 1;
+                                this.y = rect.bottom + radius;
                             }
+                            distSq = 1;
+                        }
 
-                            const dist = Math.sqrt(distSq);
-                            const nx = dx / dist;
-                            const ny = dy / dist;
-                            const overlap = this.radius - dist;
-                            const velocityIntoSurface = this.vx * nx + this.vy * ny;
+                        const dist = Math.sqrt(distSq);
+                        const nx = dx / dist;
+                        const ny = dy / dist;
+                        const velocityIntoSurface = this.vx * nx + this.vy * ny;
 
-                            this.x += nx * (overlap + 0.8);
-                            this.y += ny * (overlap + 0.8);
+                        this.x += nx * (radius - dist + 1.5);
+                        this.y += ny * (radius - dist + 1.5);
 
-                            if (velocityIntoSurface < 0) {
-                                this.vx -= (1.72 * velocityIntoSurface) * nx;
-                                this.vy -= (1.72 * velocityIntoSurface) * ny;
-                            }
+                        if (velocityIntoSurface < 0) {
+                            this.vx -= velocityIntoSurface * nx * 1.62;
+                            this.vy -= velocityIntoSurface * ny * 1.62;
+                            this.angle += velocityIntoSurface * 0.035;
+                            this.charge = Math.min(1, this.charge + 0.22);
                         }
                     }
                 }
 
                 draw() {
                     const speed = Math.hypot(this.vx, this.vy);
-                    const glow = Math.min(speed / 7, 1);
+                    const glow = Math.min(speed / 6.8 + this.charge, 1);
+                    const alpha = 0.16 + this.depth * 0.24 + glow * 0.28;
+                    const tail = this.length * (0.5 + glow * 0.9);
 
-                    ctx.beginPath();
-                    ctx.fillStyle = `rgba(${this.color}, ${0.34 + glow * 0.34})`;
-                    ctx.arc(this.x, this.y, this.radius + glow * 1.8, 0, Math.PI * 2);
-                    ctx.fill();
+                    ctx.save();
+                    ctx.translate(this.x, this.y);
+                    ctx.rotate(this.angle);
 
-                    if (glow > 0.2) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(${this.color}, ${glow * 0.28})`;
-                        ctx.lineWidth = this.radius * 1.8;
-                        ctx.moveTo(this.x, this.y);
-                        ctx.lineTo(this.x - this.vx * 4.5, this.y - this.vy * 4.5);
-                        ctx.stroke();
+                    ctx.fillStyle = `rgba(${this.color}, ${alpha * 0.34})`;
+                    ctx.fillRect(-tail - 6, -this.thickness * 0.34, tail, this.thickness * 0.68);
+
+                    ctx.fillStyle = `rgba(${this.color}, ${alpha})`;
+                    ctx.fillRect(-this.length * 0.5, -this.thickness * 0.5, this.length, this.thickness);
+
+                    ctx.fillStyle = `rgba(${this.edgeColor}, ${0.08 + glow * 0.34})`;
+                    ctx.fillRect(this.length * 0.28, -this.thickness * 0.5, this.length * 0.22, this.thickness);
+
+                    if (glow > 0.42) {
+                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.12 + glow * 0.20})`;
+                        ctx.lineWidth = 1;
+                        ctx.strokeRect(-this.length * 0.5, -this.thickness * 0.5, this.length, this.thickness);
                     }
+
+                    ctx.restore();
                 }
             }
 
@@ -1056,9 +1103,9 @@
                 updateObstacleRects();
 
                 particles = [];
-                const particleCount = Math.max(72, Math.min(150, Math.round((width * height) / 11500)));
+                const particleCount = Math.max(95, Math.min(220, Math.round((width * height) / 7600)));
                 for (let i = 0; i < particleCount; i++) {
-                    particles.push(new Particle(width, height, i));
+                    particles.push(new FlowBlock(width, height, i));
                 }
             }
 
@@ -1083,20 +1130,21 @@
                     y,
                     radius: 0,
                     power,
-                    alpha: 0.28
+                    alpha: 0.34,
+                    angle: -0.42 + (Math.random() - 0.5) * 0.2
                 });
                 if (shockwaves.length > 5) shockwaves.shift();
             }
 
             function resolveParticleCollisions() {
-                const restitution = 0.78;
+                const restitution = 0.58;
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const a = particles[i];
                         const b = particles[j];
                         const dx = b.x - a.x;
                         const dy = b.y - a.y;
-                        const minDistance = a.radius + b.radius + 0.8;
+                        const minDistance = Math.max(a.thickness, b.thickness) * 2.1 + 3.5;
                         const distSq = dx * dx + dy * dy;
 
                         if (distSq > 0.01 && distSq < minDistance * minDistance) {
@@ -1131,7 +1179,7 @@
             }
 
             function connectParticles() {
-                const maxDistance = 142;
+                const maxDistance = 92;
                 for (let i = 0; i < particles.length; i++) {
                     for (let j = i + 1; j < particles.length; j++) {
                         const a = particles[i];
@@ -1140,11 +1188,11 @@
                         const dy = a.y - b.y;
                         const dist = Math.sqrt(dx * dx + dy * dy);
 
-                        if (dist < maxDistance) {
-                            const relativeSpeed = Math.min(Math.hypot(a.vx - b.vx, a.vy - b.vy) / 6, 1);
-                            const opacity = (1 - dist / maxDistance) * (0.12 + relativeSpeed * 0.28);
-                            ctx.strokeStyle = `rgba(37, 99, 235, ${opacity})`;
-                            ctx.lineWidth = 0.45 + relativeSpeed * 0.75;
+                        if (dist < maxDistance && Math.abs(a.angle - b.angle) < 0.34) {
+                            const relativeSpeed = Math.min(Math.hypot(a.vx - b.vx, a.vy - b.vy) / 5.5, 1);
+                            const opacity = (1 - dist / maxDistance) * (0.045 + relativeSpeed * 0.075);
+                            ctx.strokeStyle = `rgba(148, 163, 184, ${opacity})`;
+                            ctx.lineWidth = 0.5;
                             ctx.beginPath();
                             ctx.moveTo(a.x, a.y);
                             ctx.lineTo(b.x, b.y);
@@ -1161,6 +1209,7 @@
 
                 ctx.clearRect(0, 0, width, height);
 
+                drawFlowBackdrop(width, height);
                 drawShockwaves();
                 drawMouseField();
 
@@ -1182,14 +1231,18 @@
             function drawShockwaves() {
                 for (let i = shockwaves.length - 1; i >= 0; i--) {
                     const wave = shockwaves[i];
-                    wave.radius += 8.5 + wave.power * 1.7;
-                    wave.alpha *= 0.965;
+                    wave.radius += 9.5 + wave.power * 2.4;
+                    wave.alpha *= 0.958;
 
-                    ctx.beginPath();
+                    ctx.save();
+                    ctx.translate(wave.x, wave.y);
+                    ctx.rotate(wave.angle);
                     ctx.strokeStyle = `rgba(212, 175, 55, ${wave.alpha})`;
-                    ctx.lineWidth = 1.5;
-                    ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
-                    ctx.stroke();
+                    ctx.lineWidth = 1.2;
+                    ctx.strokeRect(-wave.radius * 1.22, -wave.radius * 0.34, wave.radius * 2.44, wave.radius * 0.68);
+                    ctx.strokeStyle = `rgba(37, 99, 235, ${wave.alpha * 0.72})`;
+                    ctx.strokeRect(-wave.radius * 0.72, -wave.radius * 0.18, wave.radius * 1.44, wave.radius * 0.36);
+                    ctx.restore();
 
                     if (wave.alpha < 0.025) {
                         shockwaves.splice(i, 1);
@@ -1212,11 +1265,41 @@
                 ctx.arc(mouse.x, mouse.y, radius, 0, Math.PI * 2);
                 ctx.fill();
 
-                ctx.strokeStyle = `rgba(212, 175, 55, ${mouse.down ? 0.38 : 0.18 + intensity * 0.16})`;
+                ctx.save();
+                ctx.translate(mouse.x, mouse.y);
+                ctx.rotate(-0.42 + mouse.vx * 0.006);
+                ctx.strokeStyle = `rgba(212, 175, 55, ${mouse.down ? 0.36 : 0.14 + intensity * 0.14})`;
                 ctx.lineWidth = mouse.down ? 1.8 : 1.1;
-                ctx.beginPath();
-                ctx.arc(mouse.x, mouse.y, radius * (0.34 + intensity * 0.14), 0, Math.PI * 2);
-                ctx.stroke();
+                ctx.strokeRect(-radius * 0.42, -radius * 0.12, radius * 0.84, radius * 0.24);
+                ctx.restore();
+            }
+
+            function drawFlowBackdrop(width, height) {
+                const gradient = ctx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, 'rgba(15, 23, 42, 0.34)');
+                gradient.addColorStop(0.48, 'rgba(23, 37, 84, 0.12)');
+                gradient.addColorStop(1, 'rgba(15, 23, 42, 0.38)');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+
+                ctx.save();
+                ctx.translate(width * 0.52, height * 0.5);
+                ctx.rotate(-0.42);
+
+                const laneSpacing = 34;
+                const laneCount = Math.ceil((width + height) / laneSpacing);
+                for (let i = -laneCount; i < laneCount; i++) {
+                    const y = i * laneSpacing + Math.sin(i * 0.76) * 9;
+                    const alpha = i % 5 === 0 ? 0.055 : 0.028;
+                    ctx.strokeStyle = `rgba(148, 163, 184, ${alpha})`;
+                    ctx.lineWidth = i % 5 === 0 ? 1.1 : 0.7;
+                    ctx.beginPath();
+                    ctx.moveTo(-width, y);
+                    ctx.lineTo(width, y + Math.sin(i * 0.4) * 26);
+                    ctx.stroke();
+                }
+
+                ctx.restore();
             }
 
             // --- Signup Form Logic ---
