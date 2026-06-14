@@ -88,11 +88,20 @@
         .hero-min-height {
             min-height: calc(92vh - 72px);
         }
+
+        #disclosure-flow-canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body class="bg-white text-gray-700 antialiased">
 
-    <!-- Disclosure Modal --><div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4"><!-- Backdrop --><div class="absolute inset-0 bg-slate-900 bg-opacity-90 backdrop-blur-sm"></div>
+    <!-- Disclosure Modal --><div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.98) 0%, rgba(15,23,42,0.92) 50%, rgba(15,23,42,0.82) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;"><!-- Backdrop --><div class="absolute inset-0 z-0 bg-slate-900 bg-opacity-35 backdrop-blur-[1px]"></div>
+        <canvas id="disclosure-flow-canvas" class="absolute inset-0 z-[1]"></canvas>
         
         <!-- Logo --><img src="images/image2.png" 
              alt="Anthem Capital Management Logo" 
@@ -713,8 +722,11 @@
             // --- Particle Scene Variables ---
             let particleCanvas, ctx, particles, mouse, shockwaves, obstacleRects;
             let hasParticleSceneInitialized = false;
+            let disclosureCanvas, disclosureCtx, disclosureBlocks, disclosurePointer, disclosureWaves, disclosureAnimationId;
+            const ADVERSARIAL_SPEED = 0.8;
             // --- Disclosure Modal Logic ---
             acceptButton.addEventListener('click', () => {
+                stopDisclosureFlow();
                 modal.classList.add('hidden'); // Hide the modal
                 siteContent.classList.remove('hidden'); // Show the main site
                 document.body.style.overflow = 'auto'; // Restore scrolling to the page
@@ -800,63 +812,62 @@
                 });
             });
 
-            // --- Block Flow Physics Field ---
+            // --- Strategy Adversarial Field ---
 
-            class FlowBlock {
-                constructor(width, height, index) {
+            class StrategyAgent {
+                constructor(width, height, index, role) {
                     this.index = index;
+                    this.role = role;
                     this.reset(width, height);
                 }
 
                 reset(width, height) {
-                    const laneCount = Math.max(8, Math.round(height / 86));
-                    const lane = this.index % laneCount;
-                    const laneY = (lane + Math.random() * 0.8) / laneCount * height;
                     this.x = Math.random() * width;
-                    this.y = laneY + (Math.random() - 0.5) * 90;
-                    this.length = 22 + Math.random() * 82;
-                    this.thickness = 2 + Math.random() * 5;
-                    this.mass = this.length * this.thickness;
-                    this.angle = -0.42 + (Math.random() - 0.5) * 0.22;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 1.1;
+                    this.vy = (Math.random() - 0.5) * 1.1;
                     this.phase = Math.random() * Math.PI * 2;
-                    this.vx = 0.38 + Math.random() * 1.15;
-                    this.vy = (Math.random() - 0.5) * 0.42;
-                    this.depth = Math.random();
-                    this.charge = Math.random() * 0.24;
-                    this.color = Math.random() > 0.86 ? '212, 175, 55' : '148, 163, 184';
-                    this.edgeColor = Math.random() > 0.7 ? '37, 99, 235' : '255, 255, 255';
+                    this.energy = Math.random() * 0.5 + 0.5;
+                    this.radius = this.role === 'predator' ? 3.4 + Math.random() * 1.5 : 1.6 + Math.random() * 1.8;
+                    this.maxSpeed = this.role === 'predator' ? 3.0 + Math.random() * 0.85 : 2.45 + Math.random() * 1.3;
+                    this.history = [];
+                    this.color = this.role === 'predator' ? '212, 175, 55' : '125, 162, 255';
                 }
 
-                update(width, height) {
-                    const flowAngle = -0.46
-                        + Math.sin(this.y * 0.006 + this.phase) * 0.13
-                        + Math.cos(this.x * 0.0028 + this.phase * 0.7) * 0.06;
-                    const flowSpeed = 0.22 + this.depth * 1.18;
-
-                    this.phase += 0.006 + this.depth * 0.008;
-                    this.vx += Math.cos(flowAngle) * flowSpeed * 0.025;
-                    this.vy += Math.sin(flowAngle) * flowSpeed * 0.025;
-                    this.angle += (flowAngle - this.angle) * 0.035;
+                update(width, height, agents, time) {
+                    this.phase += (this.role === 'predator' ? 0.011 : 0.017) * ADVERSARIAL_SPEED;
+                    this.vx += Math.cos(this.phase + this.y * 0.004 + time * 0.00012) * 0.016 * ADVERSARIAL_SPEED;
+                    this.vy += Math.sin(this.phase + this.x * 0.004 - time * 0.00010) * 0.016 * ADVERSARIAL_SPEED;
 
                     this.reactToPointer();
                     this.reactToShockwaves();
 
-                    this.vx *= 0.988;
-                    this.vy *= 0.988;
-                    this.charge *= 0.94;
-
-                    const maxSpeed = 5.8 + this.depth * 2.4;
-                    const speed = Math.hypot(this.vx, this.vy);
-                    if (speed > maxSpeed) {
-                        this.vx = this.vx / speed * maxSpeed;
-                        this.vy = this.vy / speed * maxSpeed;
+                    if (this.role === 'predator') {
+                        this.updatePredator(width, height, agents);
+                    } else {
+                        this.updatePrey(agents);
                     }
 
-                    this.x += this.vx;
-                    this.y += this.vy;
+                    this.vx *= this.role === 'predator' ? 0.983 : 0.975;
+                    this.vy *= this.role === 'predator' ? 0.983 : 0.975;
 
-                    this.wrapAndBounce(width, height);
-                    this.bounceFromCards();
+                    const velocity = Math.hypot(this.vx, this.vy);
+                    const speedLimit = this.maxSpeed * (this.energy + 0.45) * ADVERSARIAL_SPEED;
+                    if (velocity > speedLimit) {
+                        this.vx = this.vx / velocity * speedLimit;
+                        this.vy = this.vy / velocity * speedLimit;
+                    }
+
+                    this.x += this.vx * ADVERSARIAL_SPEED;
+                    this.y += this.vy * ADVERSARIAL_SPEED;
+                    this.energy = Math.max(0.45, this.energy * 0.998);
+
+                    this.wrap(width, height);
+                    this.avoidCards();
+
+                    this.history.push({ x: this.x, y: this.y });
+                    const maxHistory = this.role === 'predator' ? 34 : 20;
+                    if (this.history.length > maxHistory) this.history.shift();
                 }
 
                 reactToPointer() {
@@ -873,15 +884,13 @@
                     const falloff = Math.pow(1 - dist / radius, 1.45);
                     const nx = dx / dist;
                     const ny = dy / dist;
-                    const pointerEnergy = Math.min(mouse.speed / 26, 2.4);
+                    const pointerEnergy = Math.min(mouse.speed / 26, 2.2);
                     const swirl = mouse.down ? 0.22 : 0.105;
 
-                    this.vx += nx * falloff * (0.28 + pointerEnergy * 0.74);
-                    this.vy += ny * falloff * (0.28 + pointerEnergy * 0.74);
-                    this.vx += mouse.vx * falloff * 0.026 - ny * falloff * pointerEnergy * swirl;
-                    this.vy += mouse.vy * falloff * 0.026 + nx * falloff * pointerEnergy * swirl;
-                    this.angle += falloff * (mouse.vx * 0.012 + pointerEnergy * 0.16);
-                    this.charge = Math.min(1, this.charge + falloff * 0.55);
+                    this.vx += nx * falloff * (0.18 + pointerEnergy * 0.42);
+                    this.vy += ny * falloff * (0.18 + pointerEnergy * 0.42);
+                    this.vx += mouse.vx * falloff * 0.018 - ny * falloff * pointerEnergy * swirl * 0.55;
+                    this.vy += mouse.vy * falloff * 0.018 + nx * falloff * pointerEnergy * swirl * 0.55;
                 }
 
                 reactToShockwaves() {
@@ -892,36 +901,124 @@
                         const band = Math.abs(dist - wave.radius);
 
                         if (band < 68) {
-                            const force = (1 - band / 68) * wave.power;
-                            this.vx += (dx / dist) * force * 0.46;
-                            this.vy += (dy / dist) * force * 0.46;
-                            this.angle += force * 0.08;
-                            this.charge = Math.min(1, this.charge + force * 0.18);
+                            const force = (1 - band / 68) * wave.power * 0.34;
+                            this.vx += dx / dist * force;
+                            this.vy += dy / dist * force;
                         }
                     }
                 }
 
-                wrapAndBounce(width, height) {
-                    const pad = Math.max(this.length, 120);
+                updatePredator(width, height, agents) {
+                    let target = null;
+                    let targetDistSq = Infinity;
 
-                    if (this.x > width + pad) {
-                        this.x = -pad;
-                        this.y = Math.random() * height;
-                    } else if (this.x < -pad) {
-                        this.x = width + pad;
+                    for (const agent of agents) {
+                        if (agent.role !== 'prey') continue;
+                        const dx = agent.x - this.x;
+                        const dy = agent.y - this.y;
+                        const distSq = dx * dx + dy * dy;
+                        if (distSq < targetDistSq) {
+                            target = agent;
+                            targetDistSq = distSq;
+                        }
                     }
 
-                    if (this.y < -40) {
-                        this.y = -40;
-                        this.vy = Math.abs(this.vy) * 0.72;
-                    } else if (this.y > height + 40) {
-                        this.y = height + 40;
-                        this.vy = -Math.abs(this.vy) * 0.72;
+                    if (target) {
+                        const dist = Math.sqrt(targetDistSq) || 1;
+                        const dx = target.x - this.x;
+                        const dy = target.y - this.y;
+                        const hunt = Math.min(1, 180 / dist);
+
+                        this.vx += dx / dist * 0.068 * hunt * ADVERSARIAL_SPEED;
+                        this.vy += dy / dist * 0.068 * hunt * ADVERSARIAL_SPEED;
+
+                        if (dist < this.radius + target.radius + 5) {
+                            addShockwave(target.x, target.y, 1.15);
+                            target.reset(width, height);
+                            target.energy = 1.08;
+                            this.energy = Math.min(1.42, this.energy + 0.16);
+                        }
+                    }
+
+                    for (const agent of agents) {
+                        if (agent === this || agent.role !== 'predator') continue;
+                        const dx = this.x - agent.x;
+                        const dy = this.y - agent.y;
+                        const distSq = dx * dx + dy * dy;
+                        if (distSq < 1300 && distSq > 0.01) {
+                            const dist = Math.sqrt(distSq);
+                            this.vx += dx / dist * 0.035;
+                            this.vy += dy / dist * 0.035;
+                        }
                     }
                 }
 
-                bounceFromCards() {
-                    const radius = Math.max(this.thickness * 2, 5);
+                updatePrey(agents) {
+                    let nearestPredator = null;
+                    let predatorDistSq = Infinity;
+                    let centerX = 0;
+                    let centerY = 0;
+                    let alignX = 0;
+                    let alignY = 0;
+                    let separateX = 0;
+                    let separateY = 0;
+                    let neighborCount = 0;
+
+                    for (const agent of agents) {
+                        if (agent === this) continue;
+                        const dx = agent.x - this.x;
+                        const dy = agent.y - this.y;
+                        const distSq = dx * dx + dy * dy;
+
+                        if (agent.role === 'predator' && distSq < predatorDistSq) {
+                            nearestPredator = agent;
+                            predatorDistSq = distSq;
+                        }
+
+                        if (agent.role === 'prey' && distSq < 7600) {
+                            const dist = Math.sqrt(distSq) || 1;
+                            centerX += agent.x;
+                            centerY += agent.y;
+                            alignX += agent.vx;
+                            alignY += agent.vy;
+                            neighborCount += 1;
+
+                            if (dist < 34) {
+                                separateX -= dx / dist;
+                                separateY -= dy / dist;
+                            }
+                        }
+                    }
+
+                    if (nearestPredator) {
+                        const dist = Math.sqrt(predatorDistSq) || 1;
+                        const threat = Math.max(0, 1 - dist / 190);
+                        this.vx += (this.x - nearestPredator.x) / dist * threat * 0.22 * ADVERSARIAL_SPEED;
+                        this.vy += (this.y - nearestPredator.y) / dist * threat * 0.22 * ADVERSARIAL_SPEED;
+                        this.energy = Math.min(1.22, this.energy + threat * 0.010);
+                    }
+
+                    if (neighborCount > 0) {
+                        centerX /= neighborCount;
+                        centerY /= neighborCount;
+                        alignX /= neighborCount;
+                        alignY /= neighborCount;
+
+                        this.vx += (centerX - this.x) * 0.00065 + (alignX - this.vx) * 0.009 + separateX * 0.026;
+                        this.vy += (centerY - this.y) * 0.00065 + (alignY - this.vy) * 0.009 + separateY * 0.026;
+                    }
+                }
+
+                wrap(width, height) {
+                    const pad = 18;
+                    if (this.x < -pad) this.x = width + pad;
+                    if (this.x > width + pad) this.x = -pad;
+                    if (this.y < -pad) this.y = height + pad;
+                    if (this.y > height + pad) this.y = -pad;
+                }
+
+                avoidCards() {
+                    const radius = this.radius + 3;
 
                     for (const rect of obstacleRects) {
                         const closestX = Math.max(rect.left, Math.min(this.x, rect.right));
@@ -963,45 +1060,42 @@
                         const dist = Math.sqrt(distSq);
                         const nx = dx / dist;
                         const ny = dy / dist;
-                        const velocityIntoSurface = this.vx * nx + this.vy * ny;
 
-                        this.x += nx * (radius - dist + 1.5);
-                        this.y += ny * (radius - dist + 1.5);
-
-                        if (velocityIntoSurface < 0) {
-                            this.vx -= velocityIntoSurface * nx * 1.62;
-                            this.vy -= velocityIntoSurface * ny * 1.62;
-                            this.angle += velocityIntoSurface * 0.035;
-                            this.charge = Math.min(1, this.charge + 0.22);
-                        }
+                        this.x += nx * (radius - dist + 2.5);
+                        this.y += ny * (radius - dist + 2.5);
+                        this.vx += nx * 0.12;
+                        this.vy += ny * 0.12;
                     }
                 }
 
                 draw() {
-                    const speed = Math.hypot(this.vx, this.vy);
-                    const glow = Math.min(speed / 6.8 + this.charge, 1);
-                    const alpha = 0.16 + this.depth * 0.24 + glow * 0.28;
-                    const tail = this.length * (0.5 + glow * 0.9);
-
+                    if (this.history.length < 2) return;
                     ctx.save();
-                    ctx.translate(this.x, this.y);
-                    ctx.rotate(this.angle);
+                    for (let i = 1; i < this.history.length; i++) {
+                        const previous = this.history[i - 1];
+                        const current = this.history[i];
+                        const alpha = i / this.history.length;
 
-                    ctx.fillStyle = `rgba(${this.color}, ${alpha * 0.34})`;
-                    ctx.fillRect(-tail - 6, -this.thickness * 0.34, tail, this.thickness * 0.68);
-
-                    ctx.fillStyle = `rgba(${this.color}, ${alpha})`;
-                    ctx.fillRect(-this.length * 0.5, -this.thickness * 0.5, this.length, this.thickness);
-
-                    ctx.fillStyle = `rgba(${this.edgeColor}, ${0.08 + glow * 0.34})`;
-                    ctx.fillRect(this.length * 0.28, -this.thickness * 0.5, this.length * 0.22, this.thickness);
-
-                    if (glow > 0.42) {
-                        ctx.strokeStyle = `rgba(212, 175, 55, ${0.12 + glow * 0.20})`;
-                        ctx.lineWidth = 1;
-                        ctx.strokeRect(-this.length * 0.5, -this.thickness * 0.5, this.length, this.thickness);
+                        ctx.strokeStyle = `rgba(${this.color}, ${alpha * (this.role === 'predator' ? 0.24 : 0.13)})`;
+                        ctx.lineWidth = this.role === 'predator' ? 1.25 : 0.72;
+                        ctx.beginPath();
+                        ctx.moveTo(previous.x, previous.y);
+                        ctx.lineTo(current.x, current.y);
+                        ctx.stroke();
                     }
 
+                    if (this.role === 'predator') {
+                        ctx.strokeStyle = 'rgba(212, 175, 55, 0.25)';
+                        ctx.lineWidth = 1.1;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius + 5, 0, Math.PI * 2);
+                        ctx.stroke();
+                    }
+
+                    ctx.fillStyle = `rgba(${this.color}, ${this.role === 'predator' ? 0.82 : 0.55})`;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    ctx.fill();
                     ctx.restore();
                 }
             }
@@ -1103,9 +1197,11 @@
                 updateObstacleRects();
 
                 particles = [];
-                const particleCount = Math.max(95, Math.min(220, Math.round((width * height) / 7600)));
+                const particleCount = Math.max(75, Math.min(145, Math.round((width * height) / 11500)));
+                const predatorCount = Math.max(7, Math.round(particleCount * 0.13));
                 for (let i = 0; i < particleCount; i++) {
-                    particles.push(new FlowBlock(width, height, i));
+                    const role = i < predatorCount ? 'predator' : 'prey';
+                    particles.push(new StrategyAgent(width, height, i, role));
                 }
             }
 
@@ -1130,8 +1226,7 @@
                     y,
                     radius: 0,
                     power,
-                    alpha: 0.34,
-                    angle: -0.42 + (Math.random() - 0.5) * 0.2
+                    alpha: 0.34
                 });
                 if (shockwaves.length > 5) shockwaves.shift();
             }
@@ -1213,15 +1308,11 @@
                 drawShockwaves();
                 drawMouseField();
 
+                drawStrategyHuntLinks();
+
+                const now = performance.now();
                 for (const particle of particles) {
-                    particle.update(width, height);
-                }
-
-                resolveParticleCollisions();
-
-                connectParticles();
-
-                for (const particle of particles) {
+                    particle.update(width, height, particles, now);
                     particle.draw();
                 }
 
@@ -1231,18 +1322,18 @@
             function drawShockwaves() {
                 for (let i = shockwaves.length - 1; i >= 0; i--) {
                     const wave = shockwaves[i];
-                    wave.radius += 9.5 + wave.power * 2.4;
+                    wave.radius += (9.5 + wave.power * 2.4) * ADVERSARIAL_SPEED;
                     wave.alpha *= 0.958;
 
-                    ctx.save();
-                    ctx.translate(wave.x, wave.y);
-                    ctx.rotate(wave.angle);
+                    ctx.beginPath();
                     ctx.strokeStyle = `rgba(212, 175, 55, ${wave.alpha})`;
                     ctx.lineWidth = 1.2;
-                    ctx.strokeRect(-wave.radius * 1.22, -wave.radius * 0.34, wave.radius * 2.44, wave.radius * 0.68);
+                    ctx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+                    ctx.stroke();
+                    ctx.beginPath();
                     ctx.strokeStyle = `rgba(37, 99, 235, ${wave.alpha * 0.72})`;
-                    ctx.strokeRect(-wave.radius * 0.72, -wave.radius * 0.18, wave.radius * 1.44, wave.radius * 0.36);
-                    ctx.restore();
+                    ctx.arc(wave.x, wave.y, wave.radius * 0.52, 0, Math.PI * 2);
+                    ctx.stroke();
 
                     if (wave.alpha < 0.025) {
                         shockwaves.splice(i, 1);
@@ -1274,6 +1365,37 @@
                 ctx.restore();
             }
 
+            function drawStrategyHuntLinks() {
+                const predators = particles.filter((agent) => agent.role === 'predator');
+                const prey = particles.filter((agent) => agent.role === 'prey');
+
+                ctx.save();
+                for (const predator of predators) {
+                    let target = null;
+                    let targetDistSq = Infinity;
+
+                    for (const candidate of prey) {
+                        const dx = candidate.x - predator.x;
+                        const dy = candidate.y - predator.y;
+                        const distSq = dx * dx + dy * dy;
+                        if (distSq < targetDistSq) {
+                            target = candidate;
+                            targetDistSq = distSq;
+                        }
+                    }
+
+                    if (!target || targetDistSq > 255 * 255) continue;
+                    const alpha = Math.max(0, 1 - Math.sqrt(targetDistSq) / 255);
+                    ctx.strokeStyle = `rgba(212, 175, 55, ${alpha * 0.11})`;
+                    ctx.lineWidth = 0.8;
+                    ctx.beginPath();
+                    ctx.moveTo(predator.x, predator.y);
+                    ctx.lineTo(target.x, target.y);
+                    ctx.stroke();
+                }
+                ctx.restore();
+            }
+
             function drawFlowBackdrop(width, height) {
                 const gradient = ctx.createLinearGradient(0, 0, width, height);
                 gradient.addColorStop(0, 'rgba(15, 23, 42, 0.34)');
@@ -1301,6 +1423,496 @@
 
                 ctx.restore();
             }
+
+            // --- Disclosure Landing Adversarial Field ---
+
+            class DisclosureAgent {
+                constructor(width, height, index, role) {
+                    this.index = index;
+                    this.role = role;
+                    this.reset(width, height);
+                }
+
+                reset(width, height) {
+                    this.x = Math.random() * width;
+                    this.y = Math.random() * height;
+                    this.vx = (Math.random() - 0.5) * 1.2;
+                    this.vy = (Math.random() - 0.5) * 1.2;
+                    this.phase = Math.random() * Math.PI * 2;
+                    this.energy = Math.random() * 0.5 + 0.5;
+                    this.radius = this.role === 'predator' ? 3.6 + Math.random() * 1.6 : 1.7 + Math.random() * 1.9;
+                    this.maxSpeed = this.role === 'predator' ? 3.2 + Math.random() * 0.9 : 2.6 + Math.random() * 1.4;
+                    this.history = [];
+                    this.color = this.role === 'predator' ? '212, 175, 55' : '125, 162, 255';
+                }
+
+                update(width, height, agents, time) {
+                    this.phase += (this.role === 'predator' ? 0.012 : 0.018) * ADVERSARIAL_SPEED;
+                    this.vx += Math.cos(this.phase + this.y * 0.004 + time * 0.00012) * 0.018 * ADVERSARIAL_SPEED;
+                    this.vy += Math.sin(this.phase + this.x * 0.004 - time * 0.00010) * 0.018 * ADVERSARIAL_SPEED;
+
+                    if (disclosurePointer.active) {
+                        const dx = this.x - disclosurePointer.x;
+                        const dy = this.y - disclosurePointer.y;
+                        const distSq = dx * dx + dy * dy;
+                        const radius = disclosurePointer.down ? 270 : 220;
+
+                        if (distSq < radius * radius && distSq > 0.01) {
+                            const dist = Math.sqrt(distSq);
+                            const falloff = Math.pow(1 - dist / radius, 1.55);
+                            const shock = Math.min(disclosurePointer.speed / 32, 2.1);
+                            const nx = dx / dist;
+                            const ny = dy / dist;
+
+                            this.vx += nx * falloff * (0.18 + shock * 0.42);
+                            this.vy += ny * falloff * (0.18 + shock * 0.42);
+                            this.vx += disclosurePointer.vx * falloff * 0.018;
+                            this.vy += disclosurePointer.vy * falloff * 0.018;
+                        }
+                    }
+
+                    if (this.role === 'predator') {
+                        this.updatePredator(width, height, agents);
+                    } else {
+                        this.updatePrey(agents);
+                    }
+
+                    for (const pulse of disclosureWaves) {
+                        const dx = this.x - pulse.x;
+                        const dy = this.y - pulse.y;
+                        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+                        const band = Math.abs(dist - pulse.radius);
+
+                        if (band < 64) {
+                            const force = (1 - band / 64) * pulse.power * 0.34;
+                            this.vx += dx / dist * force;
+                            this.vy += dy / dist * force;
+                        }
+                    }
+
+                    this.vx *= this.role === 'predator' ? 0.982 : 0.974;
+                    this.vy *= this.role === 'predator' ? 0.982 : 0.974;
+
+                    const velocity = Math.hypot(this.vx, this.vy);
+                    const speedLimit = this.maxSpeed * (this.energy + 0.45) * ADVERSARIAL_SPEED;
+                    if (velocity > speedLimit) {
+                        this.vx = this.vx / velocity * speedLimit;
+                        this.vy = this.vy / velocity * speedLimit;
+                    }
+
+                    this.x += this.vx * ADVERSARIAL_SPEED;
+                    this.y += this.vy * ADVERSARIAL_SPEED;
+                    this.energy = Math.max(0.45, this.energy * 0.998);
+
+                    this.wrap(width, height);
+
+                    this.history.push({ x: this.x, y: this.y });
+                    const maxHistory = this.role === 'predator' ? 36 : 22;
+                    if (this.history.length > maxHistory) this.history.shift();
+                }
+
+                updatePredator(width, height, agents) {
+                    let target = null;
+                    let targetDistSq = Infinity;
+
+                    for (const agent of agents) {
+                        if (agent.role !== 'prey') continue;
+                        const dx = agent.x - this.x;
+                        const dy = agent.y - this.y;
+                        const distSq = dx * dx + dy * dy;
+                        if (distSq < targetDistSq) {
+                            target = agent;
+                            targetDistSq = distSq;
+                        }
+                    }
+
+                    if (target) {
+                        const dist = Math.sqrt(targetDistSq) || 1;
+                        const dx = target.x - this.x;
+                        const dy = target.y - this.y;
+                        const hunt = Math.min(1, 180 / dist);
+
+                        this.vx += dx / dist * 0.075 * hunt * ADVERSARIAL_SPEED;
+                        this.vy += dy / dist * 0.075 * hunt * ADVERSARIAL_SPEED;
+
+                        if (dist < this.radius + target.radius + 5) {
+                            addDisclosureWave(target.x, target.y, 1.35);
+                            target.reset(width, height);
+                            target.energy = 1.1;
+                            this.energy = Math.min(1.45, this.energy + 0.18);
+                        }
+                    }
+
+                    for (const agent of agents) {
+                        if (agent === this || agent.role !== 'predator') continue;
+                        const dx = this.x - agent.x;
+                        const dy = this.y - agent.y;
+                        const distSq = dx * dx + dy * dy;
+                        if (distSq < 1300 && distSq > 0.01) {
+                            const dist = Math.sqrt(distSq);
+                            this.vx += dx / dist * 0.04 * ADVERSARIAL_SPEED;
+                            this.vy += dy / dist * 0.04 * ADVERSARIAL_SPEED;
+                        }
+                    }
+                }
+
+                updatePrey(agents) {
+                    let nearestPredator = null;
+                    let predatorDistSq = Infinity;
+                    let centerX = 0;
+                    let centerY = 0;
+                    let alignX = 0;
+                    let alignY = 0;
+                    let separateX = 0;
+                    let separateY = 0;
+                    let neighborCount = 0;
+
+                    for (const agent of agents) {
+                        if (agent === this) continue;
+                        const dx = agent.x - this.x;
+                        const dy = agent.y - this.y;
+                        const distSq = dx * dx + dy * dy;
+
+                        if (agent.role === 'predator' && distSq < predatorDistSq) {
+                            nearestPredator = agent;
+                            predatorDistSq = distSq;
+                        }
+
+                        if (agent.role === 'prey' && distSq < 7600) {
+                            const dist = Math.sqrt(distSq) || 1;
+                            centerX += agent.x;
+                            centerY += agent.y;
+                            alignX += agent.vx;
+                            alignY += agent.vy;
+                            neighborCount += 1;
+
+                            if (dist < 34) {
+                                separateX -= dx / dist;
+                                separateY -= dy / dist;
+                            }
+                        }
+                    }
+
+                    if (nearestPredator) {
+                        const dist = Math.sqrt(predatorDistSq) || 1;
+                        const threat = Math.max(0, 1 - dist / 190);
+                        this.vx += (this.x - nearestPredator.x) / dist * threat * 0.26 * ADVERSARIAL_SPEED;
+                        this.vy += (this.y - nearestPredator.y) / dist * threat * 0.26 * ADVERSARIAL_SPEED;
+                        this.energy = Math.min(1.25, this.energy + threat * 0.012);
+                    }
+
+                    if (neighborCount > 0) {
+                        centerX /= neighborCount;
+                        centerY /= neighborCount;
+                        alignX /= neighborCount;
+                        alignY /= neighborCount;
+
+                        this.vx += (centerX - this.x) * 0.00075 + (alignX - this.vx) * 0.010 + separateX * 0.030;
+                        this.vy += (centerY - this.y) * 0.00075 + (alignY - this.vy) * 0.010 + separateY * 0.030;
+                    }
+                }
+
+                wrap(width, height) {
+                    const pad = 18;
+                    if (this.x < -pad) this.x = width + pad;
+                    if (this.x > width + pad) this.x = -pad;
+                    if (this.y < -pad) this.y = height + pad;
+                    if (this.y > height + pad) this.y = -pad;
+                }
+
+                draw() {
+                    if (this.history.length < 2) return;
+
+                    disclosureCtx.save();
+                    for (let i = 1; i < this.history.length; i++) {
+                        const previous = this.history[i - 1];
+                        const current = this.history[i];
+                        const alpha = i / this.history.length;
+
+                        disclosureCtx.strokeStyle = `rgba(${this.color}, ${alpha * (this.role === 'predator' ? 0.26 : 0.14)})`;
+                        disclosureCtx.lineWidth = this.role === 'predator' ? 1.35 : 0.75;
+                        disclosureCtx.beginPath();
+                        disclosureCtx.moveTo(previous.x, previous.y);
+                        disclosureCtx.lineTo(current.x, current.y);
+                        disclosureCtx.stroke();
+                    }
+
+                    if (this.role === 'predator') {
+                        disclosureCtx.strokeStyle = 'rgba(212, 175, 55, 0.28)';
+                        disclosureCtx.lineWidth = 1.2;
+                        disclosureCtx.beginPath();
+                        disclosureCtx.arc(this.x, this.y, this.radius + 5, 0, Math.PI * 2);
+                        disclosureCtx.stroke();
+                    }
+
+                    disclosureCtx.fillStyle = `rgba(${this.color}, ${this.role === 'predator' ? 0.86 : 0.58})`;
+                    disclosureCtx.beginPath();
+                    disclosureCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                    disclosureCtx.fill();
+                    disclosureCtx.restore();
+                }
+            }
+
+            function initDisclosureFlow() {
+                disclosureCanvas = document.getElementById('disclosure-flow-canvas');
+                if (!disclosureCanvas || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+                disclosureCtx = disclosureCanvas.getContext('2d');
+                disclosureBlocks = [];
+                disclosureWaves = [];
+                disclosurePointer = {
+                    x: 0,
+                    y: 0,
+                    previousX: 0,
+                    previousY: 0,
+                    vx: 0,
+                    vy: 0,
+                    speed: 0,
+                    active: false,
+                    down: false,
+                    lastMoveTime: 0,
+                    lastShockTime: 0
+                };
+
+                resizeDisclosureFlow();
+
+                modal.addEventListener('pointermove', onDisclosurePointerMove);
+                modal.addEventListener('pointerdown', onDisclosurePointerDown);
+                window.addEventListener('pointerup', () => {
+                    if (disclosurePointer) disclosurePointer.down = false;
+                });
+                modal.addEventListener('pointerleave', () => {
+                    if (!disclosurePointer) return;
+                    disclosurePointer.active = false;
+                    disclosurePointer.down = false;
+                    disclosurePointer.speed = 0;
+                });
+                window.addEventListener('resize', resizeDisclosureFlow);
+
+                animateDisclosureFlow();
+            }
+
+            function resizeDisclosureFlow() {
+                if (!disclosureCanvas || !disclosureCtx) return;
+                const width = modal.clientWidth || window.innerWidth;
+                const height = modal.clientHeight || window.innerHeight;
+                const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+
+                disclosureCanvas.width = width * ratio;
+                disclosureCanvas.height = height * ratio;
+                disclosureCanvas.style.width = `${width}px`;
+                disclosureCanvas.style.height = `${height}px`;
+                disclosureCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+
+                disclosureBlocks = [];
+                const count = Math.max(70, Math.min(125, Math.round((width * height) / 12500)));
+                const predatorCount = Math.max(6, Math.round(count * 0.13));
+                for (let i = 0; i < count; i++) {
+                    const role = i < predatorCount ? 'predator' : 'prey';
+                    disclosureBlocks.push(new DisclosureAgent(width, height, i, role));
+                }
+            }
+
+            function onDisclosurePointerMove(e) {
+                if (!disclosurePointer) return;
+                const rect = modal.getBoundingClientRect();
+                const now = performance.now();
+                const previousTime = disclosurePointer.lastMoveTime || now;
+                const dt = Math.max(now - previousTime, 16);
+
+                disclosurePointer.previousX = disclosurePointer.x;
+                disclosurePointer.previousY = disclosurePointer.y;
+                disclosurePointer.x = e.clientX - rect.left;
+                disclosurePointer.y = e.clientY - rect.top;
+                disclosurePointer.vx = (disclosurePointer.x - disclosurePointer.previousX) / dt * 16.67;
+                disclosurePointer.vy = (disclosurePointer.y - disclosurePointer.previousY) / dt * 16.67;
+                disclosurePointer.speed = Math.hypot(disclosurePointer.vx, disclosurePointer.vy);
+                disclosurePointer.active = true;
+                disclosurePointer.lastMoveTime = now;
+
+                if (disclosurePointer.speed > 24 && now - disclosurePointer.lastShockTime > 190) {
+                    addDisclosureWave(disclosurePointer.x, disclosurePointer.y, Math.min(disclosurePointer.speed / 22, 2.2));
+                    disclosurePointer.lastShockTime = now;
+                }
+            }
+
+            function onDisclosurePointerDown(e) {
+                if (!disclosurePointer) return;
+                const rect = modal.getBoundingClientRect();
+                disclosurePointer.x = e.clientX - rect.left;
+                disclosurePointer.y = e.clientY - rect.top;
+                disclosurePointer.active = true;
+                disclosurePointer.down = true;
+                addDisclosureWave(disclosurePointer.x, disclosurePointer.y, 2.5);
+            }
+
+            function addDisclosureWave(x, y, power) {
+                disclosureWaves.push({
+                    x,
+                    y,
+                    radius: 0,
+                    power,
+                    alpha: 0.28
+                });
+                if (disclosureWaves.length > 5) disclosureWaves.shift();
+            }
+
+            function drawDisclosureBackdrop(width, height) {
+                const gradient = disclosureCtx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, 'rgba(15, 23, 42, 0.20)');
+                gradient.addColorStop(0.48, 'rgba(23, 37, 84, 0.08)');
+                gradient.addColorStop(1, 'rgba(15, 23, 42, 0.26)');
+                disclosureCtx.fillStyle = gradient;
+                disclosureCtx.fillRect(0, 0, width, height);
+
+                drawDisclosureGrid(width, height);
+                drawDisclosureTerritories(width, height);
+            }
+
+            function drawDisclosureGrid(width, height) {
+                disclosureCtx.save();
+                disclosureCtx.strokeStyle = 'rgba(148, 163, 184, 0.055)';
+                disclosureCtx.lineWidth = 0.7;
+
+                const spacing = 44;
+                for (let x = 0; x <= width; x += spacing) {
+                    disclosureCtx.beginPath();
+                    disclosureCtx.moveTo(x, 0);
+                    disclosureCtx.lineTo(x, height);
+                    disclosureCtx.stroke();
+                }
+                for (let y = 0; y <= height; y += spacing) {
+                    disclosureCtx.beginPath();
+                    disclosureCtx.moveTo(0, y);
+                    disclosureCtx.lineTo(width, y);
+                    disclosureCtx.stroke();
+                }
+
+                disclosureCtx.strokeStyle = 'rgba(212, 175, 55, 0.13)';
+                disclosureCtx.lineWidth = 1.1;
+                disclosureCtx.beginPath();
+                disclosureCtx.moveTo(width * 0.5, 0);
+                disclosureCtx.lineTo(width * 0.5, height);
+                disclosureCtx.moveTo(0, height * 0.5);
+                disclosureCtx.lineTo(width, height * 0.5);
+                disclosureCtx.stroke();
+
+                disclosureCtx.restore();
+            }
+
+            function drawDisclosureTerritories(width, height) {
+                disclosureCtx.save();
+                disclosureCtx.translate(width * 0.5, height * 0.46);
+
+                for (let ring = 0; ring < 6; ring++) {
+                    const baseRadius = 120 + ring * 70;
+                    disclosureCtx.strokeStyle = `rgba(125, 162, 255, ${0.07 - ring * 0.006})`;
+                    disclosureCtx.lineWidth = ring % 2 === 0 ? 1 : 0.7;
+                    disclosureCtx.beginPath();
+
+                    for (let a = 0; a <= Math.PI * 2 + 0.06; a += 0.06) {
+                        const r = baseRadius + Math.sin(a * 4 + ring * 0.7) * 18 + Math.cos(a * 7) * 8;
+                        const x = Math.cos(a) * r * 1.55;
+                        const y = Math.sin(a) * r * 0.62;
+
+                        if (a === 0) disclosureCtx.moveTo(x, y);
+                        else disclosureCtx.lineTo(x, y);
+                    }
+                    disclosureCtx.stroke();
+                }
+
+                disclosureCtx.restore();
+            }
+
+            function drawDisclosurePointerField() {
+                if (!disclosurePointer || !disclosurePointer.active) return;
+
+                const intensity = Math.min(disclosurePointer.speed / 30, 1);
+                const radius = disclosurePointer.down ? 260 : 210;
+                const gradient = disclosureCtx.createRadialGradient(disclosurePointer.x, disclosurePointer.y, 0, disclosurePointer.x, disclosurePointer.y, radius);
+                gradient.addColorStop(0, `rgba(212, 175, 55, ${0.10 + intensity * 0.08})`);
+                gradient.addColorStop(0.38, `rgba(37, 99, 235, ${0.08 + intensity * 0.08})`);
+                gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
+
+                disclosureCtx.fillStyle = gradient;
+                disclosureCtx.beginPath();
+                disclosureCtx.arc(disclosurePointer.x, disclosurePointer.y, radius, 0, Math.PI * 2);
+                disclosureCtx.fill();
+            }
+
+            function animateDisclosureFlow() {
+                if (!disclosureCtx || !disclosureCanvas || modal.classList.contains('hidden')) return;
+
+                const width = disclosureCanvas.clientWidth;
+                const height = disclosureCanvas.clientHeight;
+                disclosureCtx.clearRect(0, 0, width, height);
+
+                drawDisclosureBackdrop(width, height);
+                drawDisclosurePointerField();
+
+                for (let i = disclosureWaves.length - 1; i >= 0; i--) {
+                    const wave = disclosureWaves[i];
+                    wave.radius += (9.5 + wave.power * 2.1) * ADVERSARIAL_SPEED;
+                    wave.alpha *= 0.958;
+
+                    disclosureCtx.beginPath();
+                    disclosureCtx.strokeStyle = `rgba(212, 175, 55, ${wave.alpha})`;
+                    disclosureCtx.lineWidth = 1.2;
+                    disclosureCtx.arc(wave.x, wave.y, wave.radius, 0, Math.PI * 2);
+                    disclosureCtx.stroke();
+
+                    if (wave.alpha < 0.025) disclosureWaves.splice(i, 1);
+                }
+
+                const now = performance.now();
+                drawDisclosureHuntLinks();
+                for (const agent of disclosureBlocks) {
+                    agent.update(width, height, disclosureBlocks, now);
+                    agent.draw();
+                }
+
+                disclosureAnimationId = requestAnimationFrame(animateDisclosureFlow);
+            }
+
+            function drawDisclosureHuntLinks() {
+                const predators = disclosureBlocks.filter((agent) => agent.role === 'predator');
+                const prey = disclosureBlocks.filter((agent) => agent.role === 'prey');
+
+                disclosureCtx.save();
+                for (const predator of predators) {
+                    let target = null;
+                    let targetDistSq = Infinity;
+
+                    for (const candidate of prey) {
+                        const dx = candidate.x - predator.x;
+                        const dy = candidate.y - predator.y;
+                        const distSq = dx * dx + dy * dy;
+                        if (distSq < targetDistSq) {
+                            target = candidate;
+                            targetDistSq = distSq;
+                        }
+                    }
+
+                    if (!target || targetDistSq > 260 * 260) continue;
+                    const alpha = Math.max(0, 1 - Math.sqrt(targetDistSq) / 260);
+                    disclosureCtx.strokeStyle = `rgba(212, 175, 55, ${alpha * 0.12})`;
+                    disclosureCtx.lineWidth = 0.8;
+                    disclosureCtx.beginPath();
+                    disclosureCtx.moveTo(predator.x, predator.y);
+                    disclosureCtx.lineTo(target.x, target.y);
+                    disclosureCtx.stroke();
+                }
+                disclosureCtx.restore();
+            }
+
+            function stopDisclosureFlow() {
+                if (disclosureAnimationId) {
+                    cancelAnimationFrame(disclosureAnimationId);
+                    disclosureAnimationId = null;
+                }
+            }
+
+            initDisclosureFlow();
 
             // --- Signup Form Logic ---
             const signupForm = document.getElementById('signup-form');
