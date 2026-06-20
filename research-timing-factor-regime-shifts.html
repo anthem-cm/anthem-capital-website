@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Anthem Capital research on cross-factor momentum dispersion as a leading indicator of equity factor-regime change.">
+    <title>Timing Factor Regime Shifts | Anthem Capital Research</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        :root {
+            --primary-blue: #172554;
+            --secondary-blue: #2563eb;
+            --accent-gold: #d4af37;
+            --light-bg: #f8fafc;
+            --dark-blue: #0f172a;
+        }
+        .section-kicker {
+            color: var(--secondary-blue);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
+        .institutional-card {
+            border: 1px solid rgba(30, 58, 138, 0.12);
+            border-radius: 8px;
+            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
+        }
+        .report-copy { color: #475569; font-size: 1rem; line-height: 1.78; }
+        .report-copy p { margin: 1rem 0; }
+        .report-copy h2 {
+            color: var(--primary-blue);
+            font-size: clamp(1.45rem, 2.3vw, 2rem);
+            font-weight: 750;
+            letter-spacing: -0.025em;
+            line-height: 1.25;
+            margin: 3.5rem 0 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #dbe3ef;
+            scroll-margin-top: 6rem;
+        }
+        .report-copy h2 .section-number { color: var(--secondary-blue); margin-right: 0.75rem; }
+        .report-copy h3 {
+            color: #1e293b;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin: 2rem 0 0.65rem;
+            scroll-margin-top: 6rem;
+        }
+        .report-copy strong { color: #1e293b; }
+        .report-copy code {
+            background: #eff6ff;
+            border: 1px solid #dbeafe;
+            border-radius: 0.25rem;
+            color: #1e3a8a;
+            font-size: 0.86em;
+            padding: 0.08rem 0.3rem;
+        }
+        .report-copy pre {
+            background: #0f172a;
+            border-radius: 0.45rem;
+            color: #e2e8f0;
+            font-size: 0.78rem;
+            line-height: 1.65;
+            margin: 1.25rem 0;
+            overflow-x: auto;
+            padding: 1.2rem 1.35rem;
+        }
+        .report-copy pre code { background: transparent; border: 0; color: inherit; padding: 0; }
+        .report-copy ol, .report-copy ul { margin: 1rem 0; padding-left: 1.35rem; }
+        .report-copy li { margin: 0.6rem 0; }
+        .report-copy ol { list-style: decimal; }
+        .report-copy ul { list-style: disc; }
+        .report-part {
+            border-top: 3px solid var(--accent-gold);
+            margin-top: 4.5rem;
+            padding-top: 1rem;
+        }
+        .report-part h2 { border: 0; margin: 0.35rem 0 0; padding: 0; }
+        .abstract-box {
+            background: linear-gradient(135deg, #f8fafc 0%, #eff6ff 100%);
+            border-left: 4px solid var(--secondary-blue);
+            border-radius: 0 0.45rem 0.45rem 0;
+            padding: 1.5rem 1.65rem;
+        }
+        .report-callout {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-left: 4px solid var(--accent-gold);
+            border-radius: 0.45rem;
+            color: #475569;
+            margin: 1.5rem 0;
+            padding: 1.1rem 1.25rem;
+        }
+        .report-formula {
+            background: #f8fafc;
+            border: 1px solid #dbe3ef;
+            border-radius: 0.45rem;
+            color: var(--primary-blue);
+            font-size: 1rem;
+            margin: 1.25rem 0;
+            overflow-x: auto;
+            padding: 1.15rem;
+            text-align: center;
+        }
+        .table-scroll { margin: 1.4rem 0; overflow-x: auto; }
+        .report-table { border-collapse: collapse; font-size: 0.78rem; min-width: 640px; width: 100%; }
+        .report-table caption { color: #64748b; font-size: 0.75rem; margin-bottom: 0.55rem; text-align: left; }
+        .report-table th {
+            border-bottom: 2px solid #172554;
+            color: #334155;
+            font-size: 0.68rem;
+            font-weight: 750;
+            letter-spacing: 0.04em;
+            padding: 0.65rem 0.55rem;
+            text-align: right;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+        .report-table th:first-child, .report-table td:first-child { text-align: left; }
+        .report-table td { border-bottom: 1px solid #e2e8f0; padding: 0.6rem 0.55rem; text-align: right; }
+        .report-table tr.highlight td { background: #eff6ff; color: #172554; font-weight: 700; }
+        .chart-figure { margin: 2rem 0; }
+        .chart-shell {
+            background: #fbfdff;
+            border: 1px solid rgba(30, 58, 138, 0.13);
+            border-radius: 0.45rem;
+            overflow-x: auto;
+            padding: 0.55rem;
+        }
+        .factor-chart { display: block; height: 360px; min-width: 660px; width: 100%; }
+        .factor-chart.tall { height: 540px; min-width: 800px; }
+        .factor-chart.square { height: 390px; min-width: 580px; }
+        .chart-figure figcaption { color: #64748b; font-size: 0.78rem; line-height: 1.55; margin-top: 0.7rem; }
+        .chart-figure figcaption strong { color: #334155; }
+        .toc-link { border-left: 2px solid transparent; color: #64748b; display: block; font-size: 0.78rem; padding: 0.35rem 0 0.35rem 0.75rem; }
+        .toc-link:hover { border-color: var(--secondary-blue); color: var(--secondary-blue); }
+        @media (max-width: 640px) {
+            .report-copy { font-size: 0.94rem; }
+            .abstract-box { padding: 1.2rem; }
+            .factor-chart { height: 325px; }
+            .factor-chart.tall { height: 500px; }
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800 antialiased">
+    <div id="site-content">
+        <header class="bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
+            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                <div class="flex justify-between items-center h-18">
+                    <a href="index.html" class="flex-shrink-0 flex items-center">
+                        <img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-10 w-auto">
+                    </a>
+                    <div class="hidden md:flex md:items-center md:space-x-6">
+                        <a href="index.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Home</a>
+                        <a href="index.html#strategy" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Strategy</a>
+                        <a href="index.html#performance" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Performance</a>
+                        <a href="research.html" class="text-blue-600 border-b-2 border-blue-600 transition-colors duration-200 font-medium text-sm">Research</a>
+                        <a href="bio.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Team</a>
+                        <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Contact</a>
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">Client Login</a>
+                    </div>
+                    <div class="md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false">
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
+                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="mobile-menu" class="hidden md:hidden pb-4 bg-white">
+                    <a href="index.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Home</a>
+                    <a href="index.html#strategy" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Strategy</a>
+                    <a href="index.html#performance" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Performance</a>
+                    <a href="research.html" class="block py-2 px-3 rounded-md text-base font-medium text-blue-600 bg-blue-50">Research</a>
+                    <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Team</a>
+                    <a href="index.html#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Contact</a>
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-center mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">Client Login</a>
+                </div>
+            </nav>
+        </header>
+
+        <main>
+            <section class="relative overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.96) 0%, rgba(23,37,84,0.88) 56%, rgba(15,23,42,0.52) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
+                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 18% 18%, rgba(212, 175, 55, 0.32), transparent 24%), radial-gradient(circle at 82% 24%, rgba(37, 99, 235, 0.28), transparent 26%);"></div>
+                <div class="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-24">
+                    <a href="research.html" class="inline-flex items-center text-sm font-semibold text-blue-100 hover:text-white transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                        Back to Research
+                    </a>
+                    <div class="max-w-5xl mt-6">
+                        <span class="section-kicker" style="color: #f5d56f;">Quantitative Research · Factor Rotation</span>
+                        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mt-4">Timing Factor Regime Shifts</h1>
+                        <p class="text-xl md:text-2xl font-semibold text-blue-100 mt-5">Cross-factor momentum dispersion as a leading indicator of equity factor-regime change.</p>
+                        <p class="text-base md:text-lg text-slate-300 mt-5 leading-relaxed max-w-4xl">Evidence from 62 years of real factor returns, 30 documented rotation events, and walk-forward out-of-sample validation.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-14" style="background: radial-gradient(circle at 18% 24%, rgba(37,99,235,0.10), transparent 28%), radial-gradient(circle at 78% 18%, rgba(212,175,55,0.10), transparent 22%), linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eef4ff 100%);">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="grid md:grid-cols-4 gap-5">
+                        <div class="bg-white p-6 institutional-card"><div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div><div class="text-3xl font-bold mt-2" style="color: var(--primary-blue);">1963–2026</div><p class="text-sm text-gray-600 mt-2">Seven style factors across 754 monthly observations.</p></div>
+                        <div class="bg-white p-6 institutional-card"><div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Events</div><div class="text-3xl font-bold mt-2" style="color: var(--primary-blue);">30</div><p class="text-sm text-gray-600 mt-2">Confirmed factor-leadership rotations in the sample.</p></div>
+                        <div class="bg-white p-6 institutional-card"><div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Lead Window</div><div class="text-3xl font-bold mt-2" style="color: var(--primary-blue);">≈5 months</div><p class="text-sm text-gray-600 mt-2">Average dispersion crest before a rotation.</p></div>
+                        <div class="bg-white p-6 institutional-card"><div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Top-Quintile Lift</div><div class="text-3xl font-bold mt-2" style="color: var(--primary-blue);">2.28×</div><p class="text-sm text-gray-600 mt-2">Six-month rotation odds versus the base rate.</p></div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-16 md:py-20" style="background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="grid lg:grid-cols-[230px_minmax(0,1fr)] gap-10 items-start">
+                        <aside class="lg:sticky lg:top-24 bg-white p-6 institutional-card">
+                            <span class="section-kicker">In This Report</span>
+                            <nav class="mt-4" aria-label="Report contents">
+                                <a class="toc-link" href="#question">1. The question</a>
+                                <a class="toc-link" href="#factor-universe">2. Factor universe</a>
+                                <a class="toc-link" href="#rotation-definition">3. Rotation definition</a>
+                                <a class="toc-link" href="#driver-ranking">4. Driver ranking</a>
+                                <a class="toc-link" href="#definition">5. Definition and data</a>
+                                <a class="toc-link" href="#history">6. Dispersion history</a>
+                                <a class="toc-link" href="#leading-result">7. Leading result</a>
+                                <a class="toc-link" href="#events">8. Event studies</a>
+                                <a class="toc-link" href="#predictive-strength">9. Predictive strength</a>
+                                <a class="toc-link" href="#mechanism">10. Mechanism</a>
+                                <a class="toc-link" href="#robustness">11. Robustness</a>
+                                <a class="toc-link" href="#limitations">12. Limitations</a>
+                            </nav>
+                        </aside>
+
+                        <article class="bg-white p-6 sm:p-9 md:p-12 institutional-card report-copy min-w-0">
+                            <span class="section-kicker">Research Note</span>
+                            <h2 class="!border-0 !mt-2 !pt-0">Executive abstract</h2>
+                            <div class="abstract-box">
+                                <p class="!mt-0">Equity style factors—market, value, size, momentum, quality, low-volatility, and growth—take turns leading. We screen eleven macro and market predictors against 30 rotations over 1963–2026 and find one variable clearly above the rest: <strong>cross-factor momentum dispersion</strong> (<code>factor_mom_disp</code>), the cross-sectional standard deviation of trailing 12-month factor returns.</p>
+                                <p class="!mb-0">It ranks first on every importance lens and lands in the top five drivers in <strong>93% of bootstrap resamples</strong>. Its z-score crests roughly <strong>five months before</strong> a rotation; a top-quintile reading raises the six-month rotation probability to <strong>57% against a 25% base rate</strong>. The signal is approximately 77% orthogonal to factor-momentum level, the long-horizon value spread, and VIX. It is a leading <em>indicator</em> of regime fragility, not a standalone trading strategy: the tradable timing edge in this dataset remains within statistical noise.</p>
+                            </div>
+
+                            <div class="report-part">
+                                <span class="section-kicker">Part I · Introduction</span>
+                                <h2>The Factor-Rotation Problem</h2>
+                            </div>
+                            <p class="text-lg text-slate-700">Style factors are the workhorses of modern equity investing, yet their leadership is unstable. Value can dominate for years, then momentum, then quality, before a regime turns over in months. This report establishes the rotation problem and the predictor landscape, then examines the variable the evidence elevates above all others.</p>
+
+                            <h2 id="question"><span class="section-number">1</span>The question, and why it is hard</h2>
+                            <p>The central question is narrow and practical: <strong>which observable variables move before factor leadership rotates, and how far ahead?</strong> Rotations are rare, so a useful predictor may look unimpressive on raw accuracy while still carrying information. The raw leadership signal is also noisy: the best-performing factor can flip month to month without a durable regime change.</p>
+                            <p>A credible study therefore needs a disciplined definition of “rotation,” leakage-free validation, and metrics judged against appropriate baselines—AUC versus 0.50 and average precision versus the event base rate.</p>
+
+                            <h2 id="factor-universe"><span class="section-number">2</span>The factor universe</h2>
+                            <p>The study tracks seven equity style factors over 754 monthly observations from July 1963 through April 2026, sourced from the Kenneth French research data library, with a calibrated proxy for low-volatility—the one style with no French equivalent.</p>
+                            <div class="table-scroll">
+                                <table class="report-table">
+                                    <caption>Annualized performance of the seven factors, full sample.</caption>
+                                    <thead><tr><th>Factor</th><th>Ann. return</th><th>Ann. vol</th><th>Sharpe</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>market</td><td>7.2%</td><td>15.5%</td><td>0.46</td></tr>
+                                        <tr><td>momentum</td><td>7.3%</td><td>14.5%</td><td>0.51</td></tr>
+                                        <tr><td>value</td><td>3.6%</td><td>10.3%</td><td>0.35</td></tr>
+                                        <tr><td>quality</td><td>3.1%</td><td>7.7%</td><td>0.40</td></tr>
+                                        <tr><td>size</td><td>2.2%</td><td>10.5%</td><td>0.21</td></tr>
+                                        <tr><td>low_volatility</td><td>2.0%</td><td>8.0%</td><td>0.24</td></tr>
+                                        <tr><td>growth</td><td>−2.9%</td><td>7.2%</td><td>−0.41</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-factor-performance" class="factor-chart" role="img" aria-label="Cumulative performance of seven style factors on a logarithmic scale from 1963 to 2026"></canvas></div>
+                                <figcaption><strong>Figure 1.</strong> Growth of $1 in each factor on a log scale. Leadership changes hands repeatedly across six decades—the visual motivation for predicting rotations.</figcaption>
+                            </figure>
+
+                            <h2 id="rotation-definition"><span class="section-number">3</span>What counts as a rotation</h2>
+                            <p>A rotation requires <strong>two independent lenses to agree</strong>. First, each factor’s trailing six-month return defines relative strength, and a new leader must hold the top slot for at least three months. Second, a change-point detector on the relative-strength panel must independently mark a structural break within a three-month window. Their intersection defines a rotation event.</p>
+                            <p>The process identifies 30 events, with a median regime length of roughly 10 months and a median absolute leadership swing of roughly 14%.</p>
+                            <div class="table-scroll">
+                                <table class="report-table">
+                                    <caption>Detected rotations versus familiar factor-leadership regime shifts.</caption>
+                                    <thead><tr><th>Episode</th><th>Window</th><th>Detected</th><th>Distance</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Dot-com unwind</td><td>2000-03 to 2001-06</td><td><strong>2000-07</strong>, 2001-08</td><td>0 mo</td></tr>
+                                        <tr><td>Global Financial Crisis</td><td>2008-09 to 2009-06</td><td><strong>2008-10</strong>, 2009-07</td><td>0 mo</td></tr>
+                                        <tr><td>COVID crash and recovery</td><td>2020-02 to 2020-11</td><td><strong>2021-01</strong></td><td>2 mo</td></tr>
+                                        <tr><td>Value comeback / rates regime</td><td>2021-11 to 2022-12</td><td><strong>2022-01</strong>, 2022-07</td><td>0 mo</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>The detector lands on economically coherent months and finds no durable rotation across 2009–2021, when growth, quality, and momentum led without interruption.</p>
+
+                            <h2 id="driver-ranking"><span class="section-number">4</span>Can rotations be predicted? The driver ranking</h2>
+                            <p>A walk-forward gradient-boosting classifier predicting a three-month-ahead rotation flag earns out-of-sample <strong>AUC 0.647</strong> versus 0.50 for a coin flip and beats a logistic baseline by 0.09 AUC. The model’s more useful contribution is the ranking of the inputs that carry lead information.</p>
+                            <div class="table-scroll">
+                                <table class="report-table">
+                                    <caption>Full driver ranking. Lead is the forward month with strongest correlation; top-5 frequency measures bootstrap stability.</caption>
+                                    <thead><tr><th>Driver</th><th>Composite</th><th>Perm.</th><th>|SHAP|</th><th>Lead</th><th>Dir.</th><th>Top-5</th></tr></thead>
+                                    <tbody>
+                                        <tr class="highlight"><td>factor_mom_disp</td><td>1.000</td><td>0.209</td><td>0.128</td><td>5 mo</td><td>↑</td><td>93%</td></tr>
+                                        <tr><td>vix</td><td>0.410</td><td>0.042</td><td>0.062</td><td>8 mo</td><td>↑</td><td>35%</td></tr>
+                                        <tr><td>cpi_yoy</td><td>0.366</td><td>0.035</td><td>0.038</td><td>2 mo</td><td>↑</td><td>74%</td></tr>
+                                        <tr><td>factor_val_spread</td><td>0.203</td><td>0.068</td><td>0.027</td><td>4 mo</td><td>↑</td><td>5%</td></tr>
+                                        <tr><td>factor_mom</td><td>0.134</td><td>0.019</td><td>0.004</td><td>7 mo</td><td>↓</td><td>36%</td></tr>
+                                        <tr><td>short_rate</td><td>0.123</td><td>0.005</td><td>0.000</td><td>5 mo</td><td>↑</td><td>65%</td></tr>
+                                        <tr><td>growth_proxy</td><td>0.119</td><td>0.004</td><td>0.001</td><td>0 mo</td><td>↓</td><td>48%</td></tr>
+                                        <tr><td>credit_spread</td><td>0.104</td><td>0.011</td><td>0.014</td><td>8 mo</td><td>↑</td><td>57%</td></tr>
+                                        <tr><td>usd_twi</td><td>0.101</td><td>0.058</td><td>0.003</td><td>5 mo</td><td>↓</td><td>38%</td></tr>
+                                        <tr><td>term_spread</td><td>0.085</td><td>0.009</td><td>0.001</td><td>5 mo</td><td>↓</td><td>32%</td></tr>
+                                        <tr><td>equity_valuation</td><td>0.027</td><td>−0.000</td><td>0.001</td><td>4 mo</td><td>↑</td><td>18%</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-driver-ranking" class="factor-chart" role="img" aria-label="Horizontal bar chart ranking eleven drivers by composite importance"></canvas></div>
+                                <figcaption><strong>Figure 2.</strong> Composite importance across all eleven predictors. <code>factor_mom_disp</code> scores 1.000—more than double the next-best variable—because it is the maximum on all three importance inputs.</figcaption>
+                            </figure>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-stability" class="factor-chart" role="img" aria-label="Bar chart of bootstrap top-five frequency by driver"></canvas></div>
+                                <figcaption><strong>Figure 3.</strong> Across 120 block-bootstrap resamples, dispersion lands in the top five drivers 93% of the time. The next-most-stable predictor, inflation, reaches 74%.</figcaption>
+                            </figure>
+                            <div class="report-callout">The ranking is emphatic and stable: <strong>cross-factor momentum dispersion</strong> dominates the field. Part II examines what it measures, how it behaves before historical rotations, and how reliable the relationship is.</div>
+
+                            <div class="report-part">
+                                <span class="section-kicker">Part II · Deep Dive</span>
+                                <h2>Cross-Factor Momentum Dispersion</h2>
+                            </div>
+
+                            <h2 id="definition"><span class="section-number">5</span>Definition, data, and provenance</h2>
+                            <p>For each month <em>t</em>, let r<sub>12</sub><sup>(f)</sup>(t) be the trailing 12-month cumulative return of factor <em>f</em>. Cross-factor momentum dispersion is the cross-sectional population standard deviation of those returns:</p>
+                            <div class="report-formula"><strong>factor_mom_disp</strong>(t) = std<sub>f</sub> [ r<sub>12</sub><sup>(f)</sup>(t) ]</div>
+                            <pre><code>log_gross = np.log1p(returns)
+cum_12m = np.expm1(log_gross.rolling(12, min_periods=12).sum())
+factor_mom_disp = cum_12m.std(axis=1, ddof=0)</code></pre>
+                            <p>The measure is <strong>large when one or two factors have run far ahead of the pack</strong> and small when factor returns are bunched. It is the factor-internal analogue of a turbulence gauge. Two relatives test distinctness later: <code>factor_mom</code>, the cross-factor mean of the same 12-month returns, and <code>factor_val_spread</code>, the standard deviation of trailing 36-month returns.</p>
+                            <p>The factor returns are real and were independently verified. Recomputing <code>factor_mom_disp</code> directly from the factor-return panel reproduces the delivered predictor column with a maximum absolute difference of <strong>0.0</strong> across all 743 months. The series runs from June 1964 through April 2026, with a mean of 0.108, standard deviation of 0.051, minimum of 0.019, and maximum of 0.376 in February 2001.</p>
+
+                            <h2 id="history"><span class="section-number">6</span>Dispersion through history</h2>
+                            <p>Across six decades, dispersion peaks line up with major factor-regime stresses: the 2000–2001 dot-com value/momentum unwind, 1974 stagflation, the post-GFC reset, and the 2021 value comeback.</p>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-dispersion-history" class="factor-chart" role="img" aria-label="Time series of cross-factor momentum dispersion with rotation events marked"></canvas></div>
+                                <figcaption><strong>Figure 4.</strong> <code>factor_mom_disp</code> over the full sample. Grey vertical lines mark the 30 detected rotation events; the largest spikes precede the most violent leadership handovers.</figcaption>
+                            </figure>
+
+                            <h2 id="leading-result"><span class="section-number">7</span>The leading-indicator result</h2>
+                            <p>The lead-lag profile is computed as corr[disp(t), rotation(t+k)] for forward leads from zero to 12 months. Correlation peaks at <strong>k = 5 months, at +0.158</strong>:</p>
+                            <pre><code>lead 0: +0.129   1: +0.126   2: +0.134   3: +0.126   4: +0.134
+lead 5: +0.158 (peak)   6: +0.128   7: +0.089   ...   12: +0.036</code></pre>
+                            <p>The sign is consistent across every lens: <strong>high or rising dispersion precedes rotation</strong>. The transforms that survive feature selection are dispersion’s six-month momentum and 12-month z-score, indicating the signal lives in its rising and stretched state rather than the raw absolute level.</p>
+
+                            <h2 id="events"><span class="section-number">8</span>Historical event studies</h2>
+                            <h3>8.1 Average event study across all 30 rotations</h3>
+                            <p>Aligning each rotation at t0 and averaging the dispersion z-score across the [−12, 0] window produces a rising-then-cresting profile that peaks five months ahead.</p>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-event-study" class="factor-chart" role="img" aria-label="Average and median dispersion z-score during the twelve months before rotation"></canvas></div>
+                                <figcaption><strong>Figure 5.</strong> Mean and median dispersion z-score across all 30 rotations, with individual event paths in grey. Dispersion peaks at t−5, with a mean z-score of 0.77.</figcaption>
+                            </figure>
+                            <div class="table-scroll">
+                                <table class="report-table">
+                                    <caption>Mean and median dispersion z-score by months to rotation.</caption>
+                                    <thead><tr><th>Series</th><th>t−12</th><th>t−9</th><th>t−7</th><th>t−6</th><th>t−5</th><th>t−4</th><th>t−3</th><th>t−1</th><th>t0</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Mean z</td><td>0.18</td><td>0.26</td><td>0.44</td><td>0.63</td><td><strong>0.77</strong></td><td>0.66</td><td>0.61</td><td>0.61</td><td>0.63</td></tr>
+                                        <tr><td>Median z</td><td>−0.04</td><td>0.17</td><td>0.30</td><td>0.46</td><td><strong>0.62</strong></td><td>0.43</td><td>0.63</td><td>0.34</td><td>0.56</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <h3>8.2 Individual case studies</h3>
+                            <p>The pattern is strongest before large, crowding-fueled rotations and is honest about its misses. Dispersion spikes before the dot-com unwind and the 2022 value/rates turn, is elevated before several others, and is flat or falling before a minority of events.</p>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-case-studies" class="factor-chart tall" role="img" aria-label="Six small multiple charts showing dispersion z-score before the six largest factor rotations"></canvas></div>
+                                <figcaption><strong>Figure 6.</strong> Dispersion z-score into the six largest rotations. The 2000-07 dot-com unwind is the canonical case: dispersion reaches z = +3.81 exactly five months before momentum cedes leadership to value in a 48% swing.</figcaption>
+                            </figure>
+                            <div class="table-scroll">
+                                <table class="report-table">
+                                    <caption>Per-event dispersion z-score. The t−5 column is emphasized.</caption>
+                                    <thead><tr><th>Event</th><th>Gained ← Lost</th><th>Swing</th><th>t−12</th><th>t−9</th><th>t−6</th><th>t−5</th><th>t−3</th><th>t−1</th><th>t0</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>2000-07</td><td>value ← momentum</td><td>48.3%</td><td>−0.59</td><td>0.65</td><td>1.16</td><td><strong>3.81</strong></td><td>1.70</td><td>2.47</td><td>1.95</td></tr>
+                                        <tr><td>2022-01</td><td>value ← market</td><td>48.0%</td><td>0.96</td><td>2.35</td><td>1.44</td><td><strong>1.10</strong></td><td>1.54</td><td>0.71</td><td>1.48</td></tr>
+                                        <tr><td>1999-10</td><td>momentum ← size</td><td>47.5%</td><td>0.54</td><td>1.00</td><td>0.26</td><td><strong>−0.15</strong></td><td>−0.59</td><td>0.20</td><td>0.65</td></tr>
+                                        <tr><td>1987-09</td><td>low-vol ← market</td><td>41.7%</td><td>−0.27</td><td>−0.56</td><td>−0.49</td><td><strong>−0.39</strong></td><td>−0.48</td><td>−0.22</td><td>0.34</td></tr>
+                                        <tr><td>1991-02</td><td>market ← low-vol</td><td>32.0%</td><td>−0.26</td><td>−0.07</td><td>1.06</td><td><strong>1.62</strong></td><td>1.19</td><td>0.22</td><td>−0.22</td></tr>
+                                        <tr><td>1983-09</td><td>value ← market</td><td>27.8%</td><td>0.31</td><td>0.30</td><td>0.62</td><td><strong>0.89</strong></td><td>1.77</td><td>0.61</td><td>0.58</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p><strong>Counter-examples are real.</strong> The October 1979 rotation occurred with dispersion low and falling, near z = −1.3 at t−5, while September 1987 was flat. Dispersion is a tendency, not a law.</p>
+
+                            <h2 id="predictive-strength"><span class="section-number">9</span>Predictive strength: quintile lift</h2>
+                            <p>Because the power is concentrated in the tail, a quintile sort is more revealing than linear correlation. Sorting months by dispersion and measuring whether a rotation follows within six months produces a 25% base rate.</p>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-quintile-lift" class="factor-chart" role="img" aria-label="Rotation probability within six months by dispersion quintile"></canvas></div>
+                                <figcaption><strong>Figure 7.</strong> Six-month rotation probability by dispersion quintile. The top quintile reaches 57%, or 2.28 times the base rate. Top-quintile lift is also 2.32× at three months and 1.93× at 12 months.</figcaption>
+                            </figure>
+                            <div class="table-scroll">
+                                <table class="report-table">
+                                    <caption>Six-month rotation probability by dispersion quintile.</caption>
+                                    <thead><tr><th>Quintile</th><th>Probability</th><th>Rotations / months</th><th>Lift</th></tr></thead>
+                                    <tbody>
+                                        <tr><td>Q1 (low)</td><td>9.4%</td><td>14 / 149</td><td>0.38×</td></tr>
+                                        <tr><td>Q2</td><td>16.2%</td><td>24 / 148</td><td>0.65×</td></tr>
+                                        <tr><td>Q3</td><td>10.7%</td><td>16 / 149</td><td>0.43×</td></tr>
+                                        <tr><td>Q4</td><td>31.8%</td><td>47 / 148</td><td>1.27×</td></tr>
+                                        <tr class="highlight"><td>Q5 (high)</td><td>57.0%</td><td>85 / 149</td><td>2.28×</td></tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <p>As a binary signal, top-quintile dispersion produces precision of 0.57 and recall of 0.46. In plain terms, when dispersion is extreme, a regime change follows within half a year well over half the time, versus one chance in four unconditionally.</p>
+
+                            <h2 id="mechanism"><span class="section-number">10</span>Why dispersion leads</h2>
+                            <ol>
+                                <li><strong>Stretched, crowded trends carry mean-reversion risk.</strong> Dispersion is large when one or two factors have run far ahead. Mature, one-sided trends attract crowding and valuation extension; the wider the gap, the larger the eventual snap-back risk.</li>
+                                <li><strong>Wide dispersion signals fragile leadership.</strong> When returns are bunched, the leader is robust to small shocks. When dispersion is wide, leadership rests on a thin margin of trend rather than breadth, so a modest macro or sentiment shock can reorder the cross-section.</li>
+                                <li><strong>Factor-internal turbulence.</strong> Dispersion co-moves moderately with VIX and the value spread but dominates both on every importance lens. It captures risk expressed through style rotation rather than index volatility alone.</li>
+                            </ol>
+                            <p>The five-month lead is best read as <strong>roughly one to two quarters ahead</strong>, not as a precise point estimate against a sparse binary target.</p>
+
+                            <h2 id="robustness"><span class="section-number">11</span>Robustness and distinctness</h2>
+                            <p>Regressing <code>factor_mom_disp</code> jointly on <code>factor_mom</code>, <code>factor_val_spread</code>, and <code>vix</code> leaves R² = 0.23—approximately <strong>77% of its variance is orthogonal</strong> to all three. The strongest overlap, with the 36-month value spread, is expected, but the two separate in stability: dispersion ranks first at 93%, while the value spread reaches only 5% top-five frequency.</p>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-correlations" class="factor-chart square" role="img" aria-label="Correlation heatmap for dispersion, momentum, value spread, and VIX"></canvas></div>
+                                <figcaption><strong>Figure 8.</strong> Dispersion is only mildly related to factor-momentum level, the long-horizon value spread, and VIX. It is not a repackaging of any one of them.</figcaption>
+                            </figure>
+                            <p><strong>The signal is strongest when markets are calm.</strong> In low-VIX months, factor-internal dispersion performs the discriminating work and average-precision lift reaches 3.0×. In high-VIX months, where rotation is already visible, the edge collapses toward the base rate.</p>
+                            <figure class="chart-figure">
+                                <div class="chart-shell"><canvas id="chart-volatility-regimes" class="factor-chart" role="img" aria-label="Average precision lift in low and high volatility market regimes"></canvas></div>
+                                <figcaption><strong>Figure 9.</strong> Average-precision lift by volatility regime. The signal is roughly three times the base rate in calm markets versus barely above it in turbulent markets.</figcaption>
+                            </figure>
+                            <p>The result also survives at the per-factor level: a dispersion transform leads the leadership-change event for every modeled factor with a consistent positive sign. Quality, based on only 20 events and sub-random skill, is the lone exception.</p>
+
+                            <h2 id="limitations"><span class="section-number">12</span>Limitations and conclusion</h2>
+                            <ol>
+                                <li><strong>Small event sample.</strong> Thirty rotations in 743 months underpin every estimate; the 2000–2001 cluster is influential, and bootstrap ranks move by roughly ±1.8–2.5 positions.</li>
+                                <li><strong>Tail-driven, not linear.</strong> Peak cross-correlation is approximately 0.16. The power lives in the top quintile, so dispersion is a regime flag rather than a smooth continuous signal.</li>
+                                <li><strong>Lead loosely identified.</strong> “Roughly one to two quarters ahead” is more defensible than an exact five-month claim.</li>
+                                <li><strong>Feature-family overlap.</strong> Dispersion shares roughly 23% of its variance with the factor-momentum, value-spread, and VIX block.</li>
+                                <li><strong>One proxy factor and shared construction.</strong> Low-volatility is a calibrated proxy, and the rotation labels derive from the same factor panel.</li>
+                                <li><strong>Indicator, not strategy.</strong> Predictive lift is real but modest, while the tradable timing edge in this dataset remains within noise. A naive rotation overlay passes none of three significance tests and sits near the center of a random-rotation null.</li>
+                            </ol>
+                            <div class="report-callout"><strong>Conclusion.</strong> Cross-factor momentum dispersion is the most informative and stable early-warning variable for factor-regime change among the predictors examined. It is most discriminating in calm markets, and a top-quintile reading more than doubles near-term rotation probability. The evidence supports using dispersion as a leading indicator of <em>when</em> a factor regime is fragile—not as a standalone source of alpha.</div>
+
+                            <div class="mt-14 pt-6 border-t border-slate-200 text-xs leading-relaxed text-slate-500">
+                                Source: Kenneth French Research Data Library, 1963–2026, plus a calibrated low-volatility proxy.
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="border-t border-gray-300" style="background-color: #172554;">
+            <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-center md:text-left mb-4 md:mb-0">
+                        <a href="index.html" class="flex-shrink-0 flex items-center justify-center md:justify-start"><img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-10 w-auto brightness-0 invert"></a>
+                        <p class="mt-2 text-sm text-blue-200">&copy; 2025 Anthem Capital Management LLC. All rights reserved.</p>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <a href="index.html#strategy" class="text-sm text-blue-200 hover:text-white transition-colors">Strategy</a>
+                        <a href="index.html#performance" class="text-sm text-blue-200 hover:text-white transition-colors">Performance</a>
+                        <a href="research.html" class="text-sm text-white transition-colors">Research</a>
+                        <a href="bio.html" class="text-sm text-blue-200 hover:text-white transition-colors">Team</a>
+                        <a href="index.html#contact" class="text-sm text-blue-200 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="scripts/timing-factor-regime-shifts-data.js"></script>
+    <script src="scripts/research-timing-factor-regime-shifts.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const hamburgerIcon = menuButton.querySelector('svg:first-of-type');
+            const closeIcon = menuButton.querySelector('svg:last-of-type');
+            menuButton.addEventListener('click', () => {
+                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
+                menuButton.setAttribute('aria-expanded', String(!isExpanded));
+                mobileMenu.classList.toggle('hidden');
+                hamburgerIcon.classList.toggle('hidden');
+                closeIcon.classList.toggle('hidden');
+            });
+        });
+    </script>
+</body>
+</html>
