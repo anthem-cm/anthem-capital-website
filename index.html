@@ -4,12 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Anthem Capital Management | Disciplined Investing</title>
+    <meta name="description" content="Anthem Capital Management applies systematic global macro research, disciplined risk sizing, and proprietary infrastructure across global markets.">
+    <meta name="theme-color" content="#03070c">
+    <meta property="og:title" content="Anthem Capital Management | Systematic Global Macro">
+    <meta property="og:description" content="Quantitative global macro research and disciplined execution across rates, FX, equities, and commodities.">
+    <meta property="og:image" content="https://anthemcm.com/images/signal-field.webp">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
     
     <!-- Tailwind CSS --><script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts - Inter --><link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- Display and data fonts --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="images/signal-field.webp" type="image/webp">
     
     <!-- Three.js Library REMOVED --><!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script> --><style>
         /* Apply Inter font family */
@@ -97,60 +105,66 @@
             pointer-events: none;
         }
     </style>
+    <link rel="stylesheet" href="styles/future.css">
 </head>
-<body class="bg-white text-gray-700 antialiased">
+<body class="anthem-experience bg-white text-gray-700 antialiased">
 
-    <!-- Disclosure Modal --><div id="disclosure-modal" class="fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.98) 0%, rgba(15,23,42,0.92) 50%, rgba(15,23,42,0.82) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;"><!-- Backdrop --><div class="absolute inset-0 z-0 bg-slate-900 bg-opacity-35 backdrop-blur-[1px]"></div>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- Disclosure Modal --><div id="disclosure-modal" class="access-protocol fixed inset-0 z-[100] flex flex-col items-center justify-center p-4 overflow-hidden" role="dialog" aria-modal="true" aria-labelledby="disclosure-title" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.98) 0%, rgba(15,23,42,0.92) 50%, rgba(15,23,42,0.82) 100%), url('images/signal-field.webp'); background-size: cover; background-position: center;"><!-- Backdrop --><div class="absolute inset-0 z-0 bg-slate-900 bg-opacity-35 backdrop-blur-[1px]"></div>
         <canvas id="disclosure-flow-canvas" class="absolute inset-0 z-[1]"></canvas>
         
-        <!-- Logo --><img src="images/image2.png" 
+        <!-- Logo --><img src="images/anthem-wordmark.webp"
              alt="Anthem Capital Management Logo" 
-             class="relative z-10 w-full max-w-xl h-auto mb-4"
+             width="1440" height="500"
+             class="access-protocol__brand relative z-10 w-full max-w-xl h-auto mb-4"
              onerror="this.src='https://placehold.co/600x120/0a0a0a/gray?text=ANTHEM+CM'; this.onerror=null;">
         
-        <!-- Modal Content --><div class="relative z-10 w-full max-w-2xl bg-white text-gray-700 rounded-lg shadow-2xl flex flex-col" style="max-height: 80vh;"><h2 class="text-xl font-bold text-slate-900 p-6 border-b border-gray-200">
+        <!-- Modal Content --><div class="access-protocol__panel relative z-10 w-full max-w-2xl bg-white text-gray-700 rounded-lg shadow-2xl flex flex-col" style="max-height: 80vh;"><h2 id="disclosure-title" class="text-xl font-bold text-slate-900 p-6 border-b border-gray-200">
                 Important Disclosures
             </h2>
 
-            <!-- Scrollable Terms --><div class="flex-grow p-6 overflow-y-auto disclosure-scroll space-y-4 text-xs">
+            <!-- Scrollable Terms --><div id="disclosure-copy" class="access-protocol__copy flex-grow p-6 overflow-y-auto disclosure-scroll space-y-4 text-xs" tabindex="0">
                 <p>This report is not an offer to sell or a solicitation of an offer to purchase any investment product.</p>
                 <p>The information contained in this presentation is intended for informational purposes only and is qualified in its entirety by the more detailed information contained in our Form ADV and in the Anthem Maverick Fund LP confidential offering memorandum (the “Offering Memorandum”). An investment in the Fund involves significant investment considerations and risks which are described in the Offering Memorandum. Nothing contained herein constitutes investment, financial, legal, tax or other advice nor is to be relied on in making an investment decision.</p>
                 <p>The information and opinions contained in this presentation are provided by Anthem Capital Management LLC for informational purposes only and are subject to change without notice. It is for your private information and provided for the exclusive use of the person who has been authorized to receive it. Anthem Capital is soliciting no action based upon it. The content of this presentation is based upon information that we consider reliable, but neither Anthem Capital Management nor any of its managers or employees represents that it is accurate or complete, and it should not be relied upon as such.</p>
             </div>
             
-            <!-- Footer with Accept Button --><div class="p-6 border-t border-gray-200 bg-white rounded-b-lg">
+            <!-- Footer with Accept Button --><div class="access-protocol__footer p-6 border-t border-gray-200 bg-white rounded-b-lg">
                 <p class="text-xs text-gray-500 mb-4 text-center">Please scroll and read all disclosures before continuing.</p>
-                <button id="accept-button" class="w-full inline-flex justify-center items-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-sm" style="background-color: var(--accent-gold);">
-                    Accept and Enter Site
+                <button id="accept-button" class="w-full inline-flex justify-center items-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-all duration-200 shadow-sm" style="background-color: var(--accent-gold);" disabled aria-disabled="true">
+                    Review disclosures to continue
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Main Site Content (Hidden by default) --><div id="site-content" class="hidden">
-        <!-- Header & Navigation --><header class="bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
-            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-18">
-                    <!-- Logo --><a href="#home" class="flex-shrink-0 flex items-center">
-                        <img src="images/image2.png" 
+    <!-- Main Site Content (Hidden by default) --><div id="site-content" class="hidden" aria-hidden="true">
+        <div class="system-progress" aria-hidden="true"><span id="system-progress-bar"></span></div>
+        <!-- Header & Navigation --><header class="future-header bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
+            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+                <div class="flex justify-between items-center h-[76px]">
+                    <!-- Logo --><a href="#home" class="future-logo flex-shrink-0 flex items-center">
+                        <img src="images/anthem-wordmark.webp"
                              alt="Anthem Capital Management Logo" 
-                             class="h-10 w-auto"
+                             width="1440" height="500"
+                             class="future-logo-img h-10 w-auto"
                              onerror="this.src='https://placehold.co/200x50/000000/gray?text=ANTHEM+CM'; this.onerror=null;">
                     </a>
                     
-                    <!-- Desktop Navigation --><div class="hidden md:flex md:items-center md:space-x-6">
+                    <!-- Desktop Navigation --><div class="desktop-nav hidden md:flex md:items-center md:space-x-6">
                         <a href="#home" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Home</a>
                         <a href="#strategy" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Strategy</a>
                         <a href="#performance" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Performance</a>
                         <a href="research.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Research</a>
                         <a href="bio.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Team</a>
                         <a href="#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Contact</a>
-                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="client-login inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
                             Client Login
                         </a>
                     </div>
                     
-                    <!-- Mobile Menu Button --><div class="md:hidden flex items-center">
+                    <!-- Mobile Menu Button --><div class="mobile-menu-trigger md:hidden flex items-center">
                         <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false">
                             <span class="sr-only">Open main menu</span>
                             <!-- Hamburger icon --><svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -170,88 +184,99 @@
                     <a href="research.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Research</a>
                     <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Team</a>
                     <a href="#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Contact</a>
-                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-left mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="client-login block w-full text-left mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
                         Client Login
                     </a>
                 </div>
             </nav>
         </header>
 
-        <!-- Main Content --><main>
+        <!-- Main Content --><main id="main-content">
 
-            <!-- Hero Section --><section id="home" class="relative hero-min-height flex items-center overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.78) 48%, rgba(15,23,42,0.42) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
-                <!-- Hero Content --><div class="relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-white">
+            <!-- Hero Section --><section id="home" class="signal-hero relative hero-min-height flex items-center overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.92) 0%, rgba(15,23,42,0.78) 48%, rgba(15,23,42,0.42) 100%), url('images/signal-field.webp'); background-size: cover; background-position: center;">
+                <div class="hero-atmosphere" aria-hidden="true">
+                    <span class="hero-orbit"></span>
+                    <span class="hero-axis"></span>
+                    <span class="hero-scanline"></span>
+                </div>
+                <!-- Hero Content --><div class="hero-layout relative z-10 container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-white">
+                  <div class="hero-copy">
                     <!-- Logo -->
-                    <img src="images/image2.png"
+                    <img src="images/anthem-wordmark.webp"
                          alt="Anthem Capital Management Logo"
+                         width="1440" height="500"
                          class="h-9 w-auto mb-8 opacity-95 brightness-0 invert"
                          onerror="this.src='https://placehold.co/160x40/1e3a8a/white?text=ANTHEM+CM'; this.onerror=null;">
 
-                    <span class="section-kicker" style="color: #f5d56f;">Systematic Global Macro</span>
-                    <h1 class="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mt-4 mb-6 max-w-4xl leading-tight">
-                        Quantitative Global Macro
+                    <span class="section-kicker" style="color: #f5d56f;">Systematic global macro</span>
+                    <h1 class="hero-title text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight mt-4 mb-6 max-w-4xl leading-tight">
+                        Quantitative<br><span>global macro.</span>
                     </h1>
                     <p class="text-lg sm:text-xl md:text-2xl text-slate-200 max-w-3xl mb-10 leading-relaxed">
                         Systematic strategies designed to identify, size, and manage macro opportunities across global markets.
                     </p>
-                    <div class="flex flex-col sm:flex-row gap-4 mb-14">
-                        <a href="#strategy" class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200 shadow-lg" style="background-color: var(--accent-gold);">
-                            Our Strategy
+                    <div class="hero-actions flex flex-col sm:flex-row gap-4 mb-14">
+                        <a href="#strategy" class="signal-button inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200 shadow-lg" style="background-color: var(--accent-gold);">
+                            Explore the strategy
                         </a>
-                        <a href="research.html" class="inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-md text-white border border-white/30 hover:bg-white/10 transition-all duration-200">
-                            Research Library
+                        <a href="research.html" class="signal-button signal-button--ghost inline-flex items-center justify-center px-6 py-3 text-base font-semibold rounded-md text-white border border-white/30 hover:bg-white/10 transition-all duration-200">
+                            Open research
                         </a>
                     </div>
-                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
-                        <div class="border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                    <div class="hero-capabilities grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-3xl">
+                        <div class="hero-capability border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
                             <div class="text-sm font-bold uppercase tracking-[0.16em] text-white">Systematic Signals</div>
                             <div class="text-xs uppercase tracking-wide text-slate-300 mt-2">Rules-based macro research</div>
                         </div>
-                        <div class="border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <div class="hero-capability border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
                             <div class="text-sm font-bold uppercase tracking-[0.16em] text-white">Risk-Led Sizing</div>
                             <div class="text-xs uppercase tracking-wide text-slate-300 mt-2">Disciplined exposure control</div>
                         </div>
-                        <div class="border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                        <div class="hero-capability border border-white/15 bg-white/10 backdrop-blur-sm rounded-lg p-4">
                             <div class="text-sm font-bold uppercase tracking-[0.16em] text-white">Global Markets</div>
                             <div class="text-xs uppercase tracking-wide text-slate-300 mt-2">Rates, FX, equities, commodities</div>
                         </div>
                     </div>
+                  </div>
                 </div>
+                <div class="scroll-cue" aria-hidden="true">Scroll</div>
             </section>
 
-            <!-- Strategy Section --><section id="strategy" class="relative py-24 overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.96) 0%, rgba(15,23,42,0.88) 48%, rgba(15,23,42,0.70) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
+            <!-- Strategy Section --><section id="strategy" class="strategy-system relative py-24 overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.96) 0%, rgba(15,23,42,0.88) 48%, rgba(15,23,42,0.70) 100%), url('images/signal-field.webp'); background-size: cover; background-position: center;">
                 <!-- Block Flow Canvas (background) -->
                 <canvas id="physics-canvas" class="absolute inset-0 w-full h-full z-0"></canvas>
 
                 <!-- Text Content (foreground) -->
-                <div class="relative z-10 container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
-                    <span class="section-kicker" style="color: #f5d56f;">Quantitative Global Macro</span>
-                    <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4 text-white">
-                        Systematic Approach to Global Markets
-                    </h2>
-                    <p class="text-base text-slate-200 mb-6">
-                        Global macro has made a strong comeback as rising interest rates and economic volatility have created long/short opportunities not seen in decades. We apply rigorous quantitative methods to capitalize on these macro trends across currencies, rates, equities, and commodities.
-                    </p>
-                    <div class="grid md:grid-cols-2 gap-8 text-left mb-8">
-                        <div class="bg-white/95 backdrop-blur-sm p-6 institutional-card">
+                <div class="strategy-stage relative z-10 container mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+                    <div class="strategy-intro" data-reveal="left">
+                        <span class="section-kicker" style="color: #f5d56f;">Investment approach</span>
+                        <h2 class="section-title text-3xl md:text-4xl font-bold mt-2 mb-4 text-white">
+                            Systematic approach to global markets.
+                        </h2>
+                        <p class="section-copy text-base text-slate-200 mb-6">
+                            Global macro has made a strong comeback as rising interest rates and economic volatility have created long/short opportunities not seen in decades. We apply rigorous quantitative methods to capitalize on these macro trends across currencies, rates, equities, and commodities.
+                        </p>
+                    </div>
+                    <div class="strategy-modules grid md:grid-cols-2 gap-8 text-left mb-8" data-reveal="right">
+                        <div class="strategy-module bg-white/95 backdrop-blur-sm p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Data-Driven Research</h3>
                             <p class="text-sm text-gray-600">
                                 Our strategies are built on systematic research, leveraging statistical analysis and machine learning to identify persistent market inefficiencies and macro signals.
                             </p>
                         </div>
-                        <div class="bg-white/95 backdrop-blur-sm p-6 institutional-card">
+                        <div class="strategy-module bg-white/95 backdrop-blur-sm p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Risk Management</h3>
                             <p class="text-sm text-gray-600">
                                 We employ sophisticated risk models and position sizing algorithms to manage drawdowns while capturing upside, utilizing the same quantitative principles employed at major hedge funds.
                             </p>
                         </div>
-                        <div class="bg-white/95 backdrop-blur-sm p-6 institutional-card">
+                        <div class="strategy-module bg-white/95 backdrop-blur-sm p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Portfolio Construction</h3>
                             <p class="text-sm text-gray-600">
                                 Diversified across multiple uncorrelated strategies and asset classes, our portfolio is designed to deliver consistent returns through varying market regimes.
                             </p>
                         </div>
-                        <div class="bg-white/95 backdrop-blur-sm p-6 institutional-card">
+                        <div class="strategy-module bg-white/95 backdrop-blur-sm p-6 institutional-card">
                             <h3 class="text-lg font-bold mb-3" style="color: var(--primary-blue);">Execution Excellence</h3>
                             <p class="text-sm text-gray-600">
                                 Our proprietary technology platform enables sophisticated trade execution with real-time monitoring across all positions. Advanced infrastructure minimizes market impact and slippage while maintaining comprehensive oversight.
@@ -261,24 +286,24 @@
                 </div>
             </section>
             
-            <!-- Research Infrastructure Section --><section id="ai-technology" class="py-24 bg-gradient-to-b from-slate-50 to-white">
+            <!-- Research Infrastructure Section --><section id="ai-technology" class="research-system py-24 bg-gradient-to-b from-slate-50 to-white">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="text-center max-w-3xl mx-auto mb-16">
-                        <span class="section-kicker">Research Infrastructure</span>
-                        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
-                            Systematic research at production speed
+                    <div class="research-heading text-center max-w-3xl mx-auto mb-16" data-reveal>
+                        <span class="section-kicker">Research process</span>
+                        <h2 class="section-title text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                            From hypothesis to monitored strategy.
                         </h2>
-                        <p class="text-base text-gray-700">
+                        <p class="section-copy text-base text-gray-700">
                             Anthem combines proprietary research tooling, market data workflows, and disciplined review processes to move from hypothesis to monitored strategy with speed and control.
                         </p>
                     </div>
 
                     <!-- AI Workflow Diagram -->
                     <div class="mb-16">
-                        <div class="grid md:grid-cols-4 gap-6">
+                        <div class="signal-pipeline grid md:grid-cols-4 gap-6" data-reveal>
                             <!-- Step 1: Data -->
-                            <div class="text-center">
-                                <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100 mb-4 h-48 flex items-center justify-center">
+                            <div class="pipeline-step text-center">
+                                <div class="pipeline-module bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100 mb-4 h-48 flex items-center justify-center">
                                     <div>
                                         <svg class="w-16 h-16 mx-auto mb-3" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 00-2-2m0 0h10a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2z"/>
@@ -287,7 +312,7 @@
                                         <p class="text-xs text-gray-600">Trading Data</p>
                                     </div>
                                 </div>
-                                <div class="hidden md:flex justify-center items-center">
+                                <div class="pipeline-arrow hidden md:flex justify-center items-center">
                                     <svg class="w-8 h-8" style="color: var(--accent-gold);" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
                                     </svg>
@@ -295,8 +320,8 @@
                             </div>
 
                             <!-- Step 2: Training -->
-                            <div class="text-center">
-                                <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100 mb-4 h-48 flex items-center justify-center">
+                            <div class="pipeline-step text-center">
+                                <div class="pipeline-module bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100 mb-4 h-48 flex items-center justify-center">
                                     <div>
                                         <svg class="w-16 h-16 mx-auto mb-3" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
@@ -305,7 +330,7 @@
                                         <p class="text-xs text-gray-600">Proprietary Training</p>
                                     </div>
                                 </div>
-                                <div class="hidden md:flex justify-center items-center">
+                                <div class="pipeline-arrow hidden md:flex justify-center items-center">
                                     <svg class="w-8 h-8" style="color: var(--accent-gold);" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
                                     </svg>
@@ -313,8 +338,8 @@
                             </div>
 
                             <!-- Step 3: AI Agents -->
-                            <div class="text-center">
-                                <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100 mb-4 h-48 flex items-center justify-center">
+                            <div class="pipeline-step text-center">
+                                <div class="pipeline-module bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100 mb-4 h-48 flex items-center justify-center">
                                     <div>
                                         <svg class="w-16 h-16 mx-auto mb-3" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
@@ -323,7 +348,7 @@
                                         <p class="text-xs text-gray-600">24/7 Analysis</p>
                                     </div>
                                 </div>
-                                <div class="hidden md:flex justify-center items-center">
+                                <div class="pipeline-arrow hidden md:flex justify-center items-center">
                                     <svg class="w-8 h-8" style="color: var(--accent-gold);" fill="currentColor" viewBox="0 0 24 24">
                                         <path d="M13.172 12l-4.95-4.95 1.414-1.414L16 12l-6.364 6.364-1.414-1.414z"/>
                                     </svg>
@@ -331,8 +356,8 @@
                             </div>
 
                             <!-- Step 4: Opportunities -->
-                            <div class="text-center">
-                                <div class="bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100 mb-4 h-48 flex items-center justify-center relative overflow-hidden">
+                            <div class="pipeline-step text-center">
+                                <div class="pipeline-module bg-white rounded-lg p-8 shadow-lg border-2 border-blue-100 mb-4 h-48 flex items-center justify-center relative overflow-hidden">
                                     <div class="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent opacity-50"></div>
                                     <div class="relative z-10">
                                         <svg class="w-16 h-16 mx-auto mb-3" style="color: var(--accent-gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -347,9 +372,9 @@
                     </div>
 
                     <!-- Feature Cards -->
-                    <div class="grid md:grid-cols-3 gap-8">
+                    <div class="research-capabilities grid md:grid-cols-3 gap-8" data-reveal>
                         <!-- Card 1 -->
-                        <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                        <div class="research-card research-card--primary bg-white p-8 rounded-lg shadow-lg border border-gray-200">
                             <div class="w-12 h-12 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(59, 130, 246, 0.1);">
                                 <svg class="w-6 h-6" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
@@ -362,7 +387,7 @@
                         </div>
 
                         <!-- Card 2 -->
-                        <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                        <div class="research-card research-card--wide bg-white p-8 rounded-lg shadow-lg border border-gray-200">
                             <div class="w-12 h-12 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(212, 175, 55, 0.1);">
                                 <svg class="w-6 h-6" style="color: var(--accent-gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
@@ -375,7 +400,7 @@
                         </div>
 
                         <!-- Card 3 -->
-                        <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200">
+                        <div class="research-card bg-white p-8 rounded-lg shadow-lg border border-gray-200">
                             <div class="w-12 h-12 rounded-lg mb-4 flex items-center justify-center" style="background-color: rgba(59, 130, 246, 0.1);">
                                 <svg class="w-6 h-6" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
@@ -391,20 +416,20 @@
                 </div>
             </section>
 
-            <!-- Tenets Section --><section id="tenets" class="py-16 bg-white">
+            <!-- Tenets Section --><section id="tenets" class="tenets-system py-16 bg-white">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="text-center max-w-3xl mx-auto">
-                        <span class="section-kicker">Our Tenets</span>
-                        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
-                            Core Principles
+                    <div class="tenets-heading text-center max-w-3xl mx-auto" data-reveal>
+                        <span class="section-kicker">Operating principles</span>
+                        <h2 class="section-title text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                            Conviction needs constraints.
                         </h2>
-                        <p class="text-base text-gray-600 mb-8">
+                        <p class="section-copy text-base text-gray-600 mb-8">
                             Our fund is built on three core principles that guide every decision.
                         </p>
                     </div>
 
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <!-- Tenet Card 1: Growth --><div class="bg-white p-6 institutional-card">
+                    <div class="tenet-grid grid md:grid-cols-3 gap-6" data-reveal>
+                        <!-- Tenet Card 1: Growth --><div class="tenet-card bg-white p-6 institutional-card">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon: Arrow Trending Up --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18 9 11.25l4.5 4.5 6.75-6.75" />
@@ -417,7 +442,7 @@
                             </p>
                         </div>
 
-                        <!-- Tenet Card 2: Performance --><div class="bg-white p-6 institutional-card">
+                        <!-- Tenet Card 2: Performance --><div class="tenet-card bg-white p-6 institutional-card">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon: Chart Bar --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0h10a2 2 0 002-2v-6a2 2 0 00-2-2h-2a2 2 0 00-2 2v6a2 2 0 002 2z" />
@@ -429,7 +454,7 @@
                             </p>
                         </div>
 
-                        <!-- Tenet Card 3: Doing Right --><div class="bg-white p-6 institutional-card">
+                        <!-- Tenet Card 3: Doing Right --><div class="tenet-card bg-white p-6 institutional-card">
                             <div class="flex-shrink-0">
                                 <!-- Heroicon: Handshake (Custom) --><svg class="h-10 w-10" style="color: var(--accent-gold);" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
                                   <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v-1.5a3 3 0 0 1 3-3h1.5m6.354 3H18a3 3 0 0 0 3-3V8.25a3 3 0 0 0-3-3h-1.5a3 3 0 0 0-3 3v.75m-6.354 6H9a3 3 0 0 1 3 3v1.5m-6.354 0a3.001 3.001 0 0 0 3.75 2.635m2.604-2.635a3.001 3.001 0 0 1 3.75 2.635m-6.354 0H9" />
@@ -445,12 +470,12 @@
                 </div>
             </section>
 
-            <!-- Performance Section --><section id="performance" class="py-16 relative" style="background-color: var(--light-bg);">
+            <!-- Performance Section --><section id="performance" class="performance-room py-16 relative" style="background-color: var(--light-bg);">
                 <!-- Qualification Overlay -->
-                <div id="performance-gate" class="absolute inset-0 z-50 flex items-center justify-center" style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.8);">
-                    <div class="bg-white rounded-lg shadow-2xl max-w-2xl mx-4 p-8 border-2 border-blue-200">
-                        <h3 class="text-2xl font-bold mb-4" style="color: var(--primary-blue);">Accredited Investor Verification</h3>
-                        <div class="text-sm text-gray-700 space-y-3 mb-6">
+                <div id="performance-gate" class="performance-gate absolute inset-0 z-50 flex items-center justify-center" role="dialog" aria-modal="true" aria-labelledby="qualification-title" style="backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.8);">
+                    <div class="qualification-panel bg-white rounded-lg shadow-2xl max-w-2xl mx-4 p-8 border-2 border-blue-200">
+                        <h3 id="qualification-title" class="text-2xl font-bold mb-4" style="color: var(--primary-blue);">Accredited Investor Verification</h3>
+                        <div class="qualification-copy text-sm text-gray-700 space-y-3 mb-6">
                             <p>The performance information on this page is only available to accredited investors and qualified purchasers.</p>
 
                             <p class="font-semibold">By clicking "I Qualify" below, you represent and warrant that you are:</p>
@@ -466,46 +491,120 @@
                             </p>
                         </div>
 
-                        <div class="flex gap-4">
-                            <button id="qualify-accept" class="flex-1 px-6 py-3 font-semibold rounded-md text-white transition-colors" style="background-color: var(--primary-blue);" onmouseover="this.style.backgroundColor='#1e40af'" onmouseout="this.style.backgroundColor='var(--primary-blue)'">
+                        <div class="qualification-actions flex gap-4">
+                            <button id="qualify-accept" class="flex-1 px-6 py-3 font-semibold rounded-md text-white transition-colors" style="background-color: var(--primary-blue);">
                                 I Qualify
                             </button>
                             <button id="qualify-decline" class="flex-1 px-6 py-3 border-2 border-gray-300 text-gray-700 font-semibold rounded-md hover:bg-gray-100 transition-colors">
                                 I Do Not Qualify
                             </button>
                         </div>
+                        <p id="qualification-note" class="qualification-note" role="status" aria-live="polite"></p>
                     </div>
                 </div>
 
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="text-center max-w-3xl mx-auto mb-12">
+                    <div class="performance-heading text-center max-w-3xl mx-auto mb-12" data-reveal>
                         <span class="section-kicker">Performance</span>
-                        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
-                            Track Record
+                        <h2 class="section-title text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                            Track record, without the noise.
                         </h2>
-                        <p class="text-base text-gray-600">
-                            Anthem Maverick Fund LP since inception. Past performance does not guarantee future results.
+                        <p class="section-copy text-base text-gray-600">
+                            Anthem Maverick Fund LP since January 2024. Gross returns shown include seed fund performance; past performance does not guarantee future results.
                         </p>
                     </div>
 
                     <!-- Key Metrics -->
-                    <div class="grid md:grid-cols-3 gap-6 mb-12">
-                        <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
-                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">50.1%*</div>
-                            <div class="text-sm text-gray-600">Total Return Since Inception</div>
+                    <div class="performance-metrics grid md:grid-cols-3 gap-6 mb-12" data-reveal>
+                        <div class="performance-metric bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
+                            <div class="text-4xl font-bold mb-2" data-performance-total data-seed-suffix="true" style="color: var(--accent-gold);">66.2%*</div>
+                            <div class="text-sm text-gray-600">Gross total return since Jan. 2024</div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
+                        <div class="performance-metric bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
                             <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">11.1%</div>
                             <div class="text-sm text-gray-600">2026 YTD Return</div>
                         </div>
-                        <div class="bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
-                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">0.31</div>
-                            <div class="text-sm text-gray-600">Correlation to S&P 500</div>
+                        <div class="performance-metric bg-white p-6 rounded-lg text-center shadow-md border border-blue-100">
+                            <div class="text-4xl font-bold mb-2" style="color: var(--accent-gold);">0.23</div>
+                            <div class="text-sm text-gray-600">Correlation to S&amp;P 500</div>
                         </div>
                     </div>
 
+                    <!-- Equity Curve -->
+                    <div class="equity-panel bg-white rounded-md p-4 sm:p-5 mb-8 border border-slate-200" data-reveal style="box-shadow: 0 14px 36px rgba(15, 23, 42, 0.06);">
+                        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-4">
+                            <div>
+                                <h3 class="text-xl font-bold" style="color: var(--primary-blue);">Growth of $1,000</h3>
+                                <p class="text-xs text-gray-600 mt-1">Reported gross monthly returns vs. SPY adjusted monthly total returns, January 2024 through June 2026.</p>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 sm:flex sm:items-end sm:gap-3" style="font-variant-numeric: tabular-nums;">
+                                <div class="equity-chip rounded-md border border-slate-200 bg-slate-50 px-3 py-2 lg:text-right">
+                                    <div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Latest Value</div>
+                                    <div class="text-lg font-bold" data-performance-growth style="color: var(--primary-blue);">$1,662</div>
+                                </div>
+                                <div class="equity-chip rounded-md border border-slate-200 bg-slate-50 px-3 py-2 lg:text-right">
+                                    <div class="text-xs font-semibold uppercase tracking-wide text-gray-500">S&amp;P 500</div>
+                                    <div class="text-lg font-bold text-slate-700">$1,619</div>
+                                </div>
+                                <div class="equity-chip rounded-md border border-slate-200 bg-slate-50 px-3 py-2 lg:text-right">
+                                    <div class="text-xs font-semibold uppercase tracking-wide text-gray-500">Correlation</div>
+                                    <div class="text-lg font-bold" style="color: var(--accent-gold);">0.23</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="equity-chart-wrap overflow-x-auto rounded-md border border-slate-100">
+                            <svg class="min-w-[680px] w-full h-auto" viewBox="0 0 960 260" role="img" aria-label="Growth of one thousand dollars from Anthem returns and SPY adjusted returns, January 2024 through June 2026">
+                                <defs>
+                                    <linearGradient id="equity-chart-bg" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" stop-color="#0b1724" />
+                                        <stop offset="100%" stop-color="#050b12" />
+                                    </linearGradient>
+                                    <linearGradient id="equity-fill" x1="0" x2="0" y1="0" y2="1">
+                                        <stop offset="0%" stop-color="#d9bd70" stop-opacity="0.18" />
+                                        <stop offset="100%" stop-color="#d9bd70" stop-opacity="0.00" />
+                                    </linearGradient>
+                                </defs>
+                                <rect x="0" y="0" width="960" height="260" fill="url(#equity-chart-bg)" />
+                                <g fill="none" stroke="#1c2a3a" stroke-width="1">
+                                    <line x1="64" y1="59.2" x2="904" y2="59.2" />
+                                    <line x1="64" y1="105.6" x2="904" y2="105.6" />
+                                    <line x1="64" y1="152.0" x2="904" y2="152.0" />
+                                    <line x1="64" y1="198.4" x2="904" y2="198.4" />
+                                </g>
+                                <g fill="#718095" font-family="IBM Plex Mono, monospace" font-size="11">
+                                    <text x="54" y="63.2" text-anchor="end">$1,600</text>
+                                    <text x="54" y="109.6" text-anchor="end">$1,400</text>
+                                    <text x="54" y="156.0" text-anchor="end">$1,200</text>
+                                    <text x="54" y="202.4" text-anchor="end">$1,000</text>
+                                    <text x="64" y="238" text-anchor="middle">Jan 2024</text>
+                                    <text x="400" y="238" text-anchor="middle">Dec 2024</text>
+                                    <text x="736" y="238" text-anchor="middle">Dec 2025</text>
+                                    <text x="904" y="238" text-anchor="middle">Jun 2026</text>
+                                </g>
+                                <g font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700">
+                                    <line x1="64" y1="22" x2="86" y2="22" stroke="#d9bd70" stroke-width="3" stroke-linecap="round" />
+                                    <text x="94" y="26" fill="#d9bd70">Anthem</text>
+                                    <line x1="166" y1="22" x2="188" y2="22" stroke="#829bd2" stroke-width="2" stroke-linecap="round" stroke-dasharray="5 5" />
+                                    <text x="196" y="26" fill="#91a4c3">S&amp;P 500 (SPY)</text>
+                                </g>
+                                <path d="M64.0,198.4 L92.0,163.6 L120.0,131.6 L148.0,122.6 L176.0,113.4 L204.0,120.4 L232.0,103.6 L260.0,92.8 L288.0,100.3 L316.0,105.9 L344.0,112.4 L372.0,109.2 L400.0,139.1 L428.0,112.5 L456.0,100.8 L484.0,126.8 L512.0,111.6 L540.0,111.0 L568.0,104.6 L596.0,113.4 L624.0,122.0 L652.0,119.5 L680.0,105.2 L708.0,98.4 L736.0,83.4 L764.0,79.1 L792.0,74.9 L820.0,70.8 L848.0,66.6 L876.0,57.6 L904.0,44.9 L904.0,210.0 L64.0,210.0 Z" fill="url(#equity-fill)" />
+                                <path d="M64.0,198.4 L92.0,194.7 L120.0,182.4 L148.0,174.3 L176.0,184.6 L204.0,172.2 L232.0,163.1 L260.0,159.8 L288.0,153.5 L316.0,147.7 L344.0,150.2 L372.0,133.5 L400.0,140.7 L428.0,132.9 L456.0,136.7 L484.0,153.0 L512.0,155.4 L540.0,138.2 L568.0,123.1 L596.0,116.1 L624.0,109.6 L652.0,98.2 L680.0,90.3 L708.0,89.6 L736.0,89.3 L764.0,84.3 L792.0,87.3 L820.0,104.2 L848.0,70.0 L876.0,51.0 L904.0,54.9" fill="none" stroke="#829bd2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="5 5" />
+                                <path d="M64.0,198.4 L92.0,163.6 L120.0,131.6 L148.0,122.6 L176.0,113.4 L204.0,120.4 L232.0,103.6 L260.0,92.8 L288.0,100.3 L316.0,105.9 L344.0,112.4 L372.0,109.2 L400.0,139.1 L428.0,112.5 L456.0,100.8 L484.0,126.8 L512.0,111.6 L540.0,111.0 L568.0,104.6 L596.0,113.4 L624.0,122.0 L652.0,119.5 L680.0,105.2 L708.0,98.4 L736.0,83.4 L764.0,79.1 L792.0,74.9 L820.0,70.8 L848.0,66.6 L876.0,57.6 L904.0,44.9" fill="none" stroke="#d9bd70" stroke-width="2.75" stroke-linecap="round" stroke-linejoin="round" />
+                                <g stroke="#07101a" stroke-width="3">
+                                    <circle cx="904" cy="44.9" r="4.5" fill="#d9bd70" />
+                                    <circle cx="904" cy="54.9" r="3.8" fill="#829bd2" />
+                                </g>
+                                <g font-family="IBM Plex Mono, monospace" font-size="11" font-weight="700" style="font-variant-numeric: tabular-nums;">
+                                    <text x="914" y="40" fill="#d9bd70">$1,662</text>
+                                    <text x="914" y="66" fill="#91a4c3">$1,619</text>
+                                </g>
+                            </svg>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-3">Anthem series follows the monthly return table and includes seed fund performance months marked with *. S&amp;P 500 series uses SPY adjusted monthly returns; correlation is Pearson r across 30 monthly observations.</p>
+                    </div>
+
                     <!-- Monthly Returns Table -->
-                    <div class="bg-white rounded-lg p-6 overflow-x-auto shadow-md border border-blue-100">
+                    <div class="return-table-panel bg-white rounded-lg p-6 overflow-x-auto shadow-md border border-blue-100" data-reveal>
                         <h3 class="text-2xl font-bold mb-6" style="color: var(--primary-blue);">Monthly Returns (%)</h3>
                         <table class="w-full text-sm">
                             <thead>
@@ -557,7 +656,7 @@
                                     <td class="text-right py-3 px-2 text-gray-700">4.6</td>
                                     <td class="text-right py-3 px-2 text-gray-700">2.1</td>
                                     <td class="text-right py-3 px-2 text-gray-700">4.5</td>
-                                    <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">18.9</td>
+                                    <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">19.1</td>
                                 </tr>
                                 <tr class="border-b border-gray-200">
                                     <td class="py-3 px-2 font-semibold" style="color: var(--primary-blue);">2024</td>
@@ -573,18 +672,18 @@
                                     <td class="text-right py-3 px-2 text-red-500">-2.0</td>
                                     <td class="text-right py-3 px-2 text-gray-700">1.0</td>
                                     <td class="text-right py-3 px-2 text-red-500">-9.3</td>
-                                    <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">18.8*</td>
+                                    <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">25.6*</td>
                                 </tr>
                             </tbody>
                         </table>
                         <div class="text-xs text-gray-500 mt-6 space-y-2">
-                            <p>* Represents seed fund performance. Past performance does not guarantee future results. Individual results may vary.</p>
+                            <p>* Includes seed fund performance from January through April 2024. Annual and YTD figures are geometrically linked from the monthly gross-return series and rounded to one decimal place. Past performance does not guarantee future results. Individual results may vary.</p>
                             <p>Returns shown are gross returns. Net returns are subject to incentive fees and management fees which vary by share class in the fund.</p>
                         </div>
                     </div>
 
                     <!-- Return Summary -->
-                    <div class="bg-white rounded-lg p-6 mt-8 shadow-md border border-blue-100">
+                    <div class="return-summary-panel bg-white rounded-lg p-6 mt-8 shadow-md border border-blue-100" data-reveal>
                         <h3 class="text-2xl font-bold mb-6" style="color: var(--primary-blue);">Return Summary</h3>
                         <div class="overflow-x-auto">
                             <table class="w-full text-sm">
@@ -600,48 +699,49 @@
                                         <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">18.33%</td>
                                     </tr>
                                     <tr class="border-b border-gray-200">
-                                        <td class="py-3 px-2 text-gray-700">Since Inception*</td>
-                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">50.1%</td>
+                                        <td class="py-3 px-2 text-gray-700">Since Inception (Jan. 2024)*</td>
+                                        <td class="text-right py-3 px-2 font-bold" data-performance-total style="color: var(--primary-blue);">66.2%</td>
                                     </tr>
                                     <tr class="border-b border-gray-200">
-                                        <td class="py-3 px-2 text-gray-700">Correlation to S&P 500</td>
-                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">0.31</td>
+                                        <td class="py-3 px-2 text-gray-700">Correlation to S&amp;P 500</td>
+                                        <td class="text-right py-3 px-2 font-bold" style="color: var(--primary-blue);">0.23</td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
                         <p class="text-xs text-gray-500 mt-4">
-                            * Represents seed fund performance. Past performance does not guarantee future results.
+                            * Includes seed fund performance from January through April 2024. Total return is the geometrically linked result of the reported monthly gross-return series. Past performance does not guarantee future results.
                         </p>
                     </div>
                 </div>
             </section>
 
-            <!-- Why Choose Us Section --><section id="insights" class="py-16 bg-white">
+            <!-- Why Choose Us Section --><section id="insights" class="signal-manifesto py-16 bg-white">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="text-center max-w-3xl mx-auto">
-                        <span class="text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Why Anthem Capital</span>
+                    <div class="manifesto-copy text-center max-w-3xl mx-auto" data-reveal>
+                        <span class="section-kicker text-sm font-semibold uppercase tracking-wide" style="color: var(--secondary-blue);">Our edge</span>
                         <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
-                            Institutional Edge, Focused Execution
+                            Institutional depth. Focused execution.
                         </h2>
                         <p class="text-base text-gray-600 mb-8">
                             We bring institutional-grade quantitative methods to global macro investing. Our proprietary technology infrastructure, built from over a decade of research, enables us to design, backtest, and execute strategies with precision while maintaining real-time market monitoring and risk management.
                         </p>
-                        <a href="bio.html" class="inline-flex items-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
-                            Meet Our Team
+                        <a href="bio.html" class="signal-button inline-flex items-center px-6 py-3 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
+                            Meet the team
                         </a>
                     </div>
                 </div>
             </section>
 
-            <!-- Contact and Newsletter Section --><section id="contact" class="py-16" style="background-color: var(--light-bg);">
+            <!-- Contact and Newsletter Section --><section id="contact" class="contact-system py-16" style="background-color: var(--light-bg);">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="grid md:grid-cols-2 gap-12 items-start">
+                    <div class="contact-grid grid md:grid-cols-2 gap-12 items-stretch" data-reveal>
 
                         <!-- Left: Sign Up -->
-                        <div class="text-left">
+                        <div class="contact-panel text-left">
+                            <span class="section-kicker mb-8">Stay connected</span>
                             <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--primary-blue);">
-                                Sign Up for Updates
+                                Research, when it matters.
                             </h2>
                             <p class="text-base text-gray-600 mb-8">
                                 Stay informed about our latest insights, market commentary, and fund updates.
@@ -657,17 +757,18 @@
                                 </div>
                             </form>
                             <div id="signup-success" class="hidden mt-4 text-green-600">
-                                Thank you for subscribing!
+                                Subscription confirmed.
                             </div>
                             <div id="signup-error" class="hidden mt-4 text-red-600">
-                                Oops! Something went wrong. Please try again.
+                                Subscription failed. Please try again.
                             </div>
                         </div>
 
                         <!-- Right: Contact -->
-                        <div class="text-left md:pl-12">
+                        <div class="contact-panel text-left md:pl-12">
+                            <span class="section-kicker mb-8">Contact</span>
                             <h2 class="text-3xl md:text-4xl font-bold mb-4" style="color: var(--primary-blue);">
-                                Contact Us
+                                Start a conversation.
                             </h2>
                             <div class="text-base text-gray-600 space-y-4">
                                 <p>
@@ -688,18 +789,19 @@
 
         </main>
         
-        <!-- Footer --><footer class="border-t border-gray-300" style="background-color: var(--primary-blue);">
+        <!-- Footer --><footer class="future-footer border-t border-gray-300" style="background-color: var(--primary-blue);">
             <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <!-- Logo and Copyright --><div class="text-center md:text-left mb-4 md:mb-0">
                         <a href="#home" class="flex-shrink-0 flex items-center justify-center md:justify-start">
-                             <img src="images/image2.png"
+                             <img src="images/anthem-wordmark.webp"
                                  alt="Anthem Capital Management Logo"
+                                 width="1440" height="500"
                                  class="h-10 w-auto brightness-0 invert"
                                  onerror="this.src='https://placehold.co/200x50/1e3a8a/white?text=ANTHEM+CM'; this.onerror=null;">
                         </a>
                         <p class="mt-2 text-sm text-blue-200">
-                            &copy; 2025 Anthem Capital Management LLC. All rights reserved.
+                            &copy; 2026 Anthem Capital Management LLC. All rights reserved.
                         </p>
                     </div>
 
@@ -721,6 +823,8 @@
             
             // --- Particle Scene Variables ---
             let particleCanvas, ctx, particles, mouse, shockwaves, obstacleRects;
+            let particleAnimationId = null;
+            let isStrategyVisible = false;
             let hasParticleSceneInitialized = false;
             let disclosureCanvas, disclosureCtx, disclosureBlocks, disclosurePointer, disclosureWaves, disclosureAnimationId;
             const ADVERSARIAL_SPEED = 0.8;
@@ -729,6 +833,8 @@
                 stopDisclosureFlow();
                 modal.classList.add('hidden'); // Hide the modal
                 siteContent.classList.remove('hidden'); // Show the main site
+                siteContent.classList.add('is-entered');
+                siteContent.setAttribute('aria-hidden', 'false');
                 document.body.style.overflow = 'auto'; // Restore scrolling to the page
 
                 // Initialize the strategy physics field after user enters site
@@ -742,20 +848,30 @@
             const performanceGate = document.getElementById('performance-gate');
             const qualifyAccept = document.getElementById('qualify-accept');
             const qualifyDecline = document.getElementById('qualify-decline');
+            const qualificationNote = document.getElementById('qualification-note');
 
             // Check if user has already qualified in this session
             if (sessionStorage.getItem('qualifiedInvestor') === 'true') {
                 performanceGate.style.display = 'none';
+                performanceGate.setAttribute('aria-hidden', 'true');
             }
 
             qualifyAccept.addEventListener('click', () => {
                 sessionStorage.setItem('qualifiedInvestor', 'true');
                 performanceGate.style.display = 'none';
+                performanceGate.setAttribute('aria-hidden', 'true');
+                requestAnimationFrame(() => {
+                    document.getElementById('performance').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
             });
 
             qualifyDecline.addEventListener('click', () => {
-                alert('Performance information is only available to qualified investors. You will be redirected to the home page.');
-                window.location.href = '#home';
+                qualificationNote.textContent = 'Performance remains locked. Returning to the main experience.';
+                qualifyDecline.disabled = true;
+                setTimeout(() => {
+                    document.getElementById('home').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    qualifyDecline.disabled = false;
+                }, 700);
             });
 
             // Show gate when navigating to performance section
@@ -765,6 +881,8 @@
                     if (sessionStorage.getItem('qualifiedInvestor') !== 'true') {
                         setTimeout(() => {
                             performanceGate.style.display = 'flex';
+                            performanceGate.setAttribute('aria-hidden', 'false');
+                            qualifyAccept.focus({ preventScroll: true });
                         }, 100);
                     }
                 });
@@ -773,8 +891,9 @@
             // --- Mobile Menu Logic ---
             const menuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const hamburgerIcon = menuButton.querySelector('svg:first-child');
-            const closeIcon = menuButton.querySelector('svg:last-child');
+            const menuIcons = menuButton.querySelectorAll('svg');
+            const hamburgerIcon = menuIcons[0];
+            const closeIcon = menuIcons[1];
             
             // Toggle mobile menu
             menuButton.addEventListener('click', () => {
@@ -1179,7 +1298,27 @@
                 });
                 resizeObserver.observe(strategySection);
 
-                animateParticles();
+                const visibilityObserver = new IntersectionObserver((entries) => {
+                    isStrategyVisible = entries[0].isIntersecting && !document.hidden;
+                    if (isStrategyVisible && !particleAnimationId) {
+                        animateParticles();
+                    } else if (!isStrategyVisible && particleAnimationId) {
+                        cancelAnimationFrame(particleAnimationId);
+                        particleAnimationId = null;
+                    }
+                }, { rootMargin: '180px 0px', threshold: 0.01 });
+                visibilityObserver.observe(strategySection);
+
+                document.addEventListener('visibilitychange', () => {
+                    if (document.hidden && particleAnimationId) {
+                        cancelAnimationFrame(particleAnimationId);
+                        particleAnimationId = null;
+                    } else if (!document.hidden) {
+                        const rect = strategySection.getBoundingClientRect();
+                        isStrategyVisible = rect.bottom > -180 && rect.top < window.innerHeight + 180;
+                        if (isStrategyVisible && !particleAnimationId) animateParticles();
+                    }
+                });
             }
 
             function onParticleResize() {
@@ -1298,7 +1437,10 @@
             }
 
             function animateParticles() {
-                if (!ctx || !particleCanvas) return;
+                if (!ctx || !particleCanvas || !isStrategyVisible || document.hidden) {
+                    particleAnimationId = null;
+                    return;
+                }
                 const width = particleCanvas.clientWidth;
                 const height = particleCanvas.clientHeight;
 
@@ -1316,7 +1458,7 @@
                     particle.draw();
                 }
 
-                requestAnimationFrame(animateParticles);
+                particleAnimationId = requestAnimationFrame(animateParticles);
             }
 
             function drawShockwaves() {
@@ -1943,18 +2085,18 @@
                                 if (Object.hasOwn(data, 'errors')) {
                                     errorMessage.textContent = data["errors"].map(error => error["message"]).join(", ");
                                 } else {
-                                    errorMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                                    errorMessage.textContent = 'Subscription failed. Please try again.';
                                 }
                                 errorMessage.classList.remove('hidden');
                                 successMessage.classList.add('hidden');
                             }).catch(() => {
-                                errorMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                                errorMessage.textContent = 'Subscription failed. Please try again.';
                                 errorMessage.classList.remove('hidden');
                                 successMessage.classList.add('hidden');
                             });
                         }
                     }).catch(error => {
-                        errorMessage.textContent = 'Oops! Something went wrong. Please try again.';
+                        errorMessage.textContent = 'Subscription failed. Please try again.';
                         errorMessage.classList.remove('hidden');
                         successMessage.classList.add('hidden');
                     });
@@ -1962,5 +2104,6 @@
             }
         });
     </script>
+    <script src="scripts/future-ui.js"></script>
 </body>
 </html>

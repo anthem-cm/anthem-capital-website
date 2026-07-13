@@ -4,64 +4,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Research | Anthem Capital Management</title>
+    <meta name="description" content="Anthem Capital Management research on market structure, macro transmission, risk signals, and systematic portfolio questions.">
+    <meta name="theme-color" content="#03070c">
+    <meta property="og:title" content="Research | Anthem Capital Management">
+    <meta property="og:description" content="A library of data-driven research on market structure, macro transmission, and systematic risk signals.">
+    <meta property="og:image" content="https://anthemcm.com/images/signal-field.webp">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-
-        :root {
-            --primary-blue: #172554;
-            --secondary-blue: #2563eb;
-            --accent-gold: #d4af37;
-            --light-bg: #f8fafc;
-            --dark-blue: #0f172a;
-        }
-
-        .section-kicker {
-            color: var(--secondary-blue);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-        }
-
-        .institutional-card {
-            border: 1px solid rgba(30, 58, 138, 0.12);
-            border-radius: 8px;
-            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="images/signal-field.webp" type="image/webp">
+    <link rel="stylesheet" href="styles/future.css">
+    <link rel="stylesheet" href="styles/secondary.css">
 </head>
-<body class="bg-white text-gray-800 antialiased">
+<body class="anthem-experience secondary-experience research-experience antialiased">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div id="site-content">
-        <header class="bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
-            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-18">
-                    <a href="index.html" class="flex-shrink-0 flex items-center">
-                        <img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-10 w-auto">
+        <div class="system-progress" aria-hidden="true"><span id="system-progress-bar"></span></div>
+        <header class="future-header bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
+            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+                <div class="flex justify-between items-center h-[76px]">
+                    <a href="index.html" class="future-logo flex-shrink-0 flex items-center">
+                        <img src="images/anthem-wordmark.webp" width="1440" height="500" alt="Anthem Capital Management Logo" class="h-10 w-auto">
                     </a>
 
-                    <div class="hidden md:flex md:items-center md:space-x-6">
+                    <div class="desktop-nav hidden md:flex md:items-center md:space-x-6">
                         <a href="index.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Home</a>
                         <a href="index.html#strategy" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Strategy</a>
                         <a href="index.html#performance" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Performance</a>
-                        <a href="research.html" class="text-blue-600 border-b-2 border-blue-600 transition-colors duration-200 font-medium text-sm">Research</a>
+                        <a href="research.html" class="is-active text-blue-600 border-b-2 border-blue-600 transition-colors duration-200 font-medium text-sm" aria-current="page">Research</a>
                         <a href="bio.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Team</a>
                         <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Contact</a>
-                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="client-login inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">
                             Client Login
                         </a>
                     </div>
 
-                    <div class="md:hidden flex items-center">
-                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false">
+                    <div class="mobile-menu-trigger md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false" aria-controls="mobile-menu">
                             <span class="sr-only">Open main menu</span>
                             <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
@@ -80,42 +64,52 @@
                     <a href="research.html" class="block py-2 px-3 rounded-md text-base font-medium text-blue-600 bg-blue-50">Research</a>
                     <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Team</a>
                     <a href="index.html#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Contact</a>
-                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-center mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="client-login block w-full text-center mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">
                         Client Login
                     </a>
                 </div>
             </nav>
         </header>
 
-        <main>
-            <section class="relative overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.94) 0%, rgba(23,37,84,0.84) 52%, rgba(15,23,42,0.48) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
-                <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 18% 18%, rgba(212, 175, 55, 0.32), transparent 24%), radial-gradient(circle at 82% 24%, rgba(37, 99, 235, 0.28), transparent 26%);"></div>
-                <div class="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-                    <div class="max-w-3xl">
-                        <img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-9 w-auto mb-8 opacity-95 brightness-0 invert">
-                        <span class="section-kicker" style="color: #f5d56f;">Anthem Capital Research</span>
-                        <h1 class="text-4xl md:text-6xl font-bold tracking-tight text-white mt-4">
-                            Research built around market structure, data, and economic transmission.
+        <main id="main-content">
+            <section id="research-home" class="secondary-hero research-landing-hero relative overflow-hidden">
+                <div class="hero-atmosphere" aria-hidden="true">
+                    <span class="hero-orbit"></span>
+                    <span class="hero-axis"></span>
+                    <span class="hero-scanline"></span>
+                </div>
+                <div class="secondary-hero__layout container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="secondary-hero__copy" data-reveal="left">
+                        <img src="images/anthem-wordmark.webp" width="1440" height="500" alt="Anthem Capital Management Logo">
+                        <span class="section-kicker" style="color: #f5d56f;">Research</span>
+                        <h1 class="secondary-hero__title">
+                            Research built around market structure.
                         </h1>
-                        <p class="text-lg md:text-xl text-slate-200 mt-6 leading-relaxed">
-                            A library of data-driven notes from Anthem Capital Management. We publish work that translates macro moves into observable cross-asset and consumer outcomes.
+                        <p>
+                            Data-driven notes tracing how macro moves transmit into observable cross-asset and consumer outcomes.
                         </p>
-                        <div class="flex flex-col sm:flex-row gap-4 mt-10">
-                            <a href="#featured-research" class="inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-semibold text-white shadow-lg hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
-                                View Featured Research
+                        <div class="secondary-hero__actions flex flex-col sm:flex-row gap-4 mt-10">
+                            <a href="#featured-research" class="signal-button inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-semibold text-white shadow-lg hover:opacity-90 transition-all duration-200" style="background-color: var(--accent-gold);">
+                                Enter the library
                             </a>
-                            <a href="index.html" class="inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-semibold text-white border border-white/30 hover:bg-white/10 transition-all duration-200">
-                                Return Home
+                            <a href="index.html" class="signal-button signal-button--ghost inline-flex items-center justify-center px-6 py-3 rounded-md text-base font-semibold text-white border border-white/30 hover:bg-white/10 transition-all duration-200">
+                                Return home
                             </a>
                         </div>
                     </div>
                 </div>
+                <div class="scroll-cue" aria-hidden="true">Explore the library</div>
             </section>
 
-            <section class="py-20" style="background: radial-gradient(circle at 18% 24%, rgba(37,99,235,0.10), transparent 28%), radial-gradient(circle at 78% 18%, rgba(212,175,55,0.10), transparent 22%), linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eef4ff 100%);">
+            <section class="research-principles-system py-20">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="bg-white p-8 institutional-card">
+                    <div class="research-principles-heading" data-reveal>
+                        <span class="section-kicker">Research discipline</span>
+                        <h2 class="section-title">Evidence before narrative.</h2>
+                        <p class="section-copy mt-6">Three operating principles shape how each question moves from raw observation to portfolio discussion.</p>
+                    </div>
+                    <div class="research-principles-grid grid md:grid-cols-3 gap-6">
+                        <div class="research-principle research-principle--primary bg-white p-8 institutional-card" data-reveal>
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(59, 130, 246, 0.12);">
                                 <svg class="w-6 h-6" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v8m0 0a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2v10z"/>
@@ -126,7 +120,7 @@
                                 Each note is grounded in observable series such as EIA, BLS, and survey data rather than narrative-only market commentary.
                             </p>
                         </div>
-                        <div class="bg-white p-8 institutional-card">
+                        <div class="research-principle bg-white p-8 institutional-card" data-reveal>
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(212, 175, 55, 0.12);">
                                 <svg class="w-6 h-6" style="color: var(--accent-gold);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z"/>
@@ -137,7 +131,7 @@
                                 We focus on lags, regime shifts, and transmission windows that matter for positioning, not just point-in-time correlations.
                             </p>
                         </div>
-                        <div class="bg-white p-8 institutional-card">
+                        <div class="research-principle research-principle--wide bg-white p-8 institutional-card" data-reveal>
                             <div class="w-12 h-12 rounded-xl flex items-center justify-center mb-5" style="background-color: rgba(59, 130, 246, 0.12);">
                                 <svg class="w-6 h-6" style="color: var(--secondary-blue);" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/>
@@ -152,23 +146,23 @@
                 </div>
             </section>
 
-            <section id="featured-research" class="py-20" style="background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);">
+            <section id="featured-research" class="publication-library py-20">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <div class="max-w-3xl mb-12">
-                        <span class="section-kicker">Featured Research</span>
-                        <h2 class="text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
-                            Current publications
+                    <div class="publication-heading max-w-3xl mb-12" data-reveal>
+                        <span class="section-kicker">Research library</span>
+                        <h2 class="section-title text-3xl md:text-4xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
+                            Current publications.
                         </h2>
-                        <p class="text-base text-gray-600">
-                            The research landing page is structured as an index. Each card links into a dedicated report page with its own context, analysis, and charts.
+                        <p class="section-copy text-base text-gray-600">
+                            Each publication opens into a dedicated report with source context, analysis, and interactive charts.
                         </p>
                     </div>
 
-                    <div class="grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)] gap-8 items-start">
-                        <div class="space-y-8">
-                            <article class="overflow-hidden bg-white institutional-card">
+                    <div class="publication-layout grid lg:grid-cols-[minmax(0,1.4fr)_minmax(0,0.8fr)] gap-8 items-start">
+                        <div class="publication-stream space-y-8">
+                            <article class="publication-card publication-card--featured overflow-hidden bg-white institutional-card" data-reveal>
                                 <div class="px-8 py-10 md:px-10 md:py-12">
-                                    <div class="flex flex-wrap gap-3 mb-6">
+                                    <div class="publication-tags flex flex-wrap gap-3 mb-6">
                                         <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Factor Rotation</span>
                                         <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Regime Signals</span>
                                         <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold" style="background-color: rgba(212, 175, 55, 0.14); color: #9a7a13;">Quant Research</span>
@@ -180,63 +174,29 @@
                                     <p class="text-base text-gray-600 leading-relaxed mb-8">
                                         A 62-year study of cross-factor momentum dispersion as an early-warning indicator for equity factor-leadership change. The report combines walk-forward validation, event studies, quintile analysis, and volatility-regime conditioning.
                                     </p>
-                                    <div class="grid sm:grid-cols-3 gap-4 mb-8">
-                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                    <div class="publication-stats grid sm:grid-cols-3 gap-4 mb-8">
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
                                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div>
                                             <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">1963-2026</div>
                                         </div>
-                                        <div class="rounded-2xl border border-blue-100 bg-white p-5">
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-white p-5">
                                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Events</div>
                                             <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">30 Rotations</div>
                                         </div>
-                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
                                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Lead Window</div>
                                             <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">≈5 Months</div>
                                         </div>
                                     </div>
-                                    <a href="research-timing-factor-regime-shifts.html" class="inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
-                                        Open Research Page
+                                    <a href="research-timing-factor-regime-shifts.html" class="publication-card__cta signal-button signal-button--ghost inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
+                                        Open report
                                     </a>
                                 </div>
                             </article>
 
-                            <article class="overflow-hidden bg-white institutional-card">
+                            <article class="publication-card publication-card--wall overflow-hidden bg-white institutional-card" data-reveal>
                                 <div class="px-8 py-10 md:px-10 md:py-12">
-                                    <div class="flex flex-wrap gap-3 mb-6">
-                                        <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Macro</span>
-                                        <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Consumer</span>
-                                        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold" style="background-color: rgba(212, 175, 55, 0.14); color: #9a7a13;">Interactive</span>
-                                    </div>
-                                    <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-blue);">
-                                        Gas Prices vs. Consumer Spending
-                                    </h3>
-                                    <time datetime="2026-04-13" class="block text-sm font-medium text-gray-500 mb-4">Published April 13, 2026</time>
-                                    <p class="text-base text-gray-600 leading-relaxed mb-8">
-                                        An interactive research page based on EIA gasoline prices, University of Michigan consumer sentiment, and BLS consumer expenditure data. The report tests whether fuel shocks translate into softer discretionary spending and how long that drag takes to show up.
-                                    </p>
-                                    <div class="grid sm:grid-cols-3 gap-4 mb-8">
-                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
-                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div>
-                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">1993-2025</div>
-                                        </div>
-                                        <div class="rounded-2xl border border-blue-100 bg-white p-5">
-                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Inputs</div>
-                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">EIA + UMich + BLS</div>
-                                        </div>
-                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
-                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Format</div>
-                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">Charts + Notes</div>
-                                        </div>
-                                    </div>
-                                    <a href="research-gas-prices-vs-consumer-spending.html" class="inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
-                                        Open Research Page
-                                    </a>
-                                </div>
-                            </article>
-
-                            <article class="overflow-hidden bg-white institutional-card">
-                                <div class="px-8 py-10 md:px-10 md:py-12">
-                                    <div class="flex flex-wrap gap-3 mb-6">
+                                    <div class="publication-tags flex flex-wrap gap-3 mb-6">
                                         <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Options Walls</span>
                                         <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">ATR / DTE</span>
                                         <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold" style="background-color: rgba(212, 175, 55, 0.14); color: #9a7a13;">Quant Research</span>
@@ -248,65 +208,75 @@
                                     <p class="text-base text-gray-600 leading-relaxed mb-8">
                                         A large-cap options study using historical option volume walls, ATR distance, DTE, vanna proxies, and expiration outcomes to separate fade setups from momentum risk.
                                     </p>
-                                    <div class="grid sm:grid-cols-3 gap-4 mb-8">
-                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                    <div class="publication-stats grid sm:grid-cols-3 gap-4 mb-8">
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
                                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div>
                                             <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">2025-2026</div>
                                         </div>
-                                        <div class="rounded-2xl border border-blue-100 bg-white p-5">
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-white p-5">
                                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Inputs</div>
                                             <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">9 Large Caps</div>
                                         </div>
-                                        <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
                                             <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Tests</div>
                                             <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">864 Walls</div>
                                         </div>
                                     </div>
-                                    <a href="oi-wall-study.html" class="inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
-                                        Open Research Page
+                                    <a href="oi-wall-study.html" class="publication-card__cta signal-button signal-button--ghost inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
+                                        Open report
+                                    </a>
+                                </div>
+                            </article>
+
+                            <article class="publication-card publication-card--gas overflow-hidden bg-white institutional-card" data-reveal>
+                                <div class="px-8 py-10 md:px-10 md:py-12">
+                                    <div class="publication-tags flex flex-wrap gap-3 mb-6">
+                                        <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Macro</span>
+                                        <span class="inline-flex items-center rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700">Consumer</span>
+                                        <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold" style="background-color: rgba(212, 175, 55, 0.14); color: #9a7a13;">Interactive</span>
+                                    </div>
+                                    <h3 class="text-3xl font-bold mb-4" style="color: var(--primary-blue);">
+                                        Gas Prices vs. Consumer Spending
+                                    </h3>
+                                    <time datetime="2026-04-13" class="block text-sm font-medium text-gray-500 mb-4">Published April 13, 2026</time>
+                                    <p class="text-base text-gray-600 leading-relaxed mb-8">
+                                        An interactive research page based on EIA gasoline prices, University of Michigan consumer sentiment, and BLS consumer expenditure data. The report tests whether fuel shocks translate into softer discretionary spending and how long that drag takes to show up.
+                                    </p>
+                                    <div class="publication-stats grid sm:grid-cols-3 gap-4 mb-8">
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">1993-2025</div>
+                                        </div>
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-white p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Inputs</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">EIA + UMich + BLS</div>
+                                        </div>
+                                        <div class="publication-stat rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
+                                            <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Format</div>
+                                            <div class="text-2xl font-bold mt-2" style="color: var(--primary-blue);">Charts + Notes</div>
+                                        </div>
+                                    </div>
+                                    <a href="research-gas-prices-vs-consumer-spending.html" class="publication-card__cta signal-button signal-button--ghost inline-flex items-center px-6 py-3 rounded-md text-base font-semibold text-white hover:opacity-90 transition-all duration-200" style="background-color: var(--primary-blue);">
+                                        Open report
                                     </a>
                                 </div>
                             </article>
                         </div>
 
-                        <aside class="bg-white p-8 institutional-card">
-                            <span class="section-kicker">Research Index</span>
-                            <h3 class="text-2xl font-bold mt-2 mb-4" style="color: var(--primary-blue);">
-                                Library status
-                            </h3>
-                            <div class="space-y-5">
-                                <div class="rounded-2xl border border-blue-100 bg-blue-50/60 p-5">
-                                    <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Published</div>
-                                    <div class="text-3xl font-bold mt-2" style="color: var(--primary-blue);">3</div>
-                                </div>
-                                <div class="rounded-2xl border border-blue-100 p-5">
-                                    <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Focus</div>
-                                    <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-                                        Macro transmission, risk signals, path dependency, and consumer response.
-                                    </p>
-                                </div>
-                                <div class="rounded-2xl border border-blue-100 p-5">
-                                    <div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Next additions</div>
-                                    <p class="text-sm text-gray-600 mt-2 leading-relaxed">
-                                        The page is structured to accommodate additional reports without changing the site navigation again.
-                                    </p>
-                                </div>
-                            </div>
-                        </aside>
                     </div>
                 </div>
             </section>
         </main>
 
-        <footer class="border-t border-gray-300" style="background-color: #172554;">
+        <footer class="future-footer border-t border-gray-300" style="background-color: #172554;">
             <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="text-center md:text-left mb-4 md:mb-0">
                         <a href="index.html" class="flex-shrink-0 flex items-center justify-center md:justify-start">
-                            <img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-10 w-auto brightness-0 invert">
+                            <img src="images/anthem-wordmark.webp" width="1440" height="500" alt="Anthem Capital Management Logo" class="h-10 w-auto brightness-0 invert">
                         </a>
                         <p class="mt-2 text-sm text-blue-200">
-                            &copy; 2025 Anthem Capital Management LLC. All rights reserved.
+                            &copy; 2026 Anthem Capital Management LLC. All rights reserved.
                         </p>
                     </div>
 
@@ -322,21 +292,6 @@
         </footer>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const hamburgerIcon = menuButton.querySelector('svg:first-child');
-            const closeIcon = menuButton.querySelector('svg:last-child');
-
-            menuButton.addEventListener('click', () => {
-                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-                menuButton.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('hidden');
-                hamburgerIcon.classList.toggle('hidden');
-                closeIcon.classList.toggle('hidden');
-            });
-        });
-    </script>
+    <script src="scripts/secondary-ui.js"></script>
 </body>
 </html>

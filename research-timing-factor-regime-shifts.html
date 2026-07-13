@@ -5,33 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Anthem Capital research on cross-factor momentum dispersion as a leading indicator of equity factor-regime change.">
     <title>Timing Factor Regime Shifts | Anthem Capital Research</title>
+    <meta name="theme-color" content="#03070c">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Timing Factor Regime Shifts | Anthem Capital Research">
+    <meta property="og:description" content="Cross-factor momentum dispersion as a leading indicator of equity factor-regime change.">
+    <meta property="og:image" content="https://anthemcm.com/images/signal-field.webp">
+    <meta property="article:published_time" content="2026-06-20">
+    <link rel="canonical" href="https://anthemcm.com/research-timing-factor-regime-shifts.html">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Inter:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="images/signal-field.webp" type="image/webp">
+    <link rel="stylesheet" href="styles/report-shell.css">
 
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        :root {
-            --primary-blue: #172554;
-            --secondary-blue: #2563eb;
-            --accent-gold: #d4af37;
-            --light-bg: #f8fafc;
-            --dark-blue: #0f172a;
-        }
-        .section-kicker {
-            color: var(--secondary-blue);
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-        }
-        .institutional-card {
-            border: 1px solid rgba(30, 58, 138, 0.12);
-            border-radius: 8px;
-            box-shadow: 0 18px 45px rgba(15, 23, 42, 0.08);
-        }
         .report-copy { color: #475569; font-size: 1rem; line-height: 1.78; }
         .report-copy p { margin: 1rem 0; }
         .report-copy h2 {
@@ -149,26 +140,26 @@
         }
     </style>
 </head>
-<body class="bg-white text-gray-800 antialiased">
+<body class="report-experience bg-white text-gray-800 antialiased">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <div id="site-content">
-        <header class="bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
-            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between items-center h-18">
-                    <a href="index.html" class="flex-shrink-0 flex items-center">
-                        <img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-10 w-auto">
+        <header class="future-header bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
+            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+                <div class="flex justify-between items-center h-[76px]">
+                    <a href="index.html" class="future-logo flex-shrink-0 flex items-center">
+                        <img src="images/anthem-wordmark.webp" alt="Anthem Capital Management Logo" width="1440" height="500" class="h-10 w-auto">
                     </a>
-                    <div class="hidden md:flex md:items-center md:space-x-6">
+                    <div class="desktop-nav hidden md:flex md:items-center md:space-x-6">
                         <a href="index.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Home</a>
                         <a href="index.html#strategy" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Strategy</a>
                         <a href="index.html#performance" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Performance</a>
-                        <a href="research.html" class="text-blue-600 border-b-2 border-blue-600 transition-colors duration-200 font-medium text-sm">Research</a>
+                        <a href="research.html" aria-current="page" class="text-blue-600 border-b-2 border-blue-600 transition-colors duration-200 font-medium text-sm">Research</a>
                         <a href="bio.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Team</a>
                         <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Contact</a>
-                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">Client Login</a>
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="client-login inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200">Client Login</a>
                     </div>
-                    <div class="md:hidden flex items-center">
-                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false">
-                            <span class="sr-only">Open main menu</span>
+                    <div class="mobile-menu-trigger md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open main menu">
                             <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"/></svg>
                             <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                         </button>
@@ -178,20 +169,20 @@
                     <a href="index.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Home</a>
                     <a href="index.html#strategy" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Strategy</a>
                     <a href="index.html#performance" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Performance</a>
-                    <a href="research.html" class="block py-2 px-3 rounded-md text-base font-medium text-blue-600 bg-blue-50">Research</a>
+                    <a href="research.html" aria-current="page" class="block py-2 px-3 rounded-md text-base font-medium text-blue-600 bg-blue-50">Research</a>
                     <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Team</a>
                     <a href="index.html#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Contact</a>
-                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="block w-full text-center mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200" style="background-color: #d4af37;">Client Login</a>
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="client-login block w-full text-center mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200">Client Login</a>
                 </div>
             </nav>
         </header>
 
-        <main>
-            <section class="relative overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.96) 0%, rgba(23,37,84,0.88) 56%, rgba(15,23,42,0.52) 100%), url('images/wallhaven-0jw2xq.png'); background-size: cover; background-position: center;">
+        <main id="main-content">
+            <section class="report-hero relative overflow-hidden" style="background-image: linear-gradient(90deg, rgba(15,23,42,0.96) 0%, rgba(23,37,84,0.88) 56%, rgba(15,23,42,0.52) 100%), url('images/signal-field.webp'); background-size: cover; background-position: center;">
                 <div class="absolute inset-0 opacity-30" style="background-image: radial-gradient(circle at 18% 18%, rgba(212, 175, 55, 0.32), transparent 24%), radial-gradient(circle at 82% 24%, rgba(37, 99, 235, 0.28), transparent 26%);"></div>
                 <div class="relative container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 md:py-24">
-                    <a href="research.html" class="inline-flex items-center text-sm font-semibold text-blue-100 hover:text-white transition-colors">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+                    <a href="research.html" class="report-back inline-flex items-center text-sm font-semibold text-blue-100 hover:text-white transition-colors">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
                         Back to Research
                     </a>
                     <div class="max-w-5xl mt-6">
@@ -204,7 +195,7 @@
                 </div>
             </section>
 
-            <section class="py-14" style="background: radial-gradient(circle at 18% 24%, rgba(37,99,235,0.10), transparent 28%), radial-gradient(circle at 78% 18%, rgba(212,175,55,0.10), transparent 22%), linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eef4ff 100%);">
+            <section class="report-summary py-14" style="background: radial-gradient(circle at 18% 24%, rgba(37,99,235,0.10), transparent 28%), radial-gradient(circle at 78% 18%, rgba(212,175,55,0.10), transparent 22%), linear-gradient(135deg, #ffffff 0%, #f8fafc 52%, #eef4ff 100%);">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="grid md:grid-cols-4 gap-5">
                         <div class="bg-white p-6 institutional-card"><div class="text-xs font-semibold uppercase tracking-wide text-blue-600">Coverage</div><div class="text-3xl font-bold mt-2" style="color: var(--primary-blue);">1963–2026</div><p class="text-sm text-gray-600 mt-2">Seven style factors across 754 monthly observations.</p></div>
@@ -215,7 +206,7 @@
                 </div>
             </section>
 
-            <section class="py-16 md:py-20" style="background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);">
+            <section class="report-body report-body--longform py-16 md:py-20" style="background: linear-gradient(to bottom, #f8fafc 0%, #ffffff 100%);">
                 <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <div class="grid lg:grid-cols-[230px_minmax(0,1fr)] gap-10 items-start">
                         <aside class="lg:sticky lg:top-24 bg-white p-6 institutional-card">
@@ -453,20 +444,20 @@ lead 5: +0.158 (peak)   6: +0.128   7: +0.089   ...   12: +0.036</code></pre>
             </section>
         </main>
 
-        <footer class="border-t border-gray-300" style="background-color: #172554;">
+        <footer class="future-footer border-t border-gray-300" style="background-color: #172554;">
             <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row justify-between items-center">
                     <div class="text-center md:text-left mb-4 md:mb-0">
-                        <a href="index.html" class="flex-shrink-0 flex items-center justify-center md:justify-start"><img src="images/image2.png" alt="Anthem Capital Management Logo" class="h-10 w-auto brightness-0 invert"></a>
-                        <p class="mt-2 text-sm text-blue-200">&copy; 2025 Anthem Capital Management LLC. All rights reserved.</p>
+                        <a href="index.html" class="flex-shrink-0 flex items-center justify-center md:justify-start"><img src="images/anthem-wordmark.webp" alt="Anthem Capital Management Logo" width="1440" height="500" class="h-10 w-auto brightness-0 invert"></a>
+                        <p class="mt-2 text-sm text-blue-200">&copy; 2026 Anthem Capital Management LLC. All rights reserved.</p>
                     </div>
-                    <div class="flex flex-wrap justify-center gap-6">
+                    <nav class="flex flex-wrap justify-center gap-6" aria-label="Footer navigation">
                         <a href="index.html#strategy" class="text-sm text-blue-200 hover:text-white transition-colors">Strategy</a>
                         <a href="index.html#performance" class="text-sm text-blue-200 hover:text-white transition-colors">Performance</a>
-                        <a href="research.html" class="text-sm text-white transition-colors">Research</a>
+                        <a href="research.html" aria-current="page" class="text-sm text-white transition-colors">Research</a>
                         <a href="bio.html" class="text-sm text-blue-200 hover:text-white transition-colors">Team</a>
                         <a href="index.html#contact" class="text-sm text-blue-200 hover:text-white transition-colors">Contact</a>
-                    </div>
+                    </nav>
                 </div>
             </div>
         </footer>
@@ -474,20 +465,6 @@ lead 5: +0.158 (peak)   6: +0.128   7: +0.089   ...   12: +0.036</code></pre>
 
     <script src="scripts/timing-factor-regime-shifts-data.js"></script>
     <script src="scripts/research-timing-factor-regime-shifts.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const menuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            const hamburgerIcon = menuButton.querySelector('svg:first-of-type');
-            const closeIcon = menuButton.querySelector('svg:last-of-type');
-            menuButton.addEventListener('click', () => {
-                const isExpanded = menuButton.getAttribute('aria-expanded') === 'true';
-                menuButton.setAttribute('aria-expanded', String(!isExpanded));
-                mobileMenu.classList.toggle('hidden');
-                hamburgerIcon.classList.toggle('hidden');
-                closeIcon.classList.toggle('hidden');
-            });
-        });
-    </script>
+    <script src="scripts/secondary-ui.js"></script>
 </body>
 </html>

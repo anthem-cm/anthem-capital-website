@@ -542,6 +542,9 @@
   }
 
   drawAllCharts();
+  if (document.fonts?.ready) {
+    document.fonts.ready.then(() => window.requestAnimationFrame(drawAllCharts));
+  }
   let resizeTimer;
   window.addEventListener("resize", () => {
     window.clearTimeout(resizeTimer);

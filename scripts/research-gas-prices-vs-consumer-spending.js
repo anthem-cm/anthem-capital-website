@@ -195,7 +195,7 @@ const episodes = [
 ];
 
 const sty = {
-  font: "'Inter', sans-serif",
+  font: "'Space Grotesk', sans-serif",
   bg: "#0f172a",
   bg2: "#1e3a8a",
   bg3: "#2563eb",
@@ -373,17 +373,22 @@ function getContext() {
     : [];
   const bestLag = lagSweep.length ? lagSweep.reduce((best, item) => (item.r2 > best.r2 ? item : best), lagSweep[0]) : { lag: 0, r2: 0 };
   const weightedIndex = buildWeightedIndex();
-  const annualTimeline = Object.keys(gasYoYAnnual)
-    .map(Number)
-    .sort((a, b) => a - b)
-    .map((year) => ({
-      year,
-      gasYoY: gasYoYAnnual[year],
-      entertainment: catSeries.entertainment.data[year],
-      apparel: catSeries.apparel.data[year],
-      dining: catSeries.dining.data[year],
-      weighted: weightedIndex[year],
-    }));
+  const annualMetric = !isMonthly && !isEpisodes
+    ? state.metric === "weighted"
+      ? { data: weightedIndex, label: "Weighted Discretionary", color: sty.gold }
+      : { data: catSeries[state.metric].data, label: catSeries[state.metric].label, color: catSeries[state.metric].color }
+    : null;
+  const annualTimeline = annualMetric
+    ? Object.keys(gasYoYAnnual)
+      .map(Number)
+      .sort((a, b) => a - b)
+      .filter((year) => Number.isFinite(annualMetric.data[year]))
+      .map((year) => ({
+        year,
+        gasYoY: gasYoYAnnual[year],
+        metricValue: annualMetric.data[year],
+      }))
+    : [];
 
   return {
     isMonthly,
@@ -393,6 +398,7 @@ function getContext() {
     lagSweep,
     bestLag,
     annualTimeline,
+    annualMetric,
     currentEpisode: episodes[state.episodeIndex],
   };
 }
@@ -517,11 +523,9 @@ function renderTimeSeriesChart(context) {
 
   const series = [
     { key: "gasYoY", color: sty.red, label: "Gas Price" },
-    { key: "weighted", color: sty.gold, label: "Weighted Discretionary" },
-    { key: "entertainment", color: sty.blue1, label: "Entertainment" },
-    { key: "apparel", color: sty.gold2, label: "Apparel" },
+    { key: "metricValue", color: context.annualMetric.color, label: context.annualMetric.label },
   ];
-  const values = context.annualTimeline.flatMap((row) => series.map((seriesItem) => row[seriesItem.key]).filter((value) => value !== undefined));
+  const values = context.annualTimeline.flatMap((row) => series.map((seriesItem) => row[seriesItem.key]).filter(Number.isFinite));
   const yMin = Math.min(...values);
   const yMax = Math.max(...values);
   const xPos = (index) => scale(index, 0, context.annualTimeline.length - 1, padding.left, padding.left + plotWidth);
@@ -539,7 +543,7 @@ function renderTimeSeriesChart(context) {
         <line x1="${padding.left}" y1="${padding.top + plotHeight}" x2="${padding.left + plotWidth}" y2="${padding.top + plotHeight}" stroke="rgba(255,255,255,0.2)" />
         <line x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${padding.top + plotHeight}" stroke="rgba(255,255,255,0.2)" />
         ${yMin < 0 && yMax > 0 ? `<line x1="${padding.left}" y1="${yPos(0)}" x2="${padding.left + plotWidth}" y2="${yPos(0)}" stroke="rgba(255,255,255,0.18)" stroke-dasharray="5 5" />` : ""}
-        ${paths.map((path) => `<path d="${path.d}" stroke="${path.color}" stroke-width="${path.key === "weighted" ? 2.8 : 1.8}" fill="none" />`).join("")}
+        ${paths.map((path) => `<path d="${path.d}" stroke="${path.color}" stroke-width="${path.key === "metricValue" ? 2.8 : 1.8}" fill="none" />`).join("")}
         ${ticks}
       </svg>
       <div style="display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:10px;">
@@ -593,7 +597,7 @@ function renderEpisodeChart(context) {
 function dashboardMarkup(context) {
   const controls = `
     <div style="max-width:960px;margin:0 auto 16px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
-      <select id="research-metric" style="background:rgba(15,23,42,0.28);border:1px solid ${sty.gold}55;border-radius:10px;color:#fef3c7;padding:10px 14px;font-size:13px;font-family:${sty.font};font-weight:600;cursor:pointer;outline:none;min-width:280px;">
+      <select id="research-metric" aria-label="Research metric" style="background:rgba(15,23,42,0.28);border:1px solid ${sty.gold}55;border-radius:10px;color:#fef3c7;padding:10px 14px;font-size:13px;font-family:${sty.font};font-weight:600;cursor:pointer;outline:none;min-width:280px;">
         <optgroup label="Monthly">
           <option value="sentiment" ${state.metric === "sentiment" ? "selected" : ""}>Michigan Consumer Sentiment</option>
         </optgroup>
@@ -611,7 +615,7 @@ function dashboardMarkup(context) {
       </select>
       ${context.isEpisodes ? "" : `
         <div style="display:flex;gap:2px;background:rgba(255,255,255,0.08);border-radius:10px;padding:2px;">
-          ${["scatter", "timeseries"].map((viewName) => `<button data-view="${viewName}" style="background:${state.view === viewName ? "rgba(212,175,55,0.18)" : "transparent"};border:1px solid ${state.view === viewName ? `${sty.gold}55` : "transparent"};color:${state.view === viewName ? "#fef3c7" : sty.sub};padding:8px 14px;border-radius:8px;font-size:11px;font-family:${sty.font};font-weight:600;cursor:pointer;">${viewName === "scatter" ? "Scatter + Regression" : "Time Series"}</button>`).join("")}
+          ${["scatter", "timeseries"].map((viewName) => `<button type="button" data-view="${viewName}" aria-pressed="${state.view === viewName}" style="background:${state.view === viewName ? "rgba(212,175,55,0.18)" : "transparent"};border:1px solid ${state.view === viewName ? `${sty.gold}55` : "transparent"};color:${state.view === viewName ? "#fef3c7" : sty.sub};padding:8px 14px;border-radius:8px;font-size:11px;font-family:${sty.font};font-weight:600;cursor:pointer;">${viewName === "scatter" ? "Scatter + Regression" : "Time Series"}</button>`).join("")}
         </div>
       `}
     </div>
@@ -635,9 +639,9 @@ function dashboardMarkup(context) {
         </div>
         <div style="display:flex;align-items:center;gap:12px;">
           <span style="font-size:10px;color:${sty.mute};">0 mo</span>
-          <input id="research-lag" type="range" min="0" max="12" value="${state.lag}" style="flex:1;accent-color:${sty.gold};" />
+          <input id="research-lag" type="range" min="0" max="12" value="${state.lag}" aria-label="Gas-price response lag in months" aria-valuetext="${state.lag} months" style="flex:1;accent-color:${sty.gold};" />
           <span style="font-size:10px;color:${sty.mute};">12 mo</span>
-          <div style="background:rgba(212,175,55,0.2);border:1px solid ${sty.gold}55;border-radius:8px;padding:4px 10px;font-size:12px;color:#fef3c7;font-weight:700;min-width:56px;text-align:center;">${state.lag} mo</div>
+          <output id="research-lag-value" for="research-lag" style="background:rgba(212,175,55,0.2);border:1px solid ${sty.gold}55;border-radius:8px;padding:4px 10px;font-size:12px;color:#fef3c7;font-weight:700;min-width:56px;text-align:center;">${state.lag} mo</output>
         </div>
       </div>
     `
@@ -718,6 +722,11 @@ function bindDashboardEvents() {
   if (lagInput) {
     lagInput.addEventListener("input", (event) => {
       state.lag = Number(event.target.value);
+      event.target.setAttribute("aria-valuetext", `${state.lag} months`);
+      const lagValue = document.getElementById("research-lag-value");
+      if (lagValue) lagValue.textContent = `${state.lag} mo`;
+    });
+    lagInput.addEventListener("change", () => {
       renderDashboard();
     });
   }

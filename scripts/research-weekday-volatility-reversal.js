@@ -229,7 +229,7 @@ function chartCard(kicker, title, id, tall, note) {
       <span class="study-kicker">${kicker}</span>
       <h4 class="text-lg font-bold mt-1 mb-3" style="color: var(--primary-blue);">${title}</h4>
       <div class="study-chart-frame">
-        <canvas id="${id}" class="study-chart ${tall ? "" : "study-chart-short"}"></canvas>
+        <canvas id="${id}" class="study-chart ${tall ? "" : "study-chart-short"}" role="img" aria-label="${title}"></canvas>
       </div>
       <div class="study-note">${note}</div>
     </div>
@@ -424,7 +424,7 @@ function drawDistance() {
     });
     axisLabel(ctx, `${dte} DTE`, margin.left - 10, margin.top + r * cellH + cellH / 2 + 4, "right");
   });
-  buckets.forEach((bucket, c) => axisLabel(ctx, bucket.replace("Already ", "Already"), margin.left + c * cellW + cellW / 2, height - 10, "center"));
+  buckets.forEach((bucket, c) => axisLabel(ctx, bucket, margin.left + c * cellW + cellW / 2, height - 10, "center"));
   axisLabel(ctx, "Avg. call/put significant breach rate", margin.left, 15);
 }
 
@@ -590,7 +590,13 @@ function drawLegend(ctx, items, x, y) {
 }
 
 render();
+let resizeTimer;
 window.addEventListener("resize", () => {
   if (!data || !root) return;
-  window.requestAnimationFrame(drawAllCharts);
+  window.clearTimeout(resizeTimer);
+  resizeTimer = window.setTimeout(() => window.requestAnimationFrame(drawAllCharts), 120);
 });
+
+if (document.fonts?.ready) {
+  document.fonts.ready.then(() => window.requestAnimationFrame(drawAllCharts));
+}
