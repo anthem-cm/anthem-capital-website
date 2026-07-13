@@ -18,7 +18,6 @@
     initCardSpotlights();
     initHeroField();
     initActiveNavigation();
-    reconcilePerformanceFromMonthlyReturns();
   });
 
   function initDisclosureReview() {
@@ -199,54 +198,4 @@
     setActive(links[0]);
   }
 
-  function reconcilePerformanceFromMonthlyReturns() {
-    const rows = Array.from(document.querySelectorAll('.return-table-panel tbody tr'));
-    if (!rows.length) return;
-
-    const annualSeries = rows.map((row) => {
-      const cells = Array.from(row.querySelectorAll('td'));
-      const year = Number.parseInt(cells[0] ? cells[0].textContent : '', 10);
-      const returns = cells.slice(1, 13)
-        .map((cell) => Number.parseFloat(cell.textContent.replace('*', '').trim()))
-        .filter(Number.isFinite);
-      return { year, returns, totalCell: cells[13] };
-    }).filter((series) => Number.isFinite(series.year) && series.returns.length);
-
-    if (!annualSeries.length) return;
-
-    annualSeries.forEach((series) => {
-      const annualFactor = compound(series.returns);
-      if (!series.totalCell) return;
-      const seedSuffix = series.year === 2024 ? '*' : '';
-      series.totalCell.textContent = `${formatPercent(annualFactor - 1)}${seedSuffix}`;
-      series.totalCell.title = `Geometrically linked from ${series.returns.length} reported monthly returns`;
-    });
-
-    const allReturns = annualSeries
-      .sort((a, b) => a.year - b.year)
-      .flatMap((series) => series.returns);
-    const totalFactor = compound(allReturns);
-    const totalText = `${formatPercent(totalFactor - 1)}%`;
-
-    document.querySelectorAll('[data-performance-total]').forEach((target) => {
-      const suffix = target.dataset.seedSuffix === 'true' ? '*' : '';
-      target.textContent = `${totalText}${suffix}`;
-      target.title = `Geometrically linked from ${allReturns.length} reported monthly gross returns`;
-    });
-
-    document.querySelectorAll('[data-performance-growth]').forEach((target) => {
-      const endingValue = Math.round(1000 * totalFactor);
-      target.textContent = `$${endingValue.toLocaleString('en-US')}`;
-    });
-
-    document.documentElement.dataset.performanceSource = 'reported-monthly-gross-returns';
-  }
-
-  function compound(returns) {
-    return returns.reduce((factor, value) => factor * (1 + value / 100), 1);
-  }
-
-  function formatPercent(decimalReturn) {
-    return (decimalReturn * 100).toFixed(1);
-  }
 })();

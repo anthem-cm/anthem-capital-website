@@ -1090,7 +1090,7 @@ input:focus-visible {
 
 .performance-metrics {
   display: grid !important;
-  grid-template-columns: 1.55fr 1fr 1fr !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 1px !important;
   margin-bottom: 1px !important;
   background: var(--signal-line);
@@ -1115,15 +1115,11 @@ input:focus-visible {
 .performance-metric > div:first-child {
   color: var(--accent-gold-bright) !important;
   font-family: var(--font-mono);
-  font-size: clamp(2.6rem, 5.2vw, 5.2rem) !important;
+  font-size: clamp(2.3rem, 3.8vw, 3.8rem) !important;
   font-weight: 400 !important;
   letter-spacing: -0.065em;
   line-height: 0.94;
   white-space: nowrap;
-}
-
-.performance-metric:not(:first-child) > div:first-child {
-  font-size: clamp(2.3rem, 3.8vw, 3.8rem) !important;
 }
 
 .performance-metric > div:last-child {
