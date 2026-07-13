@@ -1083,14 +1083,9 @@ input:focus-visible {
   text-align: left !important;
 }
 
-.performance-heading h2 {
-  max-width: 10ch;
-  margin-top: 1.35rem !important;
-  margin-bottom: 1.6rem !important;
-}
-
 .performance-heading p {
   max-width: 46rem;
+  margin-top: 1.5rem;
 }
 
 .performance-metrics {
