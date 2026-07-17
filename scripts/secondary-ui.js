@@ -128,7 +128,7 @@
 
   function initSurfaceSpotlights() {
     const surfaces = document.querySelectorAll(
-      '.research-principle, .publication-card, .team-profile__portrait'
+      '.research-principle, .publication-card, .team-profile__portrait, .alpha-offer-cell'
     );
 
     surfaces.forEach((surface) => {

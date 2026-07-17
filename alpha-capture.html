@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpha Capture Program | Anthem Capital Management</title>
+    <meta name="description" content="Receive model-driven trade ideas from Anthem Capital Management through a direct API, with encryption options and integration support for alpha capture programs.">
+    <meta name="theme-color" content="#03070c">
+    <meta property="og:title" content="Alpha Capture Program | Anthem Capital Management">
+    <meta property="og:description" content="A direct path for multi-model trade ideas into institutional alpha capture programs.">
+    <meta property="og:image" content="https://anthemcm.com/images/alpha-capture-network.webp">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="apple-touch-icon" href="images/favicon.png">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+    <link rel="preload" as="image" href="images/alpha-capture-network.webp" type="image/webp">
+    <link rel="stylesheet" href="styles/future.css">
+    <link rel="stylesheet" href="styles/secondary.css">
+    <link rel="stylesheet" href="styles/alpha-capture.css">
+</head>
+<body class="anthem-experience secondary-experience alpha-capture-experience antialiased">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <div id="site-content">
+        <div class="system-progress" aria-hidden="true"><span id="system-progress-bar"></span></div>
+
+        <header class="future-header bg-white border-b border-gray-200 sticky top-0 z-50 w-full shadow-sm">
+            <nav class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8" aria-label="Primary navigation">
+                <div class="flex justify-between items-center h-[76px]">
+                    <a href="index.html" class="future-logo flex-shrink-0 flex items-center">
+                        <img src="images/anthem-wordmark.webp" width="1440" height="500" alt="Anthem Capital Management Logo" class="h-10 w-auto">
+                    </a>
+
+                    <div class="desktop-nav hidden md:flex md:items-center md:space-x-6">
+                        <a href="index.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Home</a>
+                        <a href="index.html#strategy" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Strategy</a>
+                        <a href="alpha-capture.html" class="is-active text-blue-600 border-b-2 border-blue-600 transition-colors duration-200 font-medium text-sm" aria-current="page">Alpha Capture</a>
+                        <a href="index.html#performance" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Performance</a>
+                        <a href="research.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Research</a>
+                        <a href="bio.html" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Team</a>
+                        <a href="index.html#contact" class="text-gray-600 hover:text-blue-600 transition-colors duration-200 font-medium text-sm">Contact</a>
+                        <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="client-login inline-flex items-center px-4 py-2 text-sm font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200">
+                            Client Login
+                        </a>
+                    </div>
+
+                    <div class="mobile-menu-trigger md:hidden flex items-center">
+                        <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-gray-600 hover:text-blue-600 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500" aria-expanded="false" aria-controls="mobile-menu">
+                            <span class="sr-only">Open main menu</span>
+                            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                            </svg>
+                            <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 6l12 12M18 6 6 18" />
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="mobile-menu" class="hidden md:hidden pb-4 bg-white">
+                    <a href="index.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Home</a>
+                    <a href="index.html#strategy" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Strategy</a>
+                    <a href="alpha-capture.html" class="block py-2 px-3 rounded-md text-base font-medium text-blue-600 bg-blue-50" aria-current="page">Alpha Capture</a>
+                    <a href="index.html#performance" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Performance</a>
+                    <a href="research.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Research</a>
+                    <a href="bio.html" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Team</a>
+                    <a href="index.html#contact" class="block py-2 px-3 rounded-md text-base font-medium text-gray-600 hover:text-blue-600 hover:bg-gray-50">Contact</a>
+                    <a href="https://app.repool.com/login" target="_blank" rel="noopener noreferrer" class="client-login block w-full text-center mt-2 px-4 py-2 text-base font-semibold rounded-md text-white hover:opacity-90 transition-all duration-200">
+                        Client Login
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        <main id="main-content">
+            <section id="alpha-capture-home" class="secondary-hero alpha-capture-hero relative overflow-hidden" aria-labelledby="alpha-capture-hero-title">
+                <div class="hero-atmosphere" aria-hidden="true">
+                    <span class="hero-orbit"></span>
+                    <span class="hero-axis"></span>
+                    <span class="hero-scanline"></span>
+                </div>
+                <div class="secondary-hero__layout container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="secondary-hero__copy" data-reveal="left">
+                        <img src="images/anthem-wordmark.webp" width="1440" height="500" alt="Anthem Capital Management Logo">
+                        <span class="section-kicker">Alpha capture program</span>
+                        <h1 id="alpha-capture-hero-title" class="secondary-hero__title">Model-driven trade ideas, built for your stack.</h1>
+                        <p>Receive multi-model trade ideas through a direct API, with encryption and integration controls matched to your capture program.</p>
+                        <div class="secondary-hero__actions flex flex-col sm:flex-row gap-4">
+                            <a href="mailto:steven@anthemcm.com?subject=Alpha%20Capture%20Program" class="signal-button inline-flex items-center justify-center px-6 py-3">
+                                Discuss integration
+                            </a>
+                            <a href="#delivery-model" class="signal-button signal-button--ghost inline-flex items-center justify-center px-6 py-3">
+                                See delivery model
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="delivery-model" class="alpha-program-flow" aria-labelledby="delivery-model-title">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="alpha-program-flow__heading" data-reveal>
+                        <h2 id="delivery-model-title">From model output to your program.</h2>
+                        <p>We structure delivery around the receiving program, so ideas arrive in a format the partner can test, evaluate and operate.</p>
+                    </div>
+
+                    <ol class="alpha-flow" aria-label="Alpha capture delivery model" data-reveal>
+                        <li>
+                            <h3 class="alpha-flow__verb">Generate</h3>
+                            <p>Trade ideas are produced across the available Anthem model set.</p>
+                        </li>
+                        <li>
+                            <h3 class="alpha-flow__verb">Map</h3>
+                            <p>Idea payloads are aligned to an agreed schema for the receiving program.</p>
+                        </li>
+                        <li>
+                            <h3 class="alpha-flow__verb">Protect</h3>
+                            <p>Encryption and access controls are configured for the integration design.</p>
+                        </li>
+                        <li>
+                            <h3 class="alpha-flow__verb">Deliver</h3>
+                            <p>The endpoint feeds ideas into the partner's alpha capture environment.</p>
+                        </li>
+                    </ol>
+                </div>
+            </section>
+
+            <section class="alpha-offer-system" aria-labelledby="alpha-offer-title">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="alpha-offer-copy" data-reveal>
+                        <h2 id="alpha-offer-title">One feed, multiple model outputs.</h2>
+                        <p>Partners can receive ideas from several available models through a unified integration, without rebuilding the path for every strategy.</p>
+                    </div>
+
+                    <div class="alpha-offer-grid">
+                        <article class="alpha-offer-cell alpha-offer-cell--lead" data-reveal="left">
+                            <div>
+                                <h3>Choose the model set that fits the mandate.</h3>
+                                <p>The program can be scoped around one or several available models, with a shared delivery contract across the selected idea streams.</p>
+                            </div>
+                            <dl class="alpha-model-options">
+                                <div>
+                                    <dt>Model coverage</dt>
+                                    <dd>One or several available models</dd>
+                                </div>
+                                <div>
+                                    <dt>Idea schema</dt>
+                                    <dd>Agreed fields and naming</dd>
+                                </div>
+                                <div>
+                                    <dt>Delivery cadence</dt>
+                                    <dd>Defined during technical scoping</dd>
+                                </div>
+                                <div>
+                                    <dt>Program fit</dt>
+                                    <dd>Mapped to the receiver workflow</dd>
+                                </div>
+                            </dl>
+                        </article>
+
+                        <article class="alpha-offer-cell alpha-offer-cell--api" data-reveal="right">
+                            <h3>Direct API delivery.</h3>
+                            <p>A dedicated endpoint gives partner systems a clean path to receive and process ideas. Authentication and payload details are agreed during onboarding.</p>
+                        </article>
+
+                        <figure class="alpha-offer-visual" data-reveal="right">
+                            <img src="images/alpha-capture-network.webp" width="1983" height="793" loading="lazy" decoding="async" alt="Abstract visualization of encrypted trade signals passing through an API network">
+                        </figure>
+                    </div>
+
+                    <p class="alpha-offer-note">Exact models, fields, cadence, security controls and commercial terms are determined during technical and program diligence.</p>
+                </div>
+            </section>
+
+            <section class="alpha-security-system" aria-labelledby="alpha-security-title">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="alpha-security-layout">
+                        <div class="alpha-security-copy" data-reveal="left">
+                            <span class="section-kicker">Security and control</span>
+                            <h2 id="alpha-security-title">Encryption can be part of the integration.</h2>
+                            <p>Technical controls are scoped with the receiving program, keeping security decisions aligned with its infrastructure and diligence requirements.</p>
+                        </div>
+
+                        <dl class="alpha-security-details" data-reveal="right">
+                            <div>
+                                <dt>Encryption options</dt>
+                                <dd>Encryption is available and configured according to the agreed delivery design.</dd>
+                            </div>
+                            <div>
+                                <dt>Controlled access</dt>
+                                <dd>Endpoint access and credentials are established for the approved integration.</dd>
+                            </div>
+                            <div>
+                                <dt>Schema governance</dt>
+                                <dd>Payload structure, model identifiers and required fields are documented before production delivery.</dd>
+                            </div>
+                            <div>
+                                <dt>Operational testing</dt>
+                                <dd>Test payloads and acceptance checks can be coordinated before the feed enters an operating workflow.</dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+            </section>
+
+            <section class="alpha-contact-system" aria-labelledby="alpha-contact-title">
+                <div class="container mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+                    <div class="alpha-contact__inner">
+                        <div class="alpha-contact__copy" data-reveal="left">
+                            <h2 id="alpha-contact-title">Bring Anthem ideas into your program.</h2>
+                            <p>Start with the models, receiving architecture, security requirements and evaluation process that matter to your alpha capture team.</p>
+                        </div>
+                        <div class="alpha-contact__actions" data-reveal="right">
+                            <a href="mailto:petr@anthemcm.com?subject=Alpha%20Capture%20Program" class="signal-button inline-flex items-center px-6 py-3">petr@anthemcm.com</a>
+                            <a href="index.html" class="signal-button signal-button--ghost inline-flex items-center px-6 py-3">Return home</a>
+                        </div>
+                    </div>
+                    <p class="alpha-program-disclaimer">Program availability, model coverage, delivery fields, security configurations, onboarding and commercial terms are subject to diligence and mutual agreement. This page is for informational purposes only and does not constitute investment advice, an offer or a solicitation.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="future-footer border-t border-gray-300">
+            <div class="container mx-auto max-w-7xl py-8 px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-center md:text-left mb-4 md:mb-0">
+                        <a href="index.html" class="flex-shrink-0 flex items-center justify-center md:justify-start">
+                            <img src="images/anthem-wordmark.webp" width="1440" height="500" alt="Anthem Capital Management Logo" class="h-10 w-auto brightness-0 invert">
+                        </a>
+                        <p class="mt-2 text-sm text-blue-200">&copy; 2026 Anthem Capital Management LLC. All rights reserved.</p>
+                    </div>
+
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <a href="index.html#strategy" class="text-sm text-blue-200 hover:text-white transition-colors">Strategy</a>
+                        <a href="alpha-capture.html" class="text-sm text-white transition-colors" aria-current="page">Alpha Capture</a>
+                        <a href="index.html#performance" class="text-sm text-blue-200 hover:text-white transition-colors">Performance</a>
+                        <a href="research.html" class="text-sm text-blue-200 hover:text-white transition-colors">Research</a>
+                        <a href="bio.html" class="text-sm text-blue-200 hover:text-white transition-colors">Team</a>
+                        <a href="index.html#contact" class="text-sm text-blue-200 hover:text-white transition-colors">Contact</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="scripts/secondary-ui.js"></script>
+</body>
+</html>
